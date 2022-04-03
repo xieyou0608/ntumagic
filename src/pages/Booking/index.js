@@ -6,8 +6,9 @@ import BuyerInfo from "./components/BuyerInfo";
 import Seat from "./components/Seat";
 
 const Booking = ({ userInfo }) => {
-  const GET_SEATS_API = "http://localhost:5000/getSeats";
-  const SET_SEAT_API = "http://localhost:5000/setSeats";
+  const API_URL = "https://ntu-magic-api.herokuapp.com";
+  const GET_SEATS_API = `${API_URL}/getSeats`;
+  const SET_SEAT_API = `${API_URL}/setSeats`;
   // const SET_SEAT_API = "http://localhost:5000/postTest";
 
   const [seatsData, setSeatsData] = useState(null);
