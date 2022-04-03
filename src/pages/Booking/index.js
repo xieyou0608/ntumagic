@@ -1,0 +1,99 @@
+import React, { useState, useEffect } from "react";
+import Auditorium from "./components/Auditorium";
+import { v4 as uuidv4 } from "uuid";
+import Price from "./components/Price";
+import BuyerInfo from "./components/BuyerInfo";
+import Seat from "./components/Seat";
+
+const Booking = ({ userInfo }) => {
+  const GET_SEATS_API = "http://localhost:5000/getSeats";
+  const SET_SEAT_API = "http://localhost:5000/setSeats";
+  // const SET_SEAT_API = "http://localhost:5000/postTest";
+
+  const [seatsData, setSeatsData] = useState(null);
+  const [chosenSeats, setChosenSeats] = useState([]);
+  const [finalChosen, setFinalChosen] = useState(null);
+
+  const loadSeatData = async () => {
+    const res = await fetch(GET_SEATS_API);
+    const data = await res.json();
+    console.log(data);
+    setSeatsData([...data]);
+  };
+
+  useEffect(() => {
+    loadSeatData();
+  }, []);
+
+  const clearChosenHandler = () => {
+    setChosenSeats([]);
+  };
+
+  const submitHandler = () => {
+    setFinalChosen(chosenSeats);
+  };
+
+  const submitChosen = async (submitData) => {
+    console.log(JSON.stringify({ ...submitData }));
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ ...submitData }),
+    };
+    try {
+      const res = await fetch(SET_SEAT_API, requestOptions);
+      const data = await res.json();
+      console.log(data);
+      setChosenSeats([]);
+      setFinalChosen(null);
+      loadSeatData();
+      return data;
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
+  };
+
+  useEffect(() => {
+    if (finalChosen) {
+      submitChosen(finalChosen);
+    }
+  }, [finalChosen]);
+
+  return (
+    <div className="booking">
+      <h1>座位區</h1>
+      <p className="light-board">控台</p>
+      <div>
+        <Auditorium
+          seatsData={seatsData}
+          setSeatsData={setSeatsData}
+          chosenSeats={chosenSeats}
+          setChosenSeats={setChosenSeats}
+        />
+      </div>
+      <p className="stage">舞台</p>
+      <div className="booking-info">
+        <BuyerInfo userInfo={userInfo} />
+        <Price chosenSeats={chosenSeats} />
+        {chosenSeats.length ? (
+          <button className="clear-btn" onClick={clearChosenHandler}>
+            清除
+          </button>
+        ) : null}
+      </div>
+      {chosenSeats.length ? (
+        <button className="buy-btn" onClick={submitHandler}>
+          確定購票
+        </button>
+      ) : (
+        <p>請選擇至少一個位子</p>
+      )}
+    </div>
+  );
+};
+
+export default Booking;

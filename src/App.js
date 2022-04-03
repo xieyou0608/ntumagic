@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
+import Homepage from "./pages/Homepage";
+import About from "./pages/About";
+import Booking from "./pages/Booking";
+import { Routes, Route } from "react-router-dom";
+import "./styles/style.css";
 
 function App() {
+  const [userInfo, setUserInfo] = useState(null);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Homepage setUserInfo={setUserInfo} />} />
+        <Route path="about" element={<About />} />
+        <Route path="booking" element={<Booking userInfo={userInfo} />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }

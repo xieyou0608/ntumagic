@@ -1,0 +1,290 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+ul {
+  list-style-type: none;
+}
+
+nav {
+  background-color: #336151;
+}
+
+nav ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-right: 3rem;
+}
+
+nav ul li {
+  padding: 0.5rem 1rem;
+}
+
+nav ul li a {
+  font-size: 1.5rem;
+  color: aliceblue;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.footer {
+  padding: 0.7rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.2rem;
+  background-color: rgba(142, 157, 161, 0.8);
+  font-family: 'Roboto', sans-serif;
+}
+
+.edit {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 3rem 0rem;
+  min-height: 80vh;
+  font-family: 'Roboto', sans-serif;
+}
+
+.edit form div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 30rem;
+}
+
+.edit form div label {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 2.5rem;
+  width: 50%;
+}
+
+.edit form div input {
+  margin: 0.2rem 0%;
+  width: 50%;
+  font-size: 2rem;
+  padding: 1rem;
+}
+
+.edit form .edit-btn {
+  padding: 1rem 3rem;
+  margin: 2rem 10rem;
+  font-size: 1.5rem;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.edit form .edit-btn:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  opacity: 0.5;
+}
+
+.booking {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 3rem 0rem;
+  min-height: 50vh;
+  font-family: 'Roboto', sans-serif;
+}
+
+.booking .light-board {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-style: solid;
+  padding: 0.5rem 10%;
+}
+
+.booking .auditorium {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 2rem 5rem;
+  padding-top: 0;
+}
+
+.booking .auditorium .seat-wrapper {
+  padding: 0;
+}
+
+.booking .auditorium .seat {
+  display: inline-block;
+  text-align: center;
+  padding: 0.6% 0%;
+  width: 3.125%;
+  font-size: 50%;
+  border-style: solid;
+  border-color: black;
+  border-width: 0.05rem;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.booking .auditorium .seat:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  opacity: 0.5;
+}
+
+.booking .auditorium .seat-A {
+  background-color: #cf01f8;
+}
+
+.booking .auditorium .seat-B {
+  background-color: #ffd240;
+}
+
+.booking .auditorium .seat-C {
+  background-color: #547dee;
+}
+
+.booking .auditorium .seat-sold {
+  background-color: black;
+  color: white;
+  display: inline-block;
+  text-align: center;
+  padding: 0.6% 0%;
+  width: 3.125%;
+  font-size: 50%;
+  border-style: solid;
+  border-color: black;
+  border-width: 0.05rem;
+}
+
+.booking .auditorium .seat-chosen {
+  background-color: #940d0d;
+  color: white;
+}
+
+.booking .stage {
+  border-style: solid;
+  padding: 0.5rem 25%;
+}
+
+.booking .booking-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.booking .booking-info .buyer-info {
+  padding: 3rem;
+}
+
+.booking .booking-info .buyer-info p {
+  font-size: 1.5rem;
+}
+
+.booking .booking-info .price {
+  padding: 3rem;
+  text-align: right;
+}
+
+.booking .booking-info .price p {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+}
+
+.booking .booking-info .clear-btn {
+  border-style: solid;
+  border-color: #0f4d18;
+  color: #0e4917;
+  padding: 0.5rem 1rem;
+  background-color: white;
+  font-size: 1rem;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.booking .booking-info .clear-btn:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  opacity: 0.5;
+}
+
+.booking .buy-btn {
+  border-radius: 0.5rem;
+  border-style: none;
+  padding: 1rem 2rem;
+  background-color: #eb0505;
+  color: white;
+  font-size: 1rem;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.booking .buy-btn:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  opacity: 0.5;
+}
+
+.about {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 3rem 0rem;
+  min-height: 80vh;
+}
+/*# sourceMappingURL=style.css.map */

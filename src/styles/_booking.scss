@@ -1,0 +1,136 @@
+.booking {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+    padding: 3rem 0rem;
+    min-height: 50vh;
+    font-family: 'Roboto', sans-serif;
+
+    .light-board{
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        border-style: solid;
+        padding: 0.5rem 10%;
+    }
+
+    .auditorium {
+        display: flex;
+        justify-content: center;
+        padding: 2rem 5rem;
+        padding-top: 0;
+
+        .seat-wrapper{
+            padding: 0;
+        }
+    
+        .seat {
+            display:inline-block;
+            text-align: center;
+            padding: 0.6% 0%;
+            width: 3.125%;
+            font-size: 50%;
+            border-style:solid;
+            border-color: black;
+            border-width: 0.05rem;
+            transition: 0.5s;
+        }
+        
+        .seat:hover{
+            transform: scale(1.2);
+            opacity: 0.5;
+        }
+
+        .seat-A{
+            background-color: rgb(207, 1, 248);
+        }
+        .seat-B{
+            background-color: rgb(255, 210, 64);
+        }
+        .seat-C{
+            background-color: rgb(84, 125, 238);
+        }
+    
+        .seat-sold {
+            background-color: black;
+            color: white;
+            display:inline-block;
+            text-align: center;
+            padding: 0.6% 0%;
+            width: 3.125%;
+            font-size: 50%;
+            border-style:solid;
+            border-color: black;
+            border-width: 0.05rem;
+        }
+
+        .seat-chosen{
+            background-color: rgb(148, 13, 13);
+            color: white;
+        }
+    
+    }
+
+    .stage{
+        border-style: solid;
+        padding: 0.5rem 25%;
+    }
+    
+    
+    .booking-info{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        .buyer-info {
+            padding: 3rem;
+            p {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .price {
+            padding: 3rem;
+            text-align: right;
+            p{
+                display: inline-block;
+                padding: 0.2rem 0.5rem;
+            }
+        }
+
+        .clear-btn {
+            border-style: solid;
+            border-color: rgb(15, 77, 24);
+            color: rgb(14, 73, 23);
+
+            padding: 0.5rem 1rem;
+            background-color: rgb(255, 255, 255);
+            font-size: 1rem;
+            font-family: 'Open Sans', sans-serif;
+
+            transition: 0.5s;
+
+        }
+        .clear-btn:hover{
+            transform: scale(1.2);
+            opacity: 0.5;
+        }
+    
+
+    }
+
+    .buy-btn {
+        border-radius: 0.5rem;
+        border-style: none;
+        padding: 1rem 2rem;
+        background-color: rgb(235, 5, 5);
+        color: white;
+        font-size: 1rem;
+        font-family: 'Open Sans', sans-serif;
+        transition: 0.5s;
+    }
+    .buy-btn:hover{
+        transform: scale(1.2);
+        opacity: 0.5;
+    }
+}
