@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Edit = ({ setUserInfo }) => {
+const InfoEdit = ({ setUserInfo }) => {
   const [phone, setPhone] = useState("");
   const [userName, setUserName] = useState("");
 
@@ -22,7 +23,7 @@ const Edit = ({ setUserInfo }) => {
   return (
     <div className="edit">
       <form action="">
-        <div>
+        <div className="edit-area">
           <label>姓名</label>
           <input
             type="text"
@@ -34,7 +35,7 @@ const Edit = ({ setUserInfo }) => {
           <label>手機號碼</label>
           <input type="text" onChange={phoneHandler} value={phone} required />
         </div>
-        <Link to="/booking">
+        <Link to="pick-seat">
           <button
             className="edit-btn"
             onClick={() => {
@@ -48,4 +49,4 @@ const Edit = ({ setUserInfo }) => {
     </div>
   );
 };
-export default Edit;
+export default InfoEdit;

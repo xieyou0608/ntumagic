@@ -4,7 +4,7 @@
     align-items: center;
     flex-direction:column;
     padding: 3rem 0rem;
-    min-height: 50vh;
+    min-height: 95vh;
     font-family: 'Roboto', sans-serif;
 
     .light-board{
@@ -132,5 +132,47 @@
     .buy-btn:hover{
         transform: scale(1.2);
         opacity: 0.5;
+    }
+}
+
+
+.edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 0rem;
+    min-height: 80vh;
+    font-family: 'Roboto', sans-serif;
+    form{
+        .edit-area{
+            display: flex;
+            flex-direction: column;
+            // justify-content: center;
+            align-items: center;
+            width: 30rem;
+            label{
+                align-items: center;
+                font-size: 1.5rem;
+            }
+            input{
+                margin: 0.2rem 0;
+                width: 50%;
+                font-size: 2rem;
+            }
+        }
+        
+        
+
+        .edit-btn{
+            padding: 1rem 3rem;
+            margin: 2rem 10rem;
+            font-size: 1.5rem;
+            transition: 0.5s;
+        }
+        .edit-btn:hover{
+            transform: scale(1.2);
+            opacity: 0.5;
+        }
+    
     }
 }

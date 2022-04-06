@@ -6,7 +6,7 @@ const BuyerInfo = ({ userInfo }) => {
       <div>
         <p>姓名：{userInfo && userInfo.name}</p>
         <p>手機：{userInfo && userInfo.phone}</p>
-        <p>可劃位數: 2</p>
+        <p>可劃位數: </p>
       </div>
     </div>
   );

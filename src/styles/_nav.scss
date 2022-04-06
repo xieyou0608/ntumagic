@@ -1,5 +1,8 @@
 nav {
-    background-color:rgb(51, 97, 81);
+    position: fixed;
+    width: 100%;
+
+    background-color:rgba(0,0,0, 0.5);
     ul{
         display: flex;
         justify-content: flex-end;

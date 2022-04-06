@@ -3,6 +3,7 @@
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
 }
 
 a {
@@ -15,7 +16,9 @@ ul {
 }
 
 nav {
-  background-color: #336151;
+  position: fixed;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 nav ul {
@@ -39,7 +42,7 @@ nav ul li a {
 }
 
 .footer {
-  padding: 0.7rem;
+  padding: 0.5rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -49,68 +52,27 @@ nav ul li a {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 1.2rem;
-  background-color: rgba(142, 157, 161, 0.8);
+  font-size: 1rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.8);
   font-family: 'Roboto', sans-serif;
 }
 
-.edit {
+.homepage {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 3rem 0rem;
-  min-height: 80vh;
-  font-family: 'Roboto', sans-serif;
 }
 
-.edit form div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  width: 30rem;
-}
-
-.edit form div label {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-size: 2.5rem;
-  width: 50%;
-}
-
-.edit form div input {
-  margin: 0.2rem 0%;
-  width: 50%;
-  font-size: 2rem;
-  padding: 1rem;
-}
-
-.edit form .edit-btn {
-  padding: 1rem 3rem;
-  margin: 2rem 10rem;
-  font-size: 1.5rem;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.edit form .edit-btn:hover {
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
-  opacity: 0.5;
+.homepage .poster {
+  width: 100%;
 }
 
 .booking {
@@ -128,7 +90,7 @@ nav ul li a {
       -ms-flex-direction: column;
           flex-direction: column;
   padding: 3rem 0rem;
-  min-height: 50vh;
+  min-height: 95vh;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -274,7 +236,7 @@ nav ul li a {
   opacity: 0.5;
 }
 
-.about {
+.edit {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -286,5 +248,86 @@ nav ul li a {
           align-items: center;
   padding: 3rem 0rem;
   min-height: 80vh;
+  font-family: 'Roboto', sans-serif;
+}
+
+.edit form .edit-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 30rem;
+}
+
+.edit form .edit-area label {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.5rem;
+}
+
+.edit form .edit-area input {
+  margin: 0.2rem 0;
+  width: 50%;
+  font-size: 2rem;
+}
+
+.edit form .edit-btn {
+  padding: 1rem 3rem;
+  margin: 2rem 10rem;
+  font-size: 1.5rem;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.edit form .edit-btn:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  opacity: 0.5;
+}
+
+.about-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 3rem 0rem;
+  min-height: 95vh;
+}
+
+.about-page .about {
+  width: 20rem;
+  height: 20rem;
+  border: solid 0.1em black;
+  border-radius: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding: 1rem;
+}
+
+.about-page .about a {
+  font-size: 1.5rem;
+  color: #5252a1;
 }
 /*# sourceMappingURL=style.css.map */

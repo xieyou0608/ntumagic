@@ -1,41 +1,9 @@
-.edit {
+.homepage{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    padding: 3rem 0rem;
-    min-height: 80vh;
-    font-family: 'Roboto', sans-serif;
-    form{
-        div{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            width: 30rem;
-            label{
-                align-items: center;
-                font-size: 2.5rem;
-                
-                width: 50%;
-            }
-            input{
-                margin: 0.2rem 0%;
-                width: 50%;
-                font-size: 2rem;
-                padding: 1rem;
-            }
-        }
 
-        .edit-btn{
-            padding: 1rem 3rem;
-            margin: 2rem 10rem;
-            font-size: 1.5rem;
-            transition: 0.5s;
-        }
-        .edit-btn:hover{
-            transform: scale(1.2);
-            opacity: 0.5;
-        }
-    
+    .poster{
+        width: 100%;
     }
 }

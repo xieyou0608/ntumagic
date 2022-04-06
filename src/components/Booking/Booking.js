@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Auditorium from "./components/Auditorium";
 import { v4 as uuidv4 } from "uuid";
-import Price from "./components/Price";
-import BuyerInfo from "./components/BuyerInfo";
-import Seat from "./components/Seat";
+import Auditorium from "./Auditorium";
+import Price from "./Price";
+import BuyerInfo from "./BuyerInfo";
 
 const Booking = ({ userInfo }) => {
   const API_URL = "https://ntu-magic-api.herokuapp.com";
