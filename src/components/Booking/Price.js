@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 } from "uuid";
 
 const Price = ({ chosenSeats }) => {
   const priceDict = (area) => {
@@ -25,24 +26,26 @@ const Price = ({ chosenSeats }) => {
   return (
     <div className="price">
       <table>
-        {chosenSeats.map((chosen) => {
-          return (
-            <tr>
-              <td>
-                <p>{chosen.area} 區 </p>
-              </td>
-              <td>
-                <p>{chosen.row} 排</p>
-              </td>
-              <td>
-                <p>{chosen.col} 號</p>
-              </td>
-              <td>
-                <p>{priceDict(chosen.area)} 元</p>
-              </td>
-            </tr>
-          );
-        })}
+        <tbody>
+          {chosenSeats.map((chosen) => {
+            return (
+              <tr key={v4()}>
+                <td>
+                  <p>{chosen.area} 區 </p>
+                </td>
+                <td>
+                  <p>{chosen.row} 排</p>
+                </td>
+                <td>
+                  <p>{chosen.col} 號</p>
+                </td>
+                <td>
+                  <p>{priceDict(chosen.area)} 元</p>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
       <p style={{ textAlign: "right", paddingLeft: "7rem" }}>
         共 {compute_total()} 元

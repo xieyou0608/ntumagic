@@ -1,16 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Booking from "../components/Booking/Booking";
 import InfoEdit from "../components/InfoEdit";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import Alert from "@mui/material/Alert";
 
-const BookingPage = () => {
+const BookingPage = ({ currentUser }) => {
   const [userInfo, setUserInfo] = useState(null);
+
   return (
     <div className="booking">
-      <Routes>
-        <Route path="/" element={<InfoEdit setUserInfo={setUserInfo} />} />
-        <Route path="pick-seat" element={<Booking userInfo={userInfo} />} />
-      </Routes>
+      {!currentUser && <Alert severity="warning">請先登入帳號</Alert>}
+      {currentUser && (
+        <Booking currentUser={currentUser} />
+        // <Routes>
+        //   <Route path="/" element={<InfoEdit setUserInfo={setUserInfo} />} />
+        //   <Route
+        //     path="/pick-seat"
+        //     element={<Booking userInfo={userInfo} currentUser={currentUser} />}
+        //   />
+        // </Routes>
+      )}
     </div>
   );
 };
