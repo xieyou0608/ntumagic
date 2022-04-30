@@ -48,7 +48,7 @@ const ProfilePage = ({ currentUser }) => {
               <p> {currentUser.user.phone}</p>
             </div>
           )}
-          {currentUser && !mySeat && <p>目前尚無劃位</p>}
+          {currentUser && (!mySeat || !mySeat.length) && <p>目前尚無劃位</p>}
           {currentUser &&
             mySeat &&
             mySeat.map((seat) => {

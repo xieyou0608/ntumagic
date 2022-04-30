@@ -15,32 +15,6 @@ ul {
   list-style-type: none;
 }
 
-nav {
-  position: fixed;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-nav ul {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  margin-right: 3rem;
-}
-
-nav ul li {
-  padding: 0.5rem 1rem;
-}
-
-nav ul li a {
-  font-size: 1.5rem;
-  color: aliceblue;
-  font-family: 'Open Sans', sans-serif;
-}
-
 .footer {
   padding: 0.5rem;
   display: -webkit-box;
