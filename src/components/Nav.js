@@ -30,17 +30,13 @@ const Nav = ({ currentUser, setCurrentUser }) => {
         {/* PC display */}
         <Toolbar disableGutters sx={{ display: { xs: "none", sm: "flex" } }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Button
-              component={Link}
-              to="/"
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
+            <Button component={Link} to="/" sx={{ my: 2, color: "white" }}>
               首頁
             </Button>
             <Button
               component={Link}
               to="/booking"
-              sx={{ my: 2, color: "white", display: "block" }}
+              sx={{ my: 2, color: "white" }}
             >
               劃位
             </Button>
@@ -48,7 +44,7 @@ const Nav = ({ currentUser, setCurrentUser }) => {
               <Button
                 component={Link}
                 to="/profile"
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{ my: 2, color: "white" }}
               >
                 個人頁面
               </Button>
@@ -57,7 +53,7 @@ const Nav = ({ currentUser, setCurrentUser }) => {
               <Button
                 component={Link}
                 to="/register"
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{ my: 2, color: "white" }}
               >
                 註冊
               </Button>
@@ -66,7 +62,7 @@ const Nav = ({ currentUser, setCurrentUser }) => {
               <Button
                 component={Link}
                 to="/login"
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{ my: 2, color: "white" }}
               >
                 登入
               </Button>
@@ -76,16 +72,12 @@ const Nav = ({ currentUser, setCurrentUser }) => {
                 component={Link}
                 to="/register"
                 onClick={handleLogout}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{ my: 2, color: "white" }}
               >
                 登出
               </Button>
             )}
-            <Button
-              component={Link}
-              to="/about"
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
+            <Button component={Link} to="/about" sx={{ my: 2, color: "white" }}>
               關於我們
             </Button>
           </Box>
