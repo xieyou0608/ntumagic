@@ -12,10 +12,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 const Nav = ({ currentUser, setCurrentUser }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
-    AuthService.logout();
-    setCurrentUser(null);
-    window.alert("登出成功，將重新返回首頁");
-    navigate("/");
+    if (window.confirm("確定要登出嗎")) {
+      AuthService.logout();
+      setCurrentUser(null);
+      window.alert("登出成功，將重新返回首頁");
+      navigate("/");
+    }
   };
 
   const [menu, setMenu] = useState(true);
@@ -68,12 +70,7 @@ const Nav = ({ currentUser, setCurrentUser }) => {
               </Button>
             )}
             {currentUser && (
-              <Button
-                component={Link}
-                to="/register"
-                onClick={handleLogout}
-                sx={{ my: 2, color: "white" }}
-              >
+              <Button onClick={handleLogout} sx={{ my: 2, color: "white" }}>
                 登出
               </Button>
             )}
@@ -147,8 +144,6 @@ const Nav = ({ currentUser, setCurrentUser }) => {
           )}
           {menu && currentUser && (
             <Button
-              component={Link}
-              to="/register"
               onClick={handleLogout}
               sx={{ my: 0, color: "white", display: "block" }}
             >
