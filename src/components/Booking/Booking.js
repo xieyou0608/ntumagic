@@ -11,14 +11,6 @@ const Booking = ({ currentUser }) => {
   const [chosenSeats, setChosenSeats] = useState([]);
   const [finalChosen, setFinalChosen] = useState(null);
 
-  // [deprecated][flask server]
-  // const loadSeatData = async () => {
-  //   const res = await fetch(GET_SEATS_API);
-  //   const data = await res.json();
-  //   console.log(data);
-  //   setSeatsData([...data]);
-  // };
-
   const loadSeatsData = async () => {
     try {
       const res = await SeatService.getAllSeats();
@@ -41,31 +33,6 @@ const Booking = ({ currentUser }) => {
     setFinalChosen(chosenSeats);
   };
 
-  // [deprecated][flask server]
-  // const submitChosen = async (submitData) => {
-  //   console.log(JSON.stringify({ ...submitData }));
-  //   const requestOptions = {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //     },
-  //     body: JSON.stringify({ ...submitData }),
-  //   };
-  //   try {
-  //     const res = await fetch(SET_SEAT_API, requestOptions);
-  //     const data = await res.json();
-  //     console.log(data);
-  //     setChosenSeats([]);
-  //     setFinalChosen(null);
-  //     loadSeatData();
-  //     return data;
-  //   } catch (e) {
-  //     console.log(e);
-  //     return e;
-  //   }
-  // };
-
   const submitChosen = (submitData) => {
     SeatService.booking(
       submitData.map((x) => {
@@ -82,6 +49,7 @@ const Booking = ({ currentUser }) => {
       })
       .catch((e) => {
         console.log(e);
+        window.alert("位置已被其他人選擇，請重新劃位");
         setChosenSeats([]);
         setFinalChosen(null);
         loadSeatsData();

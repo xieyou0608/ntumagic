@@ -4,9 +4,9 @@ const BuyerInfo = ({ currentUser }) => {
   return (
     <div className="buyer-info">
       <div>
-        <p>姓名：{currentUser && currentUser.user.username}</p>
-        <p>手機：{currentUser && currentUser.user.phone}</p>
-        <p>可劃位數: </p>
+        <p>姓名：{currentUser.user.username}</p>
+        <p>手機：{currentUser.user.phone}</p>
+        <p>可劃位數: {currentUser.user.friends.length + 1}</p>
       </div>
     </div>
   );

@@ -35,7 +35,12 @@ function App() {
         </Route> */}
         <Route
           path="/profile"
-          element={<ProfilePage currentUser={currentUser} />}
+          element={
+            <ProfilePage
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            />
+          }
         />
       </Routes>
       <Footer />

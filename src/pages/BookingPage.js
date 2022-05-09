@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Booking from "../components/Booking/Booking";
-import InfoEdit from "../components/InfoEdit";
+import Booking from "../components/booking/Booking";
 import { Routes, Route } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 
