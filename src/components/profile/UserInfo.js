@@ -1,17 +1,18 @@
 import React from "react";
+import { Box, Typography } from "@mui/material";
 
 const UserInfo = ({ currentUser }) => {
   return (
-    <div>
+    <Box sx={{ padding: 1.5 }}>
       {currentUser && (
-        <div>
-          <h1>個人資料</h1>
-          <p>姓名: {currentUser.user.username}</p>
-          <p>信箱: {currentUser.user.email}</p>
-          <p>電話號碼: {currentUser.user.phone}</p>
-        </div>
+        <Box>
+          <Typography variant="h4">個人資料</Typography>
+          <Typography>姓名: {currentUser.user.username}</Typography>
+          <Typography>信箱: {currentUser.user.email}</Typography>
+          <Typography>電話號碼: {currentUser.user.phone}</Typography>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 

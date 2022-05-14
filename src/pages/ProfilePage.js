@@ -1,26 +1,20 @@
 import React, { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import Alert from "@mui/material/Alert";
 import UserInfo from "../components/profile/UserInfo";
 import SeatsTable from "../components/profile/SeatsTable";
 import FriendsTable from "../components/profile/FriendsTable";
+import { Box, Alert, Grid } from "@mui/material";
 
 const ProfilePage = ({ currentUser, setCurrentUser }) => {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: "100vh" }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
+      <Grid item xs={3}>
         {!currentUser && <Alert severity="warning">請先登入帳號</Alert>}
         {currentUser && (
           <Box
@@ -30,6 +24,7 @@ const ProfilePage = ({ currentUser, setCurrentUser }) => {
               borderStyle: "solid",
               borderRadius: "1rem",
               padding: "2rem",
+              margin: "2rem",
             }}
           >
             <UserInfo currentUser={currentUser} />
@@ -40,8 +35,8 @@ const ProfilePage = ({ currentUser, setCurrentUser }) => {
             />
           </Box>
         )}
-      </Box>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

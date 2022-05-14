@@ -27,7 +27,7 @@ const Nav = ({ currentUser, setCurrentUser }) => {
   };
 
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: "rgba(0,0,0, 0.5)" }}>
+    <AppBar position="sticky" sx={{ backgroundColor: "rgba(0,0,0, 0.7)" }}>
       <Container maxWidth="xl">
         {/* PC display */}
         <Toolbar disableGutters sx={{ display: { xs: "none", sm: "flex" } }}>

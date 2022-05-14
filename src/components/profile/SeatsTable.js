@@ -21,13 +21,17 @@ const SeatsTable = ({ currentUser }) => {
       .catch((e) => console.log(e));
   }, []);
   return (
-    <Box>
+    <Box sx={{ padding: 1.5 }}>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell colSpan={3} align="center">
-                座位
+              <TableCell
+                colSpan={3}
+                align="center"
+                sx={{ backgroundColor: "#4aedc4" }}
+              >
+                <Typography>座位</Typography>
               </TableCell>
             </TableRow>
           </TableHead>
