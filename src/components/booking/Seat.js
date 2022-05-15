@@ -29,9 +29,9 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats, currentUser }) => {
 
   return seatData.sold || seatData.area == "S" ? (
     <div className="seat-sold">{seatData.col}</div>
-  ) : seatData.row == 0 ? (
-    <div className="seat seat-X seat-aisle">{seatData.row}</div>
   ) : seatData.area == "X" ? (
+    <div className="seat seat-X seat-aisle">{seatData.row}</div>
+  ) : seatData.area == "M" ? (
     <div className="seat seat-X">{seatData.row}</div>
   ) : (
     <div

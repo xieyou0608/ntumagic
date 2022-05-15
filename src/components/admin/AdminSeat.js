@@ -23,11 +23,11 @@ const AdminSeat = ({ seatData, chosenSeats, setChosenSeats }) => {
     setChosenSeats(seats_arr);
   };
 
-  return seatData.sold ? (
+  return seatData.sold || seatData.area == "S" ? (
     <div className="seat-sold">{seatData.col}</div>
-  ) : seatData.row == 0 ? (
-    <div className="seat seat-X seat-aisle">{seatData.row}</div>
   ) : seatData.area == "X" ? (
+    <div className="seat seat-X seat-aisle">{seatData.row}</div>
+  ) : seatData.area == "M" ? (
     <div className="seat seat-X">{seatData.row}</div>
   ) : (
     <div
