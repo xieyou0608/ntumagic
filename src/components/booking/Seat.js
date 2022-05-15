@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Seat = ({ seatData, chosenSeats, setChosenSeats }) => {
+const Seat = ({ seatData, chosenSeats, setChosenSeats, currentUser }) => {
   const seatStyleHandler = (area) => {
     if (area === "A") {
       return "seat-A";
@@ -13,12 +13,15 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats }) => {
 
   const chosenHandler = (seatData) => {
     let seats_arr = [];
+    let available =
+      currentUser.user.friends.length - currentUser.user.ticketsNum + 1;
     if (chosenSeats.includes(seatData)) {
       seats_arr = chosenSeats.filter((chosen) => chosen != seatData);
     } else {
-      seats_arr = [...chosenSeats, seatData];
+      if (chosenSeats.length < available)
+        seats_arr = [...chosenSeats, seatData];
+      else seats_arr = [...chosenSeats];
     }
-
     console.log(seatData);
     console.log(seats_arr);
     setChosenSeats(seats_arr);

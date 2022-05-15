@@ -4,8 +4,6 @@ import { Routes, Route } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 
 const BookingPage = ({ currentUser }) => {
-  const [userInfo, setUserInfo] = useState(null);
-
   return (
     <div className="booking">
       {!currentUser && <Alert severity="warning">請先登入帳號</Alert>}

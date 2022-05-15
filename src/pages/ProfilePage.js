@@ -28,7 +28,10 @@ const ProfilePage = ({ currentUser, setCurrentUser }) => {
             }}
           >
             <UserInfo currentUser={currentUser} />
-            <SeatsTable currentUser={currentUser} />
+            <SeatsTable
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            />
             <FriendsTable
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}

@@ -7,6 +7,7 @@ const Auditorium = ({
   setSeatsData,
   chosenSeats,
   setChosenSeats,
+  currentUser,
 }) => {
   return (
     <div className="auditorium">
@@ -19,6 +20,7 @@ const Auditorium = ({
                 seatData={seat_obj}
                 chosenSeats={chosenSeats}
                 setChosenSeats={setChosenSeats}
+                currentUser={currentUser}
               />
             );
           })}

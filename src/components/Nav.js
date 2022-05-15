@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import { textAlign } from "@mui/system";
 
 const Nav = ({ currentUser, setCurrentUser }) => {
   const navigate = useNavigate();
@@ -145,7 +146,12 @@ const Nav = ({ currentUser, setCurrentUser }) => {
           {menu && currentUser && (
             <Button
               onClick={handleLogout}
-              sx={{ my: 0, color: "white", display: "block" }}
+              sx={{
+                my: 0,
+                color: "white",
+                display: "block",
+                textAlign: "left",
+              }}
             >
               登出
             </Button>

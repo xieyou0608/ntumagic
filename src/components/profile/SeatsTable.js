@@ -8,7 +8,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-const SeatsTable = ({ currentUser }) => {
+const SeatsTable = ({ currentUser, setCurrentUser }) => {
   let [mySeat, setMySeat] = useState([]);
 
   useEffect(() => {
@@ -17,6 +17,10 @@ const SeatsTable = ({ currentUser }) => {
       .then((res) => {
         console.log(res);
         setMySeat([...res.data]);
+        let temp = currentUser;
+        temp.user.ticketsNum = res.data.length;
+        localStorage.setItem("user", JSON.stringify(temp));
+        setCurrentUser(temp);
       })
       .catch((e) => console.log(e));
   }, []);

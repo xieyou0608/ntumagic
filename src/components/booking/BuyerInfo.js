@@ -6,7 +6,10 @@ const BuyerInfo = ({ currentUser }) => {
       <div>
         <p>姓名：{currentUser.user.username}</p>
         <p>手機：{currentUser.user.phone}</p>
-        <p>可劃位數: {currentUser.user.friends.length + 1}</p>
+        <p>
+          可劃位數:{" "}
+          {currentUser.user.friends.length - currentUser.user.ticketsNum + 1}
+        </p>
       </div>
     </div>
   );

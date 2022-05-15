@@ -72,6 +72,7 @@ const Booking = ({ currentUser }) => {
           setSeatsData={setSeatsData}
           chosenSeats={chosenSeats}
           setChosenSeats={setChosenSeats}
+          currentUser={currentUser}
         />
       </div>
       <p className="stage">舞台</p>
