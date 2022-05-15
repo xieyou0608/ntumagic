@@ -9,6 +9,7 @@ import BookingPage from "./pages/BookingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
+import AdminPage from "./pages/AdminPage";
 import "./styles/style.css";
 import AuthService from "./services/auth.service";
 
@@ -41,6 +42,10 @@ function App() {
               setCurrentUser={setCurrentUser}
             />
           }
+        />
+        <Route
+          path="/admin"
+          element={<AdminPage currentUser={currentUser} />}
         />
       </Routes>
       <Footer />

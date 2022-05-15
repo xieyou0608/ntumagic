@@ -78,6 +78,15 @@ const Nav = ({ currentUser, setCurrentUser }) => {
             <Button component={Link} to="/about" sx={{ my: 2, color: "white" }}>
               關於我們
             </Button>
+            {currentUser && currentUser.user.role == "admin" && (
+              <Button
+                component={Link}
+                to="/admin"
+                sx={{ my: 2, color: "white" }}
+              >
+                後台
+              </Button>
+            )}
           </Box>
         </Toolbar>
         {/* mobile display */}

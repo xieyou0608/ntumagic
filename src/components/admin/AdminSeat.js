@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Seat = ({ seatData, chosenSeats, setChosenSeats, currentUser }) => {
+const AdminSeat = ({ seatData, chosenSeats, setChosenSeats }) => {
   const seatStyleHandler = (area) => {
     if (area === "A") {
       return "seat-A";
@@ -13,21 +13,17 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats, currentUser }) => {
 
   const chosenHandler = (seatData) => {
     let seats_arr = [];
-    let available =
-      currentUser.user.friends.length - currentUser.user.ticketsNum + 1;
     if (chosenSeats.includes(seatData)) {
       seats_arr = chosenSeats.filter((chosen) => chosen != seatData);
     } else {
-      if (chosenSeats.length < available)
-        seats_arr = [...chosenSeats, seatData];
-      else seats_arr = [...chosenSeats];
+      seats_arr = [...chosenSeats, seatData];
     }
     console.log(seatData);
     console.log(seats_arr);
     setChosenSeats(seats_arr);
   };
 
-  return seatData.sold || seatData.area == "S" ? (
+  return seatData.sold ? (
     <div className="seat-sold">{seatData.col}</div>
   ) : seatData.row == 0 ? (
     <div className="seat seat-X seat-aisle">{seatData.row}</div>
@@ -47,4 +43,4 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats, currentUser }) => {
   );
 };
 
-export default Seat;
+export default AdminSeat;
