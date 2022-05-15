@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     flex-direction:column;
-    padding: 3rem 0rem;
+    padding: 1rem 0rem;
     min-height: 95vh;
     font-family: 'Roboto', sans-serif;
 
@@ -27,8 +27,8 @@
         .seat {
             display:inline-block;
             text-align: center;
-            padding: 0.6% 0%;
-            width: 3.125%;
+            padding: 0.3% 0%;
+            width: 2.9%;
             font-size: 50%;
             border-style:solid;
             border-color: black;
@@ -50,14 +50,22 @@
         .seat-C{
             background-color: rgb(84, 125, 238);
         }
+        .seat-X{
+            color: blue;
+            font-weight: bold;
+            border-style: none;
+        }
+        .seat-aisle{
+            color: white;
+        }
     
         .seat-sold {
-            background-color: black;
-            color: white;
+            background-color: white;
+            color: black;
             display:inline-block;
             text-align: center;
-            padding: 0.6% 0%;
-            width: 3.125%;
+            padding: 0.3% 0%;
+            width: 2.9%;
             font-size: 50%;
             border-style:solid;
             border-color: black;

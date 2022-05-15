@@ -63,7 +63,7 @@ ul {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding: 3rem 0rem;
+  padding: 1rem 0rem;
   min-height: 95vh;
   font-family: 'Roboto', sans-serif;
 }
@@ -93,8 +93,8 @@ ul {
 .booking .auditorium .seat {
   display: inline-block;
   text-align: center;
-  padding: 0.6% 0%;
-  width: 3.125%;
+  padding: 0.3% 0%;
+  width: 2.9%;
   font-size: 50%;
   border-style: solid;
   border-color: black;
@@ -121,13 +121,23 @@ ul {
   background-color: #547dee;
 }
 
-.booking .auditorium .seat-sold {
-  background-color: black;
+.booking .auditorium .seat-X {
+  color: blue;
+  font-weight: bold;
+  border-style: none;
+}
+
+.booking .auditorium .seat-aisle {
   color: white;
+}
+
+.booking .auditorium .seat-sold {
+  background-color: white;
+  color: black;
   display: inline-block;
   text-align: center;
-  padding: 0.6% 0%;
-  width: 3.125%;
+  padding: 0.3% 0%;
+  width: 2.9%;
   font-size: 50%;
   border-style: solid;
   border-color: black;

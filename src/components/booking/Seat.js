@@ -8,8 +8,6 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats }) => {
       return "seat-B";
     } else if (area === "C") {
       return "seat-C";
-    } else {
-      return "seat-not-for-sale";
     }
   };
 
@@ -28,17 +26,20 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats }) => {
 
   return seatData.sold ? (
     <div className="seat-sold">{seatData.col}</div>
+  ) : seatData.row == 0 ? (
+    <div className="seat seat-X seat-aisle">{seatData.row}</div>
+  ) : seatData.area == "X" ? (
+    <div className="seat seat-X">{seatData.row}</div>
   ) : (
     <div
       className={`seat 
         ${seatStyleHandler(seatData.area)} 
-        ${seatData.sold ? "seat-sold" : ""}
         ${chosenSeats.includes(seatData) ? "seat-chosen" : ""}`}
       onClick={() => {
         chosenHandler(seatData);
       }}
     >
-      {seatData.col}
+      {seatData.area != "X" ? seatData.col : seatData.row}
     </div>
   );
 };
