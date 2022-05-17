@@ -76,7 +76,7 @@ const Nav = ({ currentUser, setCurrentUser }) => {
               </Button>
             )}
             <Button component={Link} to="/about" sx={{ my: 2, color: "white" }}>
-              關於我們
+              聯絡我們
             </Button>
             {currentUser && currentUser.user.role == "admin" && (
               <Button

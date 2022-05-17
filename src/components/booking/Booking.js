@@ -45,7 +45,7 @@ const Booking = ({ currentUser }) => {
         setChosenSeats([]);
         setFinalChosen(null);
         // loadSeatsData();
-        navigate("/profile");
+        navigate("/pay");
       })
       .catch((e) => {
         console.log(e);

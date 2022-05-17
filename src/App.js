@@ -10,6 +10,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/AdminPage";
+import PayPage from "./pages/PayPage";
 import "./styles/style.css";
 import AuthService from "./services/auth.service";
 
@@ -47,6 +48,7 @@ function App() {
           path="/admin"
           element={<AdminPage currentUser={currentUser} />}
         />
+        <Route path="/pay" element={<PayPage currentUser={currentUser} />} />
       </Routes>
       <Footer />
     </div>
