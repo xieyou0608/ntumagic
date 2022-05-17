@@ -27,7 +27,10 @@ const ProfilePage = ({ currentUser, setCurrentUser }) => {
               margin: "2rem",
             }}
           >
-            <UserInfo currentUser={currentUser} />
+            <UserInfo
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            />
             <SeatsTable
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}

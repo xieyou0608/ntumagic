@@ -77,9 +77,18 @@ const FriendsTable = ({ currentUser, setCurrentUser }) => {
   return (
     <Box sx={{ padding: 1.5 }}>
       <Typography sx={{ display: "inline" }} variant="h5">
-        同行者
+        同行朋友
       </Typography>
-      {!isEditing && <Button onClick={handleEditing}>修改</Button>}
+      {!isEditing && (
+        <Button
+          onClick={handleEditing}
+          variant="outlined"
+          size="small"
+          sx={{ margin: 1 }}
+        >
+          修改
+        </Button>
+      )}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
