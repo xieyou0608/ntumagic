@@ -1,11 +1,12 @@
 .homepage{
     height: 100vh;
     display: flex;
+    color: #e6bb6f;
+    background-image: linear-gradient(90deg, #000000 50%, #2c2c2c 100%);
     .poster{
         width: 50%;
         height: 100vh;
         object-fit: contain;
-        background-color: black;
     }
     .info{
         width: 50%;
@@ -22,7 +23,7 @@
         }
         button{
             display: inline-block;
-            font-weight: 400;
+            font-weight: bold;
             line-height: 1.5;
             color: #212529;
             text-align: center;
@@ -36,12 +37,16 @@
             border: 1px solid transparent;
             transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         
-            color: #fff;
-            background-color: #0d6efd;
-            border-color: #0d6efd;
+            color: #e6bb6f;
+            border-color: #e6bb6f;
 
             padding: 0.5rem 1rem;
             font-size: 1.25rem;
+            &:hover{
+                color: #fff;
+                background-color: #e6bb6f;
+                border-color: #e6bb6f;
+            }
         }
     }
     @media (max-width: 767px) {
@@ -65,4 +70,5 @@
 }
 .footer{
     padding: 16px 0;
+    background-image: linear-gradient(90deg, #000000 50%, #2c2c2c 100%);
 }
