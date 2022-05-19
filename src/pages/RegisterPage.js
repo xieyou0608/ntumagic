@@ -1,8 +1,9 @@
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Register from "../components/Register";
+import { Alert } from "@mui/material";
 
-const RegisterPage = () => {
+const RegisterPage = ({ currentUser }) => {
   return (
     <div
       style={{
@@ -12,7 +13,8 @@ const RegisterPage = () => {
         justifyContent: "center",
       }}
     >
-      <Register />
+      {currentUser && <Alert severity="warning">您以登入成功</Alert>}
+      {!currentUser && <Register />}
     </div>
   );
 };

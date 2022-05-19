@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
@@ -11,30 +11,45 @@ import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/AdminPage";
 import PayPage from "./pages/PayPage";
+import GuidePage from "./pages/GuidePage";
+import PreBookingPage from "./pages/PreBookingPage";
 import "./styles/style.css";
 import AuthService from "./services/auth.service";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
-
+  let location = useLocation();
   return (
     <div className="App">
-      <Nav currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      {location.pathname != "/" && location.pathname != "/guide" && (
+        <Nav currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      )}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route
           path="/booking/*"
-          element={<BookingPage currentUser={currentUser} />}
+          element={
+            <BookingPage
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            />
+          }
         />
         <Route
           path="/login"
-          element={<LoginPage setCurrentUser={setCurrentUser} />}
+          element={
+            <LoginPage
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            />
+          }
         />
-        <Route path="/register" element={<RegisterPage />} />
-        {/* <Route path="/login" element={<Login />} />
-          <Route path="/register" element={< Register />} />
-        </Route> */}
+        <Route
+          path="/register"
+          element={<RegisterPage currentUser={currentUser} />}
+        />
+
         <Route
           path="/profile"
           element={
@@ -49,6 +64,8 @@ function App() {
           element={<AdminPage currentUser={currentUser} />}
         />
         <Route path="/pay" element={<PayPage currentUser={currentUser} />} />
+        <Route path="/guide" element={<GuidePage />} />
+        <Route path="/prebooking" element={<PreBookingPage />} />
       </Routes>
       <Footer />
     </div>

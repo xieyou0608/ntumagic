@@ -28,9 +28,9 @@ const PayPage = ({ currentUser, setCurrentUser }) => {
             <Typography variant="h5">感謝您的劃位!</Typography>
             <Typography>請於劃位後至隔日23:59前將總金額匯款至:</Typography>
             <Alert icon={false} severity="info">
-              <Typography>銀行代碼: XXX</Typography>
-              <Typography>帳號: XXXXXXXXXXX</Typography>
-              <Typography>戶名: 李俊昇</Typography>
+              <Typography>銀行代碼: 008 華南銀行</Typography>
+              <Typography>帳號: 153200800025</Typography>
+              <Typography>戶名: 楊皓勛</Typography>
             </Alert>
             {currentUser.user.bankAccount ? (
               <Typography>

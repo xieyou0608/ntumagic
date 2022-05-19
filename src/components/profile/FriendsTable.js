@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 // import Button from "@mui/material/Button";
 // import TextField from "@mui/material/TextField";
 // import { Box } from "@mui/system";
+import { Link } from "react-router-dom";
 import {
   Box,
   TextField,
@@ -89,6 +90,11 @@ const FriendsTable = ({ currentUser, setCurrentUser }) => {
           修改
         </Button>
       )}
+      <Typography>
+        新增1位同行朋友後可多劃1個座位
+        <br />
+        您最多可新增5個人，包含自己最多可劃6個位子
+      </Typography>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -187,6 +193,24 @@ const FriendsTable = ({ currentUser, setCurrentUser }) => {
         </Table>
       </TableContainer>
       {errorMessage && <Alert severity="warning">{errorMessage}</Alert>}
+      {!isEditing && (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Button
+            variant="contained"
+            color="secondary"
+            component={Link}
+            to="/booking"
+            sx={{ margin: "1rem 0 0 0" }}
+          >
+            前往劃位！
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 };

@@ -2,8 +2,9 @@ import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Login from "../components/Login";
 import Register from "../components/Register";
+import { Alert } from "@mui/material";
 
-const LoginPage = ({ setCurrentUser }) => {
+const LoginPage = ({ currentUser, setCurrentUser }) => {
   return (
     <div
       style={{
@@ -13,7 +14,8 @@ const LoginPage = ({ setCurrentUser }) => {
         justifyContent: "center",
       }}
     >
-      <Login setCurrentUser={setCurrentUser} />
+      {currentUser && <Alert severity="warning">您以登入，請先登出帳號</Alert>}
+      {!currentUser && <Login setCurrentUser={setCurrentUser} />}
     </div>
   );
 };

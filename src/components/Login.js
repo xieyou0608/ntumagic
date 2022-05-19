@@ -28,7 +28,7 @@ const Login = ({ setCurrentUser }) => {
           localStorage.setItem("user", JSON.stringify(res.data));
           window.alert("登入成功!");
           setCurrentUser(AuthService.getCurrentUser());
-          navigate("/profile");
+          navigate("/prebooking");
         }
       })
       .catch((e) => {

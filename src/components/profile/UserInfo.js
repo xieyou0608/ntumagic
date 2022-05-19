@@ -59,11 +59,9 @@ const UserInfo = ({ currentUser, setCurrentUser }) => {
           </Typography>
           {isEditingBank && (
             <Box>
-              <Typography>請輸入付款帳號末5碼</Typography>
-
               <TextField
                 onChange={handleChangeBank}
-                label="帳戶"
+                label="帳戶末5碼"
                 variant="outlined"
                 size="small"
               />
