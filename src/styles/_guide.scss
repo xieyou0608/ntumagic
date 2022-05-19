@@ -1,3 +1,31 @@
 .guidepage{
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 3rem 0;
+    h1{
+        margin-bottom: 2rem;
+    }
+    h2{
+        margin-top: 2rem;
+        margin-bottom: .5rem;
+    }
+    .AorB{
+        text-align: left;
+        width: 515px;
+    }
+    .MuiPaper-elevation{
+        min-width: 200px;
+        margin-top: 1rem;
+        text-align: left;
+        white-space: nowrap;
+        background-color: rgb(229, 246, 253);
+    }
+    @media (max-width: 767px) {
+        padding: 3rem 10px;
+        .AorB{
+            width: 100%;
+        }
+    }
 }
