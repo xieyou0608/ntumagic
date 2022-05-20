@@ -34,6 +34,9 @@ const UserInfo = ({ currentUser, setCurrentUser }) => {
           <Typography>姓名: {currentUser.user.username}</Typography>
           <Typography>信箱: {currentUser.user.email}</Typography>
           <Typography>電話號碼: {currentUser.user.phone}</Typography>
+          <Typography>
+            身分: {currentUser.user.isStudent ? "校內學生" : "校外人士"}
+          </Typography>
           <Typography>已劃位數: {currentUser.user.tickets.length}</Typography>
           <Typography>
             您的付款帳號:
