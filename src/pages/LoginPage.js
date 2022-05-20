@@ -14,7 +14,7 @@ const LoginPage = ({ currentUser, setCurrentUser }) => {
         justifyContent: "center",
       }}
     >
-      {currentUser && <Alert severity="warning">您以登入，請先登出帳號</Alert>}
+      {currentUser && <Alert severity="warning">您以登入成功</Alert>}
       {!currentUser && <Login setCurrentUser={setCurrentUser} />}
     </div>
   );

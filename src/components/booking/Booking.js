@@ -5,7 +5,7 @@ import BuyerInfo from "./BuyerInfo";
 import SeatService from "../../services/seat.service";
 import { useNavigate } from "react-router-dom";
 
-const Booking = ({ currentUser }) => {
+const Booking = ({ currentUser, setCurrentUser }) => {
   const navigate = useNavigate();
   const [seatsData, setSeatsData] = useState(null);
   const [chosenSeats, setChosenSeats] = useState([]);
@@ -14,7 +14,6 @@ const Booking = ({ currentUser }) => {
   const loadSeatsData = async () => {
     try {
       const res = await SeatService.getAllSeats();
-      // console.log(res);
       setSeatsData([...res.data]);
     } catch (e) {
       console.log(e);
@@ -41,10 +40,14 @@ const Booking = ({ currentUser }) => {
     )
       .then((res) => {
         console.log(res.data);
+        let temp = currentUser;
+        temp.user = res.data;
+        setCurrentUser(temp);
+        localStorage.setItem("user", JSON.stringify(temp));
+
         window.alert("劃位成功!");
         setChosenSeats([]);
         setFinalChosen(null);
-        // loadSeatsData();
         navigate("/pay");
       })
       .catch((e) => {

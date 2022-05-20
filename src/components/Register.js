@@ -10,6 +10,7 @@ import Alert from "@mui/material/Alert";
 const Register = () => {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
+  let [confirmPwd, setConfirmPwd] = useState("");
   let [username, setUsername] = useState("");
   let [phone, setPhone] = useState("");
   let [errorMessage, setErrorMessage] = useState("");
@@ -21,6 +22,9 @@ const Register = () => {
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
   };
+  const handleChangeConfirmPwd = (e) => {
+    setConfirmPwd(e.target.value);
+  };
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
   };
@@ -29,14 +33,19 @@ const Register = () => {
   };
 
   const handleRegister = () => {
-    AuthService.register(email, password, username, phone)
-      .then(() => {
-        window.alert("註冊成功! 將前往登入頁面");
-        navigate("/login");
-      })
-      .catch((e) => {
-        setErrorMessage(e.response.data);
-      });
+    if (password !== confirmPwd) {
+      setErrorMessage("密碼不相符");
+    } else {
+      setErrorMessage("");
+      AuthService.register(email, password, username, phone)
+        .then(() => {
+          window.alert("註冊成功! 將前往登入頁面");
+          navigate("/login");
+        })
+        .catch((e) => {
+          setErrorMessage(e.response.data);
+        });
+    }
   };
 
   return (
@@ -62,25 +71,31 @@ const Register = () => {
         <TextField
           onChange={handleChangeEmail}
           type="email"
-          label="Email"
+          label="信箱"
           variant="outlined"
         />
         <TextField
           onChange={handleChangePassword}
           type="password"
-          label="Password"
+          label="密碼"
+          variant="outlined"
+        />
+        <TextField
+          onChange={handleChangeConfirmPwd}
+          type="password"
+          label="再次輸入密碼"
           variant="outlined"
         />
         <TextField
           onChange={handleChangeUsername}
           type="text"
-          label="name"
+          label="姓名"
           variant="outlined"
         />
         <TextField
           onChange={handleChangePhone}
           type="text"
-          label="phone"
+          label="聯絡電話"
           variant="outlined"
         />
         <Button onClick={handleRegister} variant="contained">

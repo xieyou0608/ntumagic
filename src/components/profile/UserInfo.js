@@ -12,25 +12,19 @@ const UserInfo = ({ currentUser, setCurrentUser }) => {
     setBank(e.target.value);
   };
   const handleSubmitBank = () => {
-    let temp = currentUser;
-    temp.user.bankAccount = bank;
-    localStorage.setItem("user", JSON.stringify(temp));
-    setCurrentUser(temp);
-    setIsEditingBank(false);
-    window.alert("修改成功!");
-    setErrorMsg("");
-    // AudienceService.editBank(bank)
-    //   .then((res) => {
-    //     // console.log(res.data); //"updated"
-    //     let temp = currentUser;
-    //     temp.user.bankAccount = bank;
-    //     localStorage.setItem("user", JSON.stringify(temp));
-    //     setCurrentUser(temp);
-    //     setIsEditingBank(false);
-    //     window.alert("修改成功!");
-    //     setErrorMsg("");
-    //   })
-    //   .catch((e) => setErrorMsg(e.response.data));
+    AudienceService.editBankAccount(bank)
+      .then((res) => {
+        console.log(res.data);
+        let temp = currentUser;
+        temp.user.bankAccount = bank;
+        setCurrentUser(temp);
+        localStorage.setItem("user", JSON.stringify(temp));
+
+        setIsEditingBank(false);
+        window.alert("修改成功!");
+        setErrorMsg("");
+      })
+      .catch((e) => setErrorMsg(e.response.data));
   };
   return (
     <Box sx={{ padding: 1.5 }}>
@@ -40,7 +34,7 @@ const UserInfo = ({ currentUser, setCurrentUser }) => {
           <Typography>姓名: {currentUser.user.username}</Typography>
           <Typography>信箱: {currentUser.user.email}</Typography>
           <Typography>電話號碼: {currentUser.user.phone}</Typography>
-          <Typography>已劃位數: {currentUser.user.ticketsNum}</Typography>
+          <Typography>已劃位數: {currentUser.user.tickets.length}</Typography>
           <Typography>
             您的付款帳號:
             {currentUser.user.bankAccount

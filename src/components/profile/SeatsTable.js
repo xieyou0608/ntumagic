@@ -8,22 +8,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-const SeatsTable = ({ currentUser, setCurrentUser }) => {
-  let [mySeat, setMySeat] = useState([]);
+const SeatsTable = ({ currentUser }) => {
+  let [mySeat, setMySeat] = useState(currentUser.user.tickets);
 
-  useEffect(() => {
-    console.log(currentUser);
-    SeatService.getMySeats()
-      .then((res) => {
-        console.log(res);
-        setMySeat([...res.data]);
-        let temp = currentUser;
-        temp.user.ticketsNum = res.data.length;
-        localStorage.setItem("user", JSON.stringify(temp));
-        setCurrentUser(temp);
-      })
-      .catch((e) => console.log(e));
-  }, []);
   return (
     <Box sx={{ padding: 1.5 }}>
       <TableContainer component={Paper}>
@@ -31,7 +18,7 @@ const SeatsTable = ({ currentUser, setCurrentUser }) => {
           <TableHead>
             <TableRow>
               <TableCell
-                colSpan={3}
+                colSpan={4}
                 align="center"
                 sx={{ backgroundColor: "#4aedc4" }}
               >
@@ -57,6 +44,7 @@ const SeatsTable = ({ currentUser, setCurrentUser }) => {
                 </TableCell>
                 <TableCell>{seat.row}排</TableCell>
                 <TableCell>{seat.col}號</TableCell>
+                <TableCell>{seat.paid ? "已付款" : "尚未付款"}</TableCell>
               </TableRow>
             ))}
           </TableBody>

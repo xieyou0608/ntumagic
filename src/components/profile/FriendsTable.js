@@ -55,11 +55,11 @@ const FriendsTable = ({ currentUser, setCurrentUser }) => {
   const handleEditCheck = () => {
     AudienceService.editFriends(friends)
       .then((res) => {
-        // console.log(res.data); //"updated"
         let temp = currentUser;
         temp.user.friends = friends;
-        localStorage.setItem("user", JSON.stringify(temp));
         setCurrentUser(temp);
+        localStorage.setItem("user", JSON.stringify(temp));
+
         setIsEditing(false);
         window.alert("修改成功!");
         setErrorMessage("");

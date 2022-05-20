@@ -14,7 +14,7 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats, currentUser }) => {
   const chosenHandler = (seatData) => {
     let seats_arr = [];
     let available =
-      currentUser.user.friends.length - currentUser.user.ticketsNum + 1;
+      currentUser.user.friends.length - currentUser.user.tickets.length + 1;
     if (chosenSeats.includes(seatData)) {
       seats_arr = chosenSeats.filter((chosen) => chosen != seatData);
     } else {
@@ -22,8 +22,8 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats, currentUser }) => {
         seats_arr = [...chosenSeats, seatData];
       else seats_arr = [...chosenSeats];
     }
-    console.log(seatData);
-    console.log(seats_arr);
+    // console.log(seatData);
+    // console.log(seats_arr);
     setChosenSeats(seats_arr);
   };
 
