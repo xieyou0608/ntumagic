@@ -49,7 +49,7 @@ const Login = ({ setCurrentUser }) => {
           flexDirection: "column",
           borderStyle: "solid",
           borderRadius: "1rem",
-          padding: "2rem",
+          padding: "2rem 3rem",
           // backgroundColor: "gray",
         }}
       >
@@ -60,16 +60,18 @@ const Login = ({ setCurrentUser }) => {
           type="email"
           label="Email"
           variant="outlined"
+          sx={{ marginTop: 2 }}
         />
         <TextField
           onChange={handleChangePassword}
           type="password"
           label="Password"
           variant="outlined"
+          sx={{ marginTop: 2 }}
         />
 
-        <Button onClick={handleLogin} variant="contained">
-          送出
+        <Button onClick={handleLogin} variant="contained" sx={{ marginTop: 2 }}>
+          登入
         </Button>
       </Box>
     </Box>

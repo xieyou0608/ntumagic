@@ -7,17 +7,19 @@ const GuidePage = () => {
     <div className="guidepage">
       <h1>劃位說明</h1>
       <h3>劃位開放時間:</h3>
-      <p>校內售票: 5/21(六) 20:00 (以ntu mail註冊之帳號可於此階段進行劃位)</p>
+      <p>以ntu mail註冊之帳號可於校內售票階段先行劃位</p>
+      <p>校內售票: 5/21(六) 20:00</p>
       <p>校外售票: 5/22(日) 20:00</p>
       <h2>Step 1</h2>
       <p>
         請先使用信箱
         <Link to="/register" style={{ color: "blue" }} target="_blank">
-          <i class="fa-solid fa-link">註冊帳號</i>
+          {/* <i class="fa-solid fa-link">註冊帳號</i> */}
+          註冊帳號
         </Link>
         ，並
         <Link to="/login" style={{ color: "blue" }} target="_blank">
-          <i class="fa-solid fa-link">登入系統</i>
+          登入系統
         </Link>
       </p>
       <h2>Step 2</h2>
@@ -25,7 +27,7 @@ const GuidePage = () => {
       <p class="AorB">
         A.　若您只需劃一個位子，請直接於售票開放時間至
         <Link to="/booking" style={{ color: "blue" }} target="_blank">
-          <i class="fa-solid fa-link">劃位頁面</i>
+          劃位頁面
         </Link>
         進行劃位
       </p>

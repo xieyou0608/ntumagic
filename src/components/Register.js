@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
+import { Typography } from "@mui/material";
 
 const Register = () => {
   let [email, setEmail] = useState("");
@@ -61,45 +62,53 @@ const Register = () => {
           flexDirection: "column",
           borderStyle: "solid",
           borderRadius: "1rem",
-          padding: "2rem",
+          padding: "2rem 3rem",
           // backgroundColor: "gray",
         }}
       >
         <h1>註冊</h1>
         {errorMessage && <Alert severity="warning">{errorMessage}</Alert>}
-
         <TextField
           onChange={handleChangeEmail}
           type="email"
           label="信箱"
           variant="outlined"
+          sx={{ marginTop: 2 }}
         />
         <TextField
           onChange={handleChangePassword}
           type="password"
           label="密碼"
           variant="outlined"
+          sx={{ marginTop: 2 }}
         />
         <TextField
           onChange={handleChangeConfirmPwd}
           type="password"
           label="再次輸入密碼"
           variant="outlined"
+          sx={{ marginTop: 2 }}
         />
         <TextField
           onChange={handleChangeUsername}
           type="text"
           label="姓名"
           variant="outlined"
+          sx={{ marginTop: 2 }}
         />
         <TextField
           onChange={handleChangePhone}
           type="text"
           label="聯絡電話"
           variant="outlined"
+          sx={{ marginTop: 2 }}
         />
-        <Button onClick={handleRegister} variant="contained">
-          送出
+        <Button
+          onClick={handleRegister}
+          variant="contained"
+          sx={{ marginTop: 2 }}
+        >
+          註冊
         </Button>
       </Box>
     </Box>

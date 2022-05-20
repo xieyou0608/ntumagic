@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Login from "../components/Login";
 import Register from "../components/Register";
-import { Alert } from "@mui/material";
+import { Box, Alert } from "@mui/material";
 
 const LoginPage = ({ currentUser, setCurrentUser }) => {
   return (
@@ -14,7 +14,23 @@ const LoginPage = ({ currentUser, setCurrentUser }) => {
         justifyContent: "center",
       }}
     >
-      {currentUser && <Alert severity="warning">您以登入成功</Alert>}
+      {currentUser && (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Alert severity="warning">您以登入成功</Alert>
+          </Box>
+        </Box>
+      )}
       {!currentUser && <Login setCurrentUser={setCurrentUser} />}
     </div>
   );
