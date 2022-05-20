@@ -14,10 +14,6 @@ const HomePage = ({ setUserInfo }) => {
           時間：2022/6/14（二）18:00進場 18:30開始 <br />
           地點：民生社區活動中心集會堂
         </p>
-        {/* React UI framework */}
-        <Button variant="contained" component={Link} to="/guide">
-          點我劃位
-        </Button>
 
         {/* 原生 button，也可以直接改這個button */}
         <Link to="/guide">

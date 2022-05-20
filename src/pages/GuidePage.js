@@ -22,19 +22,19 @@ const GuidePage = () => {
       </p>
       <h2>Step 2</h2>
       <p>成功登入後</p>
-      <p>
-        A. 若您只需劃1個位子，請直接於售票開放時間至
+      <p class="AorB">
+        A.　若您只需劃一個位子，請直接於售票開放時間至
         <Link to="/booking" style={{ color: "blue" }} target="_blank">
           <i class="fa-solid fa-link">劃位頁面</i>
         </Link>
         進行劃位
       </p>
-      <p>
-        B. 若需要劃多個位子，請至
+      <p class="AorB">
+        B.　若您需要劃多個位子，請至
         <Link to="/profile" style={{ color: "blue" }} target="_blank">
           個人頁面
         </Link>
-        填寫同行朋友資料再進行劃位
+        填寫同行朋友資料後再進行劃位
       </p>
 
       <h2>Step 3</h2>
@@ -58,9 +58,9 @@ const GuidePage = () => {
         </Link>
         確認付款狀態
         <br />
-        註: 若付款後三日皆沒有收到信，請私訊台大魔術社粉絲專頁
+        註：若付款後三日皆沒有收到信，請私訊台大魔術社粉絲專頁
       </p>
-      <h2>Step 5(重要!)</h2>
+      <h2>Step 5（重要！）</h2>
       <p>魔夜當日請出示劃位成功通知信領取實體票</p>
     </div>
   );
