@@ -1,19 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Grid, Button, Typography } from "@mui/material";
 
 const PreBookingPage = () => {
   return (
-    <div>
-      <p>我只要劃一個位子</p>
-      <Button component={Link} to="/booking" variant="contained">
-        直接去劃位!
-      </Button>
-      <p>我想劃多個位子</p>
-      <Button component={Link} to="/profile" variant="contained">
-        新增同行朋友
-      </Button>
-    </div>
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: "80vh" }}
+      className="prebooking"
+    >
+      <Typography variant="h5">A. 我只要劃一個位子</Typography>
+      <Link to="/booking">
+        <button>→直接去劃位!</button>
+      </Link>
+      <br />
+      <Typography variant="h5">B. 我想劃多個位子</Typography>
+      <Link to="/profile">
+        <button>→新增同行朋友</button>
+      </Link>
+    </Grid>
   );
 };
 
