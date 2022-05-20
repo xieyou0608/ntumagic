@@ -50,19 +50,24 @@
         }
     }
     @media (max-width: 767px) {
+        background-image: none;
+        background-color: #000000;
         .poster{
             width: 100%;
         }
         .info{
-            width: 100%;
-            height: 100%;
+            width: 70%;
+            height: 50%;
             display: block;
-            background-color: rgba($color: #ffffff, $alpha: .5);
+            background-color: rgba($color: #000000, $alpha: .75);
             position: absolute;
+            margin: auto;
             top: 0;
             bottom: 0;
             left: 0;
+            right: 0;
             text-align: center;
+            padding: 20px;
             display: flex;
             flex-direction: column;
         }
@@ -71,4 +76,8 @@
 .footer{
     padding: 16px 0;
     background-image: linear-gradient(90deg, #000000 50%, #2c2c2c 100%);
+    @media (max-width: 767px) {
+        background-image: none;
+        background-color: #000000;
+    }
 }
