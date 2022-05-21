@@ -21,7 +21,7 @@ const Nav = ({ currentUser, setCurrentUser }) => {
     }
   };
 
-  const [menu, setMenu] = useState(true);
+  const [menu, setMenu] = useState(false);
   const handleMenu = () => {
     if (menu) setMenu(false);
     else setMenu(true);

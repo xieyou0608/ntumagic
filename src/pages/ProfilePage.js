@@ -17,26 +17,28 @@ const ProfilePage = ({ currentUser, setCurrentUser }) => {
       <Grid item xs={3}>
         {!currentUser && <Alert severity="warning">請先登入帳號</Alert>}
         {currentUser && (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              borderStyle: "solid",
-              borderRadius: "1rem",
-              padding: "2rem",
-              margin: "2rem",
-            }}
-          >
-            <UserInfo
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-            />
-            <SeatsTable currentUser={currentUser} />
-            <FriendsTable
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-            />
-          </Box>
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                borderStyle: "solid",
+                borderRadius: "1rem",
+                padding: "1rem",
+                margin: "2rem",
+              }}
+            >
+              <UserInfo
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+              <SeatsTable currentUser={currentUser} />
+              <FriendsTable
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+            </Box>
+          </Grid>
         )}
       </Grid>
     </Grid>

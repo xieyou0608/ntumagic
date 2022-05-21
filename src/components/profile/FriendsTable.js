@@ -90,13 +90,10 @@ const FriendsTable = ({ currentUser, setCurrentUser }) => {
           修改
         </Button>
       )}
-      <Typography>
-        新增1位同行朋友後可多劃1個座位
-        <br />
-        您最多可新增5個人，包含自己最多可劃6個位子
-      </Typography>
+
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        {/* <Table sx={{ minWidth: 650 }} aria-label="simple table"> */}
+        <Table aria-label="simple table">
           <TableHead>
             <TableRow sx={{ backgroundColor: "#4aedc4" }}>
               <TableCell>
@@ -192,6 +189,10 @@ const FriendsTable = ({ currentUser, setCurrentUser }) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <p>
+        註: 新增 1 位同行朋友後可多劃 1 個座位，最多可新增 5
+        個人，包含自己則可劃 6 個位子
+      </p>
       {errorMessage && <Alert severity="warning">{errorMessage}</Alert>}
       {!isEditing && (
         <Box
