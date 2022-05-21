@@ -65,14 +65,9 @@ const GuidePage = () => {
       <h2>Step 5（重要！）</h2>
       <p>魔夜當日請出示劃位成功通知信領取實體票</p>
 
-      <Button
-        component={Link}
-        to="/register"
-        variant="contained"
-        sx={{ marginTop: 3 }}
-      >
-        點我開始
-      </Button>
+      <Link to="/register">
+        <button>點我開始</button>
+      </Link>
     </div>
   );
 };

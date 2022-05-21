@@ -187,7 +187,7 @@ ul {
   background-color: #e5f6fd;
 }
 
-.guidepage .css-15c2ieu-MuiButtonBase-root-MuiButton-root {
+.guidepage button {
   display: inline-block;
   font-weight: bold;
   line-height: 1.5;
@@ -220,7 +220,7 @@ ul {
   margin-top: 2rem;
 }
 
-.guidepage .css-15c2ieu-MuiButtonBase-root-MuiButton-root:hover {
+.guidepage button:hover {
   color: #fff;
   background-color: #e6bb6f;
   border-color: #e6bb6f;
