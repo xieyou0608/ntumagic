@@ -7,9 +7,16 @@ import tz from "moment-timezone";
 
 const BookingPage = ({ currentUser, setCurrentUser }) => {
   moment.tz.setDefault("Asia/Taipei");
-  let isStudentTime = moment().isAfter(moment("2022-05-21 20:00:00"));
-  let isOthersTime = moment().isAfter(moment("2022-05-22 20:00:00"));
+  let isStudentTime = moment().isBetween(
+    "2022-05-21 20:00:00",
+    "2022-05-22 15:00:00"
+  );
+  let isOthersTime = moment().isAfter("2022-05-22 20:00:00");
+
   const checkTimeAvailable = () => {
+    if (currentUser.user.role === "admin") {
+      return true;
+    }
     if (isStudentTime && currentUser.user.isStudent) {
       return true;
     } else if (isOthersTime) {

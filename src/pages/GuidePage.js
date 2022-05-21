@@ -24,7 +24,7 @@ const GuidePage = () => {
       </p>
       <h2>Step 2</h2>
       <p>成功登入後</p>
-      <p class="AorB">
+      <p className="AorB">
         A.　若您只需劃一個位子，請直接於售票開放時間至
         <Link to="/booking" style={{ color: "blue" }}>
           劃位頁面
@@ -41,7 +41,7 @@ const GuidePage = () => {
 
       <h2>Step 3</h2>
       <p>
-        劃位成功之後，請匯款至以下帳戶，並於
+        劃位成功之後，請於隔日15:00前匯款至以下帳戶，並於
         <Link to="/profile" style={{ color: "blue" }}>
           個人頁面
         </Link>

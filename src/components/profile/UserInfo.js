@@ -39,7 +39,7 @@ const UserInfo = ({ currentUser, setCurrentUser }) => {
           </Typography>
           <Typography>已劃位數: {currentUser.user.tickets.length}</Typography>
           <Typography>
-            您的付款帳號:
+            請於匯款後填寫付款帳號:
             {currentUser.user.bankAccount
               ? currentUser.user.bankAccount
               : "尚未設定"}
