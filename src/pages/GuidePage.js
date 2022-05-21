@@ -71,7 +71,7 @@ const GuidePage = () => {
         variant="contained"
         sx={{ marginTop: 3 }}
       >
-        點我開始!
+        點我開始
       </Button>
     </div>
   );
