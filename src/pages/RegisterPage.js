@@ -1,42 +1,34 @@
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Register from "../components/Register";
-import { Box, Alert, Button } from "@mui/material";
+import { Grid, Typography, Box, Alert, Button } from "@mui/material";
 
 const RegisterPage = ({ currentUser }) => {
   return (
     <div
       style={{
-        minHeight: "100vh",
+        minHeight: "90vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
       }}
     >
       {currentUser && (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-          }}
+        <Grid
+          container
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          style={{ minHeight: "70vh" }}
+          className="prebooking"
         >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Alert severity="warning">您已登入成功</Alert>
-            <Button
-              component={Link}
-              to="/prebooking"
-              variant="contained"
-              sx={{ marginTop: 3 }}
-            >
-              下一步
-            </Button>
-          </Box>
-        </Box>
+          <Alert severity="warning">您已登入成功</Alert>
+          <br />
+          <Link to="/prebooking">
+            <button>下一步</button>
+          </Link>
+        </Grid>
       )}
 
       {!currentUser && <Register />}
