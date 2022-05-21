@@ -22,8 +22,6 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats, currentUser }) => {
         seats_arr = [...chosenSeats, seatData];
       else seats_arr = [...chosenSeats];
     }
-    // console.log(seatData);
-    // console.log(seats_arr);
     setChosenSeats(seats_arr);
   };
 

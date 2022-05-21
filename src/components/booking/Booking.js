@@ -67,8 +67,9 @@ const Booking = ({ currentUser, setCurrentUser }) => {
 
   return (
     <div className="booking">
-      <h1>座位區</h1>
+      {/* <h1>座位區</h1> */}
       <p className="light-board">控台</p>
+
       <div>
         <Auditorium
           seatsData={seatsData}

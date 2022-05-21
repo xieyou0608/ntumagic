@@ -31,7 +31,7 @@ const GuidePage = () => {
         </Link>
         進行劃位
       </p>
-      <p class="AorB">
+      <p className="AorB">
         B.　若您需要劃多個位子，請至
         <Link to="/profile" style={{ color: "blue" }}>
           個人頁面
