@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Register from "../components/Register";
-import { Box, Alert } from "@mui/material";
+import { Box, Alert, Button } from "@mui/material";
 
 const RegisterPage = ({ currentUser }) => {
   return (
@@ -26,7 +26,15 @@ const RegisterPage = ({ currentUser }) => {
               flexDirection: "column",
             }}
           >
-            <Alert severity="warning">您以登入成功</Alert>
+            <Alert severity="warning">您已登入成功</Alert>
+            <Button
+              component={Link}
+              to="/prebooking"
+              variant="contained"
+              sx={{ marginTop: 3 }}
+            >
+              下一步
+            </Button>
           </Box>
         </Box>
       )}

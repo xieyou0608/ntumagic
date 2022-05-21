@@ -13,12 +13,12 @@ const GuidePage = () => {
       <h2>Step 1</h2>
       <p>
         請先使用信箱
-        <Link to="/register" style={{ color: "blue" }} target="_blank">
+        <Link to="/register" style={{ color: "blue" }}>
           {/* <i class="fa-solid fa-link">註冊帳號</i> */}
           註冊帳號
         </Link>
         ，並
-        <Link to="/login" style={{ color: "blue" }} target="_blank">
+        <Link to="/login" style={{ color: "blue" }}>
           登入系統
         </Link>
       </p>
@@ -26,14 +26,14 @@ const GuidePage = () => {
       <p>成功登入後</p>
       <p class="AorB">
         A.　若您只需劃一個位子，請直接於售票開放時間至
-        <Link to="/booking" style={{ color: "blue" }} target="_blank">
+        <Link to="/booking" style={{ color: "blue" }}>
           劃位頁面
         </Link>
         進行劃位
       </p>
       <p class="AorB">
         B.　若您需要劃多個位子，請至
-        <Link to="/profile" style={{ color: "blue" }} target="_blank">
+        <Link to="/profile" style={{ color: "blue" }}>
           個人頁面
         </Link>
         填寫同行朋友資料後再進行劃位
@@ -42,7 +42,7 @@ const GuidePage = () => {
       <h2>Step 3</h2>
       <p>
         劃位成功之後，請匯款至以下帳戶，並於
-        <Link to="/profile" style={{ color: "blue" }} target="_blank">
+        <Link to="/profile" style={{ color: "blue" }}>
           個人頁面
         </Link>
         填寫付款帳戶末5碼
@@ -55,7 +55,7 @@ const GuidePage = () => {
       <h2>Step 4</h2>
       <p>
         待確認款項後，我們將寄出劃位成功通知到您的信箱，您也可於
-        <Link to="/profile" style={{ color: "blue" }} target="_blank">
+        <Link to="/profile" style={{ color: "blue" }}>
           個人頁面
         </Link>
         確認付款狀態
@@ -64,6 +64,15 @@ const GuidePage = () => {
       </p>
       <h2>Step 5（重要！）</h2>
       <p>魔夜當日請出示劃位成功通知信領取實體票</p>
+
+      <Button
+        component={Link}
+        to="/register"
+        variant="contained"
+        sx={{ marginTop: 3 }}
+      >
+        點我開始!
+      </Button>
     </div>
   );
 };

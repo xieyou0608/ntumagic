@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Login from "../components/Login";
 import Register from "../components/Register";
-import { Box, Alert } from "@mui/material";
+import { Box, Alert, Button } from "@mui/material";
 
 const LoginPage = ({ currentUser, setCurrentUser }) => {
   return (
@@ -27,7 +27,15 @@ const LoginPage = ({ currentUser, setCurrentUser }) => {
               flexDirection: "column",
             }}
           >
-            <Alert severity="warning">您以登入成功</Alert>
+            <Alert severity="warning">您已登入成功</Alert>
+            <Button
+              component={Link}
+              to="/prebooking"
+              variant="contained"
+              sx={{ marginTop: 3 }}
+            >
+              下一步
+            </Button>
           </Box>
         </Box>
       )}
