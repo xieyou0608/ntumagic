@@ -15,15 +15,6 @@ const Auditorium = ({
     <div className="auditorium">
       {seatsData && (
         <Grid container>
-          <Grid item xs={1}>
-            <div className="seat-A-sign"></div> A區
-          </Grid>
-          <Grid item xs={1}>
-            <div className="seat-B-sign"></div> B區
-          </Grid>
-          <Grid item xs={1}>
-            <div className="seat-C-sign"></div> C區
-          </Grid>
           {cols.map((c) => {
             return (
               <Grid item xs={12} key={uuidv4()}>

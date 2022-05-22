@@ -67,9 +67,14 @@ const Booking = ({ currentUser, setCurrentUser }) => {
 
   return (
     <div className="booking">
-      {/* <h1>座位區</h1> */}
-      <p className="light-board">控台</p>
+      <h1>座位區</h1>
+      <div style={{ marginTop: "1rem" }}>
+        <div className="sign-A"></div> A區 500元
+        <div className="sign-B"></div> B區 400元
+        <div className="sign-C"></div> C區 300元
+      </div>
 
+      <p className="light-board">燈音控制台</p>
       <div>
         <Auditorium
           seatsData={seatsData}

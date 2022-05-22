@@ -23,7 +23,6 @@ const Login = ({ setCurrentUser }) => {
   const handleLogin = () => {
     AuthService.login(email, password)
       .then((res) => {
-        console.log(res.data);
         if (res.data.token) {
           localStorage.setItem("user", JSON.stringify(res.data));
           window.alert("登入成功!");

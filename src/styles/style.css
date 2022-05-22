@@ -255,11 +255,34 @@ ul {
   font-family: 'Roboto', sans-serif;
 }
 
+.booking .sign-A {
+  width: 30px;
+  height: 15px;
+  background-color: #cf01f8;
+  display: inline-block;
+}
+
+.booking .sign-B {
+  width: 30px;
+  height: 15px;
+  background-color: #ffd240;
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.booking .sign-C {
+  width: 30px;
+  height: 15px;
+  background-color: #547dee;
+  display: inline-block;
+  margin-left: 1rem;
+}
+
 .booking .light-board {
   margin-top: 2rem;
   margin-bottom: 1rem;
   border-style: solid;
-  padding: 0.5rem 10%;
+  padding: 0.5rem 2rem;
 }
 
 .booking .auditorium {
@@ -278,27 +301,6 @@ ul {
           justify-content: center;
   padding: 2rem 4rem;
   padding-top: 0;
-}
-
-.booking .auditorium .seat-A-sign {
-  width: 30px;
-  height: 15px;
-  background-color: #cf01f8;
-  display: inline-block;
-}
-
-.booking .auditorium .seat-B-sign {
-  width: 30px;
-  height: 15px;
-  background-color: #ffd240;
-  display: inline-block;
-}
-
-.booking .auditorium .seat-C-sign {
-  width: 30px;
-  height: 15px;
-  background-color: #547dee;
-  display: inline-block;
 }
 
 .booking .auditorium .seat-wrapper {

@@ -6,13 +6,35 @@
     padding: 1rem 0rem;
     // min-height: 95vh;
     font-family: 'Roboto', sans-serif;
-    
+
+    .sign-A{
+        width: 30px;
+        height: 15px;
+        background-color: rgb(207, 1, 248);
+        display: inline-block;
+    }
+    .sign-B{
+        width: 30px;
+        height: 15px;
+        background-color: rgb(255, 210, 64);
+        display: inline-block;
+        margin-left: 1rem;
+    }
+    .sign-C{
+        width: 30px;
+        height: 15px;
+        background-color: rgb(84, 125, 238);
+        display: inline-block;
+        margin-left: 1rem;
+    }
+
     .light-board{
         margin-top: 2rem;
         margin-bottom: 1rem;
         border-style: solid;
-        padding: 0.5rem 10%;
+        padding: 0.5rem 2rem;
     }
+    
 
     .auditorium {
         display: flex;
@@ -21,24 +43,7 @@
         justify-content: center;
         padding: 2rem 4rem;
         padding-top: 0;
-        .seat-A-sign{
-            width: 30px;
-            height: 15px;
-            background-color: rgb(207, 1, 248);
-            display: inline-block;
-        }
-        .seat-B-sign{
-            width: 30px;
-            height: 15px;
-            background-color: rgb(255, 210, 64);
-            display: inline-block;
-        }
-        .seat-C-sign{
-            width: 30px;
-            height: 15px;
-            background-color: rgb(84, 125, 238);
-            display: inline-block;
-        }
+        
         .seat-wrapper{
             padding: 0;
         }
