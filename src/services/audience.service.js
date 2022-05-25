@@ -38,6 +38,20 @@ class AudienceService {
       }
     );
   }
+  reload() {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+
+    return axios.get(AUDIENCE_API + "/reload", {
+      headers: {
+        Authorization: token,
+      },
+    });
+  }
 }
 
 export default new AudienceService();

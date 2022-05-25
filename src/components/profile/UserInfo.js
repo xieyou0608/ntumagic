@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Button, TextField } from "@mui/material";
 import AudienceService from "../../services/audience.service";
 const UserInfo = ({ currentUser, setCurrentUser }) => {
@@ -14,7 +14,6 @@ const UserInfo = ({ currentUser, setCurrentUser }) => {
   const handleSubmitBank = () => {
     AudienceService.editBankAccount(bank)
       .then((res) => {
-        console.log(res.data);
         let temp = currentUser;
         temp.user.bankAccount = bank;
         setCurrentUser(temp);
@@ -26,11 +25,35 @@ const UserInfo = ({ currentUser, setCurrentUser }) => {
       })
       .catch((e) => setErrorMsg(e.response.data));
   };
+
+  const handleReload = () => {
+    AudienceService.reload()
+      .then((res) => {
+        console.log(res.data);
+        let temp = currentUser;
+        temp.user = res.data;
+        setCurrentUser(temp);
+        localStorage.setItem("user", JSON.stringify(temp));
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    handleReload();
+  }, []);
+
   return (
     <Box sx={{ padding: 1.5 }}>
       {currentUser && (
         <Box>
-          <Typography variant="h4">個人資料</Typography>
+          <Typography variant="h4">
+            個人資料{" "}
+            {/* <Button onClick={handleReload} variant="outlined">
+              重新整理
+            </Button> */}
+          </Typography>
           <Typography>姓名: {currentUser.user.username}</Typography>
           <Typography>信箱: {currentUser.user.email}</Typography>
           <Typography>電話號碼: {currentUser.user.phone}</Typography>
