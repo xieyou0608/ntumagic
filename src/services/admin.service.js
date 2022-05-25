@@ -109,6 +109,48 @@ class AdminService {
       }
     );
   }
+
+  sendEmail(user_id) {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+
+    return axios.post(
+      ADMIN_API + "/seat/email",
+      {
+        user_id,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+  }
+
+  checkEmail(user_id) {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+
+    return axios.patch(
+      ADMIN_API + "/seat/email",
+      {
+        user_id,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+  }
 }
 
 export default new AdminService();
