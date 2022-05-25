@@ -64,7 +64,10 @@ function App() {
           element={<AdminPage currentUser={currentUser} />}
         />
         <Route path="/pay" element={<PayPage currentUser={currentUser} />} />
-        <Route path="/guide" element={<GuidePage />} />
+        <Route
+          path="/guide"
+          element={<GuidePage currentUser={currentUser} />}
+        />
         <Route path="/prebooking" element={<PreBookingPage />} />
       </Routes>
       <Footer />

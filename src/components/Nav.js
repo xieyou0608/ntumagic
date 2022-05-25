@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { textAlign } from "@mui/system";
+import { Typography, Grid } from "@mui/material";
 
 const Nav = ({ currentUser, setCurrentUser }) => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const Nav = ({ currentUser, setCurrentUser }) => {
       <Container maxWidth="xl">
         {/* PC display */}
         <Toolbar disableGutters sx={{ display: { xs: "none", sm: "flex" } }}>
-          <Box sx={{ flexGrow: 1 }}>
+          <Box sx={{ display: "flex", flexGrow: 1 }}>
             <Button component={Link} to="/" sx={{ my: 2, color: "white" }}>
               首頁
             </Button>
@@ -70,14 +70,6 @@ const Nav = ({ currentUser, setCurrentUser }) => {
                 登入
               </Button>
             )}
-            {currentUser && (
-              <Button onClick={handleLogout} sx={{ my: 2, color: "white" }}>
-                登出
-              </Button>
-            )}
-            <Button component={Link} to="/about" sx={{ my: 2, color: "white" }}>
-              聯絡我們
-            </Button>
             {currentUser && currentUser.user.role == "admin" && (
               <Button
                 component={Link}
@@ -86,6 +78,23 @@ const Nav = ({ currentUser, setCurrentUser }) => {
               >
                 後台
               </Button>
+            )}
+
+            <Button component={Link} to="/about" sx={{ my: 2, color: "white" }}>
+              聯絡我們
+            </Button>
+            {currentUser && (
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <Button onClick={handleLogout} sx={{ my: 2, color: "white" }}>
+                  登出
+                </Button>
+              </Box>
             )}
           </Box>
         </Toolbar>
@@ -152,6 +161,15 @@ const Nav = ({ currentUser, setCurrentUser }) => {
               登入
             </Button>
           )}
+          {menu && (
+            <Button
+              component={Link}
+              to="/about"
+              sx={{ my: 0, color: "white", display: "block" }}
+            >
+              關於我們
+            </Button>
+          )}
           {menu && currentUser && (
             <Button
               onClick={handleLogout}
@@ -163,15 +181,6 @@ const Nav = ({ currentUser, setCurrentUser }) => {
               }}
             >
               登出
-            </Button>
-          )}
-          {menu && (
-            <Button
-              component={Link}
-              to="/about"
-              sx={{ my: 0, color: "white", display: "block" }}
-            >
-              關於我們
             </Button>
           )}
         </Box>

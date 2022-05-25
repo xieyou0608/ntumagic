@@ -1,8 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Box, Alert, Grid, Typography, Button } from "@mui/material";
 
-const GuidePage = () => {
+const GuidePage = ({ currentUser }) => {
+  const navigate = useNavigate();
+  const handleGuide = () => {
+    console.log(currentUser);
+    if (currentUser) {
+      navigate("/prebooking");
+    } else {
+      navigate("/register");
+    }
+  };
   return (
     <div className="guidepage">
       <h1>劃位說明</h1>
@@ -67,9 +76,7 @@ const GuidePage = () => {
       <h2>Step 5（重要！）</h2>
       <p>魔夜當日請出示劃位成功通知信領取實體票</p>
 
-      <Link to="/register">
-        <button>點我開始</button>
-      </Link>
+      <button onClick={handleGuide}>點我開始</button>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AuthService from "../services/auth.service";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -71,6 +71,9 @@ const Login = ({ setCurrentUser }) => {
 
         <Button onClick={handleLogin} variant="contained" sx={{ marginTop: 2 }}>
           登入
+        </Button>
+        <Button component={Link} to="/register" sx={{ marginTop: 1 }}>
+          尚未註冊，點此註冊
         </Button>
       </Box>
     </Box>

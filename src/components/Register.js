@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AuthService from "../services/auth.service";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -109,6 +109,9 @@ const Register = () => {
           sx={{ marginTop: 2 }}
         >
           註冊
+        </Button>
+        <Button component={Link} to="/login" sx={{ marginTop: 1 }}>
+          已經註冊，點此登入
         </Button>
       </Box>
     </Box>

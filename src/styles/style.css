@@ -318,6 +318,7 @@ ul {
   border-width: 0.05rem;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+  cursor: default;
 }
 
 .booking .auditorium .seat:hover {
@@ -359,6 +360,7 @@ ul {
   border-style: solid;
   border-color: black;
   border-width: 0.05rem;
+  cursor: default;
 }
 
 .booking .auditorium .seat-chosen {

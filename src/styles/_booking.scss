@@ -58,6 +58,7 @@
             border-color: black;
             border-width: 0.05rem;
             transition: 0.5s;
+            cursor: default;
         }
         
         .seat:hover{
@@ -94,6 +95,7 @@
             border-style:solid;
             border-color: black;
             border-width: 0.05rem;
+            cursor: default;
         }
 
         .seat-chosen{
