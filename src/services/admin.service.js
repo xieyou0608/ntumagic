@@ -72,7 +72,7 @@ class AdminService {
     );
   }
 
-  clearSeats(_user_id) {
+  clearSeats(user_id) {
     let token;
     if (localStorage.getItem("user")) {
       token = JSON.parse(localStorage.getItem("user")).token;
@@ -82,7 +82,26 @@ class AdminService {
 
     return axios.patch(
       ADMIN_API + "/clearSeatById",
-      { _user_id },
+      { user_id },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+  }
+
+  paidSeats(user_id) {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+
+    return axios.patch(
+      ADMIN_API + "/seat/paid",
+      { user_id },
       {
         headers: {
           Authorization: token,

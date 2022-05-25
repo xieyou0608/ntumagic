@@ -32,9 +32,6 @@ const SeatsMonitor = ({ currentUser }) => {
 
   return (
     <Box sx={{ padding: "3rem" }}>
-      <p>admin token(請勿外流)</p>
-      <p>{currentUser.token}</p>
-      <br />
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
