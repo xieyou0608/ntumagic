@@ -1,5 +1,6 @@
 import axios from "axios";
 const ADMIN_API = process.env.REACT_APP_API_URL + "/admin";
+const SEATS_API = process.env.REACT_APP_API_URL + "/seats";
 
 class AdminService {
   modifyArea(positions, newArea) {
@@ -15,6 +16,73 @@ class AdminService {
     return axios.patch(
       ADMIN_API + "/area",
       { positions, newArea, user_id },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+  }
+
+  getAllUser() {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+
+    return axios.get(ADMIN_API + "/users", {
+      headers: {
+        Authorization: token,
+      },
+    });
+  }
+
+  getAllSeats() {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+    return axios.get(SEATS_API + "/", {
+      headers: {
+        Authorization: token,
+      },
+    });
+  }
+
+  deleteUser(_user_id) {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+
+    return axios.post(
+      ADMIN_API + "/user",
+      { _user_id },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+  }
+
+  clearSeats(_user_id) {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+
+    return axios.patch(
+      ADMIN_API + "/clearSeatById",
+      { _user_id },
       {
         headers: {
           Authorization: token,
