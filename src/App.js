@@ -13,6 +13,7 @@ import AdminPage from "./pages/AdminPage";
 import PayPage from "./pages/PayPage";
 import GuidePage from "./pages/GuidePage";
 import PreBookingPage from "./pages/PreBookingPage";
+import PreviewPage from "./pages/PreviewPage";
 import "./styles/style.css";
 import AuthService from "./services/auth.service";
 
@@ -69,6 +70,7 @@ function App() {
           element={<GuidePage currentUser={currentUser} />}
         />
         <Route path="/prebooking" element={<PreBookingPage />} />
+        <Route path="/preview" element={<PreviewPage />} />
       </Routes>
       <Footer />
     </div>

@@ -56,6 +56,10 @@ class SeatService {
       }
     );
   }
+
+  getPreviewSeats() {
+    return axios.get(process.env.REACT_APP_API_URL + "/preview");
+  }
 }
 
 export default new SeatService();

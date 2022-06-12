@@ -20,6 +20,10 @@ const HomePage = ({ setUserInfo }) => {
         <Link to="/guide">
           <button type="button">點我劃位</button>
         </Link>
+        <br />
+        <Link to="/preview">
+          <button type="button">查看座位</button>
+        </Link>
       </div>
     </div>
   );

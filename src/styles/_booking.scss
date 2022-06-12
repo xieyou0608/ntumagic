@@ -60,6 +60,19 @@
             transition: 0.5s;
             cursor: default;
         }
+
+        .preview-seat {
+            display:inline-block;
+            text-align: center;
+            padding: 0.3% 0%;
+            width: 2.9%;
+            font-size: 50%;
+            border-style:solid;
+            border-color: black;
+            border-width: 0.05rem;
+            transition: 0.5s;
+            cursor: default;
+        }
         
         .seat:hover{
             transform: scale(1.2);
