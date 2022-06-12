@@ -22,7 +22,7 @@ const HomePage = ({ setUserInfo }) => {
         </Link>
         <br />
         <Link to="/preview">
-          <button type="button">查看座位</button>
+          <button type="button">座位預覽</button>
         </Link>
       </div>
     </div>
