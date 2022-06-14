@@ -19,6 +19,15 @@ const GuidePage = ({ currentUser }) => {
       {/* <p>以ntu mail註冊之帳號可於校內售票階段先行劃位</p>
       <p>校內售票: 5/21(六) 20:00</p>
       <p>校外售票: 5/22(日) 20:00</p> */}
+      <Alert
+        severity="warning"
+        style={{ backgroundColor: "rgba(237,231,137,0.5)", textColor: "black" }}
+      >
+        劃位功能將於 15:00 關閉 <br />
+        使用線上劃位請於 17:00 前進行匯款 <br />
+        今日 17:00 後將開放現場購票
+      </Alert>
+      <br />
       <p>票種：A區 500元、B區 400元、C區 300元</p>
 
       <h2>Step 1</h2>

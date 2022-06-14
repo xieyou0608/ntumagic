@@ -20,9 +20,17 @@ import AuthService from "./services/auth.service";
 function App() {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
   let location = useLocation();
+
+  const showNav = () => {
+    if (location.pathname != "/" && location.pathname != "/guide") {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div className="App">
-      {location.pathname != "/" && location.pathname != "/guide" && (
+      {showNav() && (
         <Nav currentUser={currentUser} setCurrentUser={setCurrentUser} />
       )}
       <Routes>

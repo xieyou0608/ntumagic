@@ -4,6 +4,7 @@ import Price from "./Price";
 import BuyerInfo from "./BuyerInfo";
 import SeatService from "../../services/seat.service";
 import { useNavigate } from "react-router-dom";
+import { Alert } from "@mui/material";
 
 const Booking = ({ currentUser, setCurrentUser }) => {
   const navigate = useNavigate();
@@ -67,6 +68,11 @@ const Booking = ({ currentUser, setCurrentUser }) => {
 
   return (
     <div className="booking">
+      <Alert severity="warning">
+        劃位功能將於 15:00 關閉 <br />
+        使用線上劃位請於 17:00 前進行匯款 <br />
+        今日 17:00 後將開放現場購票
+      </Alert>
       <h1>座位區</h1>
       <div style={{ marginTop: "1rem" }}>
         <div className="sign-A"></div> A區 500元

@@ -34,24 +34,6 @@ const Auditorium = ({
           })}
         </Grid>
       )}
-      {/* {seatsData &&
-        cols.map((c) => {
-          return (
-            <div className="row" key={uuidv4()}>
-              {seatsData.slice(34 * c, 34 * c + 34).map((seat_obj) => {
-                return (
-                  <Seat
-                    key={uuidv4()}
-                    seatData={seat_obj}
-                    chosenSeats={chosenSeats}
-                    setChosenSeats={setChosenSeats}
-                    currentUser={currentUser}
-                  />
-                );
-              })}
-            </div>
-          );
-        })} */}
     </div>
   );
 };
