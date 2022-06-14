@@ -199,8 +199,9 @@ const Nav = ({ currentUser, setCurrentUser }) => {
             sx={{
               flexDirection: "column",
               display: { xs: "flex", sm: "none" },
-              width: "700px",
-              overflow: "auto",
+              // width: "700px",
+              // overflow: "visible",
+              // overflowX: "visible",
             }}
           >
             <Box sx={{ textAlign: "right" }}>

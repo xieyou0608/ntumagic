@@ -18,7 +18,8 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats, currentUser }) => {
     if (chosenSeats.includes(seatData)) {
       seats_arr = chosenSeats.filter((chosen) => chosen != seatData);
     } else {
-      if (chosenSeats.length < available)
+      // 管理員無劃位上限
+      if (currentUser.user.role === "admin" || chosenSeats.length < available)
         seats_arr = [...chosenSeats, seatData];
       else seats_arr = [...chosenSeats];
     }
