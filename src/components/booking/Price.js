@@ -1,5 +1,15 @@
 import React from "react";
 import { v4 } from "uuid";
+import { styled } from "@mui/material";
+
+const StyledDiv = styled("div")`
+  padding: 3rem;
+  text-align: right;
+  p {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+  }
+`;
 
 const Price = ({ chosenSeats }) => {
   const priceDict = (area) => {
@@ -24,7 +34,7 @@ const Price = ({ chosenSeats }) => {
   };
 
   return (
-    <div className="price">
+    <StyledDiv>
       <table>
         <tbody>
           {chosenSeats.map((chosen) => {
@@ -50,7 +60,7 @@ const Price = ({ chosenSeats }) => {
       <p style={{ textAlign: "right", paddingLeft: "7rem" }}>
         共 {compute_total()} 元
       </p>
-    </div>
+    </StyledDiv>
   );
 };
 

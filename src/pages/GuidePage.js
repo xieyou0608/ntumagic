@@ -1,6 +1,42 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Box, Alert, Grid, Typography, Button } from "@mui/material";
+import { Box, Alert, Grid, Typography, Button, styled } from "@mui/material";
+import SquareButton from "../components/UI/SquareButton";
+
+const GuideLayout = styled("section")`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 0;
+
+  & h1 {
+    margin-bottom: 2rem;
+  }
+
+  & h2 {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  & .AorB {
+    text-align: left;
+    width: 515px !important;
+  }
+  & .MuiPaper-elevation {
+    min-width: 200px;
+    margin-top: 1rem;
+    text-align: left;
+    white-space: nowrap;
+    background-color: rgb(229, 246, 253);
+  }
+
+  @media (max-width: 767px) {
+    padding: 3rem 10px;
+    & .AorB {
+      width: 100% !important;
+    }
+  }
+`;
 
 const GuidePage = ({ currentUser }) => {
   const navigate = useNavigate();
@@ -13,7 +49,7 @@ const GuidePage = ({ currentUser }) => {
     }
   };
   return (
-    <div className="guidepage">
+    <GuideLayout>
       <h1>劃位說明</h1>
       {/* <h3>劃位開放時間:</h3> */}
       {/* <p>以ntu mail註冊之帳號可於校內售票階段先行劃位</p>
@@ -85,8 +121,8 @@ const GuidePage = ({ currentUser }) => {
       <h2>Step 5（重要！）</h2>
       <p>魔夜當日請出示劃位成功通知信領取實體票</p>
 
-      <button onClick={handleGuide}>點我開始</button>
-    </div>
+      <SquareButton onClick={handleGuide}>點我開始</SquareButton>
+    </GuideLayout>
   );
 };
 

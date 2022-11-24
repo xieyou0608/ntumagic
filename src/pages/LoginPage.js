@@ -3,6 +3,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import { Grid, Box, Alert, Button } from "@mui/material";
+import GuideButton from "../components/UI/GuideButton";
 
 const LoginPage = ({ currentUser, setCurrentUser }) => {
   return (
@@ -22,12 +23,11 @@ const LoginPage = ({ currentUser, setCurrentUser }) => {
           alignItems="center"
           justifyContent="center"
           style={{ minHeight: "70vh" }}
-          className="prebooking"
         >
           <Alert severity="warning">您已登入成功</Alert>
           <br />
           <Link to="/prebooking">
-            <button>下一步</button>
+            <GuideButton>下一步</GuideButton>
           </Link>
         </Grid>
       )}

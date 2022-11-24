@@ -5,6 +5,7 @@ import Alert from "@mui/material/Alert";
 import moment from "moment";
 import tz from "moment-timezone";
 import { Grid } from "@mui/material";
+import SquareButton from "../components/UI/SquareButton";
 
 const BookingPage = ({ currentUser, setCurrentUser }) => {
   const navigate = useNavigate();
@@ -66,14 +67,14 @@ const BookingPage = ({ currentUser, setCurrentUser }) => {
             （現場將於 17:00 開始進行售票）
           </Alert>
 
-          <button
-            className="preview-btn"
+          <SquareButton
+            color="#1465dd"
             onClick={() => {
               navigate("/preview");
             }}
           >
             查看當前座位
-          </button>
+          </SquareButton>
         </Grid>
       )}
     </div>

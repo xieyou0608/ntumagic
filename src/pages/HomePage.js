@@ -1,14 +1,68 @@
 import { useEffect, useState } from "react";
 import poster from "../img/magic_night.jpg";
 // import Box from "@mui/material/Box";
-import { Box, TextField, Button, Typography } from "@mui/material";
+import { Box, TextField, Button, Typography, styled } from "@mui/material";
 import { Link } from "react-router-dom";
+import HomeButton from "../components/UI/HomeButton";
+
+const HomeLayout = styled("div")`
+  height: 100vh;
+  display: flex;
+  color: #e6bb6f;
+  background-image: linear-gradient(90deg, #000000 50%, #2c2c2c 100%);
+
+  @media (max-width: 767px) {
+    background-image: none;
+    background-color: #000000;
+  }
+`;
+
+const Poster = styled("img")`
+  width: 50%;
+  height: 100vh;
+  object-fit: contain;
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+`;
+
+const Info = styled("div")`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & h1 {
+    margin-bottom: 2rem;
+  }
+  & p {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 767px) {
+    width: 70%;
+    height: 50%;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.75);
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+`;
 
 const HomePage = ({ setUserInfo }) => {
   return (
-    <div className="homepage">
-      <img src={poster} alt="魔夜宣傳海報" className="poster" />
-      <div className="info">
+    <HomeLayout>
+      <Poster src={poster} alt="魔夜宣傳海報" />
+      <Info className="info">
         <h1>台大魔夜劃位系統</h1>
         <p>
           時間：2022/6/14（二）18:00進場 18:30開始 <br />
@@ -18,14 +72,14 @@ const HomePage = ({ setUserInfo }) => {
 
         {/* 原生 button，也可以直接改這個button */}
         <Link to="/guide">
-          <button type="button">點我劃位</button>
+          <HomeButton type="button">點我劃位</HomeButton>
         </Link>
         <br />
         <Link to="/preview">
-          <button type="button">座位預覽</button>
+          <HomeButton type="button">座位預覽</HomeButton>
         </Link>
-      </div>
-    </div>
+      </Info>
+    </HomeLayout>
   );
 };
 export default HomePage;

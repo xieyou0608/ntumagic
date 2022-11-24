@@ -1,7 +1,20 @@
 import React, { useEffect } from "react";
 import Seat from "./Seat";
 import { v4 as uuidv4 } from "uuid";
-import { Grid } from "@mui/material";
+import { Grid, styled } from "@mui/material";
+
+const AuditoriumLayout = styled("div")`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 4rem;
+  padding-top: 0;
+
+  @media (max-width: 767px) {
+    padding: 2rem 2rem;
+  }
+`;
 
 const Auditorium = ({
   seatsData,
@@ -12,7 +25,7 @@ const Auditorium = ({
 }) => {
   const cols = [...Array(24).keys()];
   return (
-    <div className="auditorium">
+    <AuditoriumLayout>
       {seatsData && (
         <Grid container>
           {cols.map((c) => {
@@ -34,7 +47,7 @@ const Auditorium = ({
           })}
         </Grid>
       )}
-    </div>
+    </AuditoriumLayout>
   );
 };
 

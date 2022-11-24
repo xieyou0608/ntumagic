@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
-import Nav from "./components/Nav";
-import Footer from "./components/Footer";
+import Nav from "./components/Layout/Nav";
+import Footer from "./components/Layout/Footer";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import BookingPage from "./pages/BookingPage";
@@ -14,7 +14,6 @@ import PayPage from "./pages/PayPage";
 import GuidePage from "./pages/GuidePage";
 import PreBookingPage from "./pages/PreBookingPage";
 import PreviewPage from "./pages/PreviewPage";
-import "./styles/style.css";
 import AuthService from "./services/auth.service";
 
 function App() {

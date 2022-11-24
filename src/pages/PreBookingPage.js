@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Grid, Button, Typography } from "@mui/material";
+import { Grid, Typography, styled } from "@mui/material";
+import GuideButton from "../components/UI/GuideButton";
 
 const PreBookingPage = () => {
   return (
@@ -11,16 +12,15 @@ const PreBookingPage = () => {
       alignItems="center"
       justifyContent="center"
       style={{ minHeight: "80vh" }}
-      className="prebooking"
     >
       <Typography variant="h5">A. 我只要劃一個位子</Typography>
       <Link to="/booking">
-        <button>→直接去劃位!</button>
+        <GuideButton>→直接去劃位!</GuideButton>
       </Link>
       <br />
       <Typography variant="h5">B. 我想劃多個位子</Typography>
       <Link to="/profile">
-        <button>→新增同行朋友</button>
+        <GuideButton>→新增同行朋友</GuideButton>
       </Link>
     </Grid>
   );

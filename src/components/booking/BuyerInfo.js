@@ -1,8 +1,16 @@
 import React from "react";
+import { styled } from "@mui/material";
+
+const StyledDiv = styled("div")`
+  padding: 3rem;
+  p {
+    font-size: 1.5rem;
+  }
+`;
 
 const BuyerInfo = ({ currentUser }) => {
   return (
-    <div className="buyer-info">
+    <StyledDiv>
       <div>
         <p>姓名：{currentUser.user.username}</p>
         <p>手機：{currentUser.user.phone}</p>
@@ -13,7 +21,7 @@ const BuyerInfo = ({ currentUser }) => {
             1}
         </p>
       </div>
-    </div>
+    </StyledDiv>
   );
 };
 
