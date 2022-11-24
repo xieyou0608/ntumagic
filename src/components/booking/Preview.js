@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import SeatService from "../../services/seat.service";
 import { useNavigate } from "react-router-dom";
-import PreviewSeat from "./PreviewSeat";
 import { v4 as uuidv4 } from "uuid";
 import { Grid } from "@mui/material";
+import { BookingLayout, PriceSigns, LightBoard, Stage } from "./Booking";
+import { AuditoriumLayout } from "./Auditorium";
+import Seat from "./Seat";
+import SquareButton from "../UI/SquareButton";
 
 const Preview = ({}) => {
   const [seatsData, setSeatsData] = useState(null);
@@ -25,42 +28,45 @@ const Preview = ({}) => {
 
   const cols = [...Array(24).keys()];
   return (
-    <div className="booking">
+    <BookingLayout>
       <h1>預覽座位區</h1>
-      <div style={{ marginTop: "1rem" }}>
-        <div className="sign-A"></div> A區 500元
-        <div className="sign-B"></div> B區 400元
-        <div className="sign-C"></div> C區 300元
-      </div>
-
-      <p className="light-board">燈音控制台</p>
+      <PriceSigns />
+      <LightBoard>燈音控制台</LightBoard>
       <div>
-        <div className="auditorium">
+        <AuditoriumLayout>
           {seatsData && (
             <Grid container>
               {cols.map((c) => {
                 return (
                   <Grid item xs={12} key={uuidv4()}>
                     {seatsData.slice(34 * c, 34 * c + 34).map((seat_obj) => {
-                      return <PreviewSeat key={uuidv4()} seatData={seat_obj} />;
+                      return (
+                        <Seat
+                          key={uuidv4()}
+                          seatData={seat_obj}
+                          chosenSeats={[]}
+                          isPreview={true}
+                        />
+                      );
                     })}
                   </Grid>
                 );
               })}
             </Grid>
           )}
-        </div>
+        </AuditoriumLayout>
       </div>
-      <p className="stage">舞台</p>
-      <button
-        className="preview-btn"
+      <Stage>舞台</Stage>
+      <br />
+      <SquareButton
+        color="blue"
         onClick={() => {
           navigate("/guide");
         }}
       >
         前往劃位
-      </button>
-    </div>
+      </SquareButton>
+    </BookingLayout>
   );
 };
 

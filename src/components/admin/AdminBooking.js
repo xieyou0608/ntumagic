@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import SeatService from "../../services/seat.service";
 import AdminService from "../../services/admin.service";
-import AdminAuditorium from "./AdminAuditorium";
 import { v4 } from "uuid";
 import { TextField, Button } from "@mui/material";
+import { BookingLayout, Stage } from "../booking/Booking";
+import Auditorium from "../booking/Auditorium";
 
 const AdminBooking = ({ currentUser }) => {
   const [seatsData, setSeatsData] = useState(null);
@@ -64,11 +65,10 @@ const AdminBooking = ({ currentUser }) => {
   }, [finalChosen]);
 
   return (
-    <div className="booking">
+    <BookingLayout>
       <h1>座位區</h1>
-      <p className="light-board">控台</p>
       <div>
-        <AdminAuditorium
+        <Auditorium
           seatsData={seatsData}
           setSeatsData={setSeatsData}
           chosenSeats={chosenSeats}
@@ -76,34 +76,33 @@ const AdminBooking = ({ currentUser }) => {
           currentUser={currentUser}
         />
       </div>
-      <p className="stage">舞台</p>
-      <div className="booking-info">
-        <div className="price">
-          <table>
-            <tbody>
-              {chosenSeats.map((chosen) => {
-                return (
-                  <tr key={v4()}>
-                    <td>
-                      <p>{chosen.area} 區 </p>
-                    </td>
-                    <td>
-                      <p>{chosen.row} 排</p>
-                    </td>
-                    <td>
-                      <p>{chosen.col} 號</p>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+      <Stage>舞台</Stage>
+      <br />
+      <div>
+        <table>
+          <tbody>
+            {chosenSeats.map((chosen) => {
+              return (
+                <tr key={v4()}>
+                  <td>
+                    <p>{chosen.area} 區 </p>
+                  </td>
+                  <td>
+                    <p>{chosen.row} 排</p>
+                  </td>
+                  <td>
+                    <p>{chosen.col} 號</p>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
 
         {chosenSeats.length ? (
-          <button className="clear-btn" onClick={clearChosenHandler}>
+          <Button variant="contained" onClick={clearChosenHandler}>
             清除
-          </button>
+          </Button>
         ) : null}
       </div>
       <div>
@@ -117,7 +116,7 @@ const AdminBooking = ({ currentUser }) => {
           修改
         </Button>
       </div>
-    </div>
+    </BookingLayout>
   );
 };
 

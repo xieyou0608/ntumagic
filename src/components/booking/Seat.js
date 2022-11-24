@@ -49,8 +49,16 @@ const ChosenSeat = styled(AvailableSeat)`
   color: white;
 `;
 
-const Seat = ({ seatData, chosenSeats, setChosenSeats, currentUser }) => {
+const Seat = ({
+  seatData,
+  chosenSeats,
+  setChosenSeats,
+  currentUser,
+  isPreview,
+}) => {
   const chosenHandler = () => {
+    if (isPreview) return;
+
     let seats_arr = [];
     let available =
       currentUser.user.friends.length - currentUser.user.tickets.length + 1;
@@ -81,4 +89,5 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats, currentUser }) => {
   }
 };
 
+export { SoldSeat, BlankSpace, RowSign, ChosenSeat, AvailableSeat };
 export default Seat;

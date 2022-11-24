@@ -51,4 +51,5 @@ const Auditorium = ({
   );
 };
 
+export { AuditoriumLayout };
 export default Auditorium;

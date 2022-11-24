@@ -45,6 +45,16 @@ const PriceSign = styled("div")`
   margin: 0 0.5rem;
 `;
 
+const PriceSigns = () => {
+  return (
+    <div style={{ marginTop: "1rem" }}>
+      <PriceSign area="A" /> A區 500元
+      <PriceSign area="B" /> B區 400元
+      <PriceSign area="C" /> C區 300元
+    </div>
+  );
+};
+
 const BookingInfo = styled("div")`
   display: flex;
   justify-content: center;
@@ -128,11 +138,7 @@ const Booking = ({ currentUser, setCurrentUser }) => {
         今日 17:00 後將開放現場購票
       </Alert>
       <h1>座位區</h1>
-      <div style={{ marginTop: "1rem" }}>
-        <PriceSign area="A" /> A區 500元
-        <PriceSign area="B" /> B區 400元
-        <PriceSign area="C" /> C區 300元
-      </div>
+      <PriceSigns />
 
       <LightBoard>燈音控制台</LightBoard>
       <div>
@@ -169,5 +175,7 @@ const Booking = ({ currentUser, setCurrentUser }) => {
     </BookingLayout>
   );
 };
+
+export { BookingLayout, PriceSigns, LightBoard, Stage };
 
 export default Booking;
