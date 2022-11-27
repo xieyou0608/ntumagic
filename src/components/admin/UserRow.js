@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 const UserRow = ({ userdata, showId, showDate }) => {
   let [user, setUser] = useState(userdata);
 
-  const handleDeleteUsers = (e) => {
+  const handleDeleteUser = (e) => {
     if (window.confirm("確定要刪除用戶嗎?")) {
       console.log(e.target.value);
       let _user_id = e.target.value;
@@ -141,6 +141,14 @@ const UserRow = ({ userdata, showId, showDate }) => {
           variant="contained"
         >
           清除座位
+        </Button>
+        <Button
+          onClick={handleDeleteUser}
+          value={user._id}
+          color="error"
+          variant="contained"
+        >
+          刪除用戶
         </Button>
       </TableCell>
     </TableRow>

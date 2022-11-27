@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  TextField,
-  Button,
   Typography,
-  Alert,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -16,7 +12,7 @@ import {
 } from "@mui/material";
 import AdminService from "../../services/seat.service";
 
-const SeatsMonitor = ({ currentUser }) => {
+const SeatsMonitor = () => {
   const [seats, setSeats] = useState([]);
 
   useEffect(() => {

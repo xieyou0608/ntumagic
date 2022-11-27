@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import poster from "../img/magic_night.jpg";
-// import Box from "@mui/material/Box";
-import { Box, TextField, Button, Typography, styled } from "@mui/material";
 import { Link } from "react-router-dom";
+import { styled } from "@mui/material";
 import HomeButton from "../components/UI/HomeButton";
+import poster from "../img/magic_night.jpg";
 
 const HomeLayout = styled("div")`
   height: 100vh;
@@ -58,7 +56,7 @@ const Info = styled("div")`
   }
 `;
 
-const HomePage = ({ setUserInfo }) => {
+const HomePage = () => {
   return (
     <HomeLayout>
       <Poster src={poster} alt="魔夜宣傳海報" />

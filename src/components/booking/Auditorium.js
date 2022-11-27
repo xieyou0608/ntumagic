@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Seat from "./Seat";
 import { v4 as uuidv4 } from "uuid";
 import { Grid, styled } from "@mui/material";
@@ -16,13 +16,7 @@ const AuditoriumLayout = styled("div")`
   }
 `;
 
-const Auditorium = ({
-  seatsData,
-  setSeatsData,
-  chosenSeats,
-  setChosenSeats,
-  currentUser,
-}) => {
+const Auditorium = ({ seatsData, chosenSeats, setChosenSeats }) => {
   const cols = [...Array(24).keys()];
   return (
     <AuditoriumLayout>
@@ -38,7 +32,6 @@ const Auditorium = ({
                       seatData={seat_obj}
                       chosenSeats={chosenSeats}
                       setChosenSeats={setChosenSeats}
-                      currentUser={currentUser}
                     />
                   );
                 })}

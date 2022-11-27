@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  TextField,
   Button,
   Typography,
-  Alert,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -18,7 +15,7 @@ import AdminService from "../../services/admin.service";
 import { v4 as uuidv4 } from "uuid";
 import UserRow from "./UserRow";
 
-const UsersMonitor = ({ currentUser }) => {
+const UsersMonitor = () => {
   const [users, setUsers] = useState([]);
   const [showId, setShowId] = useState(false);
   const [showDate, setShowDate] = useState(false);
@@ -33,7 +30,6 @@ const UsersMonitor = ({ currentUser }) => {
   useEffect(() => {
     AdminService.getAllUser()
       .then((res) => {
-        console.log(res.data);
         setUsers(res.data);
       })
       .catch((e) => {

@@ -1,6 +1,7 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Box, Alert, Grid, Typography, Button, styled } from "@mui/material";
+import { Alert, Typography, styled } from "@mui/material";
 import SquareButton from "../components/UI/SquareButton";
 
 const GuideLayout = styled("section")`
@@ -38,7 +39,8 @@ const GuideLayout = styled("section")`
   }
 `;
 
-const GuidePage = ({ currentUser }) => {
+const GuidePage = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
   const handleGuide = () => {
     console.log(currentUser);

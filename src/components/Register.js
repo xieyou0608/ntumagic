@@ -6,15 +6,14 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
-import { Typography } from "@mui/material";
 
 const Register = () => {
-  let [email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
-  let [confirmPwd, setConfirmPwd] = useState("");
-  let [username, setUsername] = useState("");
-  let [phone, setPhone] = useState("");
-  let [errorMessage, setErrorMessage] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPwd, setConfirmPwd] = useState("");
+  const [username, setUsername] = useState("");
+  const [phone, setPhone] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleChangeEmail = (e) => {
@@ -33,19 +32,18 @@ const Register = () => {
     setPhone(e.target.value);
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (password !== confirmPwd) {
       setErrorMessage("密碼不相符");
     } else {
       setErrorMessage("");
-      AuthService.register(email, password, username, phone)
-        .then(() => {
-          window.alert("註冊成功! 將前往登入頁面");
-          navigate("/login");
-        })
-        .catch((e) => {
-          setErrorMessage(e.response.data);
-        });
+      try {
+        await AuthService.register(email, password, username, phone);
+        window.alert("註冊成功! 將前往登入頁面");
+        navigate("/login");
+      } catch (error) {
+        setErrorMessage(error.response.data);
+      }
     }
   };
 

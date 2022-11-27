@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import Booking from "../components/booking/Booking";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
-import moment from "moment";
-import tz from "moment-timezone";
+import moment from "moment-timezone";
 import { Grid } from "@mui/material";
 import SquareButton from "../components/UI/SquareButton";
+import { useSelector } from "react-redux";
 
-const BookingPage = ({ currentUser, setCurrentUser }) => {
+const BookingPage = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
   moment.tz.setDefault("Asia/Taipei");
   let isStudentTime = moment().isBetween(
@@ -15,7 +16,7 @@ const BookingPage = ({ currentUser, setCurrentUser }) => {
     "2022-05-22 15:00:00"
   );
   let isOthersTime = moment().isAfter("2022-05-22 20:00:00");
-  let isOpening = moment().isBefore("2022-06-14 15:00:00");
+  let isOpening = moment().isBefore("2022-12-14 15:00:00");
 
   const checkTimeAvailable = () => {
     if (currentUser.user.role === "admin") {
@@ -48,9 +49,7 @@ const BookingPage = ({ currentUser, setCurrentUser }) => {
           <Alert severity="warning">請先登入帳號</Alert>
         </Grid>
       )}
-      {currentUser && checkTimeAvailable() && (
-        <Booking currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      )}
+      {currentUser && checkTimeAvailable() && <Booking />}
       {currentUser && !checkTimeAvailable() && (
         <Grid
           container

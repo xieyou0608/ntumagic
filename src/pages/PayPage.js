@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Box, Alert, Grid, Typography, Button } from "@mui/material";
 
-const PayPage = ({ currentUser, setCurrentUser }) => {
+const PayPage = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
   return (
     <Grid
       container

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { styled } from "@mui/material";
 
 const StyledDiv = styled("div")`
@@ -8,7 +9,8 @@ const StyledDiv = styled("div")`
   }
 `;
 
-const BuyerInfo = ({ currentUser }) => {
+const BuyerInfo = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
   return (
     <StyledDiv>
       <div>

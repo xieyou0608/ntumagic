@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { styled } from "@mui/material";
 
 const StyledSeat = styled("div")`
@@ -49,13 +50,8 @@ const ChosenSeat = styled(AvailableSeat)`
   color: white;
 `;
 
-const Seat = ({
-  seatData,
-  chosenSeats,
-  setChosenSeats,
-  currentUser,
-  isPreview,
-}) => {
+const Seat = ({ seatData, chosenSeats, setChosenSeats, isPreview }) => {
+  const currentUser = useSelector((state) => state.user.currentUser);
   const chosenHandler = () => {
     if (isPreview) return;
 
@@ -63,7 +59,7 @@ const Seat = ({
     let available =
       currentUser.user.friends.length - currentUser.user.tickets.length + 1;
     if (chosenSeats.includes(seatData)) {
-      seats_arr = chosenSeats.filter((chosen) => chosen != seatData);
+      seats_arr = chosenSeats.filter((chosen) => chosen !== seatData);
     } else {
       // 管理員無劃位上限
       if (currentUser.user.role === "admin" || chosenSeats.length < available)
@@ -74,9 +70,9 @@ const Seat = ({
   };
 
   if (seatData.sold) return <SoldSeat>{seatData.col}</SoldSeat>;
-  if (seatData.area == "S") return <SoldSeat>{seatData.col}</SoldSeat>;
-  if (seatData.area == "X") return <BlankSpace />;
-  if (seatData.area == "M") return <RowSign>{seatData.row}</RowSign>;
+  if (seatData.area === "S") return <SoldSeat>{seatData.col}</SoldSeat>;
+  if (seatData.area === "X") return <BlankSpace />;
+  if (seatData.area === "M") return <RowSign>{seatData.row}</RowSign>;
 
   if (chosenSeats.includes(seatData))
     return <ChosenSeat onClick={chosenHandler}>{seatData.col}</ChosenSeat>;

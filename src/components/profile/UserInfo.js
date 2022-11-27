@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateBank } from "../../store/user-actions";
+
 import { Box, Typography, Button, TextField } from "@mui/material";
-import AudienceService from "../../services/audience.service";
-const UserInfo = ({ currentUser, setCurrentUser }) => {
+
+const UserInfo = () => {
+  const { currentUser, bankApi } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   const [bank, setBank] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [isValid, setIsValid] = useState(true);
   const [isEditingBank, setIsEditingBank] = useState(false);
   const handleEditingBank = () => {
     setIsEditingBank(!isEditingBank);
@@ -11,49 +17,27 @@ const UserInfo = ({ currentUser, setCurrentUser }) => {
   const handleChangeBank = (e) => {
     setBank(e.target.value);
   };
-  const handleSubmitBank = () => {
-    AudienceService.editBankAccount(bank)
-      .then((res) => {
-        let temp = currentUser;
-        temp.user.bankAccount = bank;
-        setCurrentUser(temp);
-        localStorage.setItem("user", JSON.stringify(temp));
-
-        setIsEditingBank(false);
-        window.alert("修改成功!");
-        setErrorMsg("");
-      })
-      .catch((e) => setErrorMsg(e.response.data));
-  };
-
-  const handleReload = () => {
-    AudienceService.reload()
-      .then((res) => {
-        console.log(res.data);
-        let temp = currentUser;
-        temp.user = res.data;
-        setCurrentUser(temp);
-        localStorage.setItem("user", JSON.stringify(temp));
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  const handleSubmitBank = (e) => {
+    e.preventDefault();
+    if (bank.length !== 5) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+      dispatch(updateBank(bank));
+    }
   };
 
   useEffect(() => {
-    handleReload();
-  }, []);
+    if (bankApi.success) {
+      setIsEditingBank(false);
+    }
+  }, [bankApi]);
 
   return (
     <Box sx={{ padding: 1.5 }}>
       {currentUser && (
         <Box>
-          <Typography variant="h4">
-            個人資料{" "}
-            {/* <Button onClick={handleReload} variant="outlined">
-              重新整理
-            </Button> */}
-          </Typography>
+          <Typography variant="h4">個人資料 </Typography>
           <Typography>姓名: {currentUser.user.username}</Typography>
           <Typography>信箱: {currentUser.user.email}</Typography>
           <Typography>電話號碼: {currentUser.user.phone}</Typography>
@@ -78,20 +62,22 @@ const UserInfo = ({ currentUser, setCurrentUser }) => {
             )}
           </Typography>
           {isEditingBank && (
-            <Box>
+            <form onSubmit={handleSubmitBank}>
               <TextField
                 onChange={handleChangeBank}
                 label="帳戶末5碼"
                 variant="outlined"
                 size="small"
+                error={!isValid}
+                helperText={!isValid && "請輸入5位數字"}
               />
-              <Button onClick={handleSubmitBank} variant="contained">
+              <Button type="submit" variant="contained">
                 送出
               </Button>
               <Button onClick={handleEditingBank} variant="contained">
                 取消
               </Button>
-            </Box>
+            </form>
           )}
         </Box>
       )}

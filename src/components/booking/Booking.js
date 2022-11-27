@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Button, styled } from "@mui/material";
+
 import Auditorium from "./Auditorium";
 import Price from "./Price";
 import BuyerInfo from "./BuyerInfo";
 import SeatService from "../../services/seat.service";
-import { useNavigate } from "react-router-dom";
-import { Alert, Button, styled } from "@mui/material";
-import { AvailableSeat } from "./Seat";
+import { bookTickets, clearAPI } from "../../store/user-actions";
 
 const BookingLayout = styled("div")`
   display: flex;
@@ -70,7 +72,9 @@ const ConfirmButton = styled(Button)`
   }
 `;
 
-const Booking = ({ currentUser, setCurrentUser }) => {
+const Booking = () => {
+  const bookingApi = useSelector((state) => state.user.bookingApi);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [seatsData, setSeatsData] = useState(null);
   const [chosenSeats, setChosenSeats] = useState([]);
@@ -97,46 +101,34 @@ const Booking = ({ currentUser, setCurrentUser }) => {
     setFinalChosen(chosenSeats);
   };
 
-  const submitChosen = (submitData) => {
-    SeatService.booking(
-      submitData.map((x) => {
-        return { row: x.row, col: x.col };
-      })
-    )
-      .then((res) => {
-        console.log(res.data);
-        let temp = currentUser;
-        temp.user = res.data;
-        setCurrentUser(temp);
-        localStorage.setItem("user", JSON.stringify(temp));
-
-        window.alert("劃位成功!");
-        setChosenSeats([]);
-        setFinalChosen(null);
-        navigate("/pay");
-      })
-      .catch((e) => {
-        console.log(e);
-        window.alert("位置已被其他人選擇，請重新劃位");
-        setChosenSeats([]);
-        setFinalChosen(null);
-        loadSeatsData();
-      });
-  };
+  useEffect(() => {
+    if (bookingApi.success) {
+      window.alert("劃位成功!");
+      dispatch(clearAPI("bookingApi"));
+      navigate("/pay");
+    }
+    if (bookingApi.fail) {
+      window.alert(bookingApi.errorMsg);
+      setChosenSeats([]);
+      setFinalChosen(null);
+      loadSeatsData();
+    }
+  }, [dispatch, navigate, bookingApi]);
 
   useEffect(() => {
     if (finalChosen) {
-      submitChosen(finalChosen);
+      dispatch(bookTickets(finalChosen));
     }
-  }, [finalChosen]);
+  }, [dispatch, finalChosen]);
 
   return (
     <BookingLayout>
-      <Alert severity="warning">
+      {bookingApi.loading && "isLoading"}
+      {/* <Alert severity="warning">
         劃位功能將於 15:00 關閉 <br />
         使用線上劃位請於 17:00 前進行匯款 <br />
         今日 17:00 後將開放現場購票
-      </Alert>
+      </Alert> */}
       <h1>座位區</h1>
       <PriceSigns />
 
@@ -147,12 +139,11 @@ const Booking = ({ currentUser, setCurrentUser }) => {
           setSeatsData={setSeatsData}
           chosenSeats={chosenSeats}
           setChosenSeats={setChosenSeats}
-          currentUser={currentUser}
         />
       </div>
       <Stage>舞台</Stage>
       <BookingInfo>
-        <BuyerInfo currentUser={currentUser} />
+        <BuyerInfo />
         <Price chosenSeats={chosenSeats} />
         {chosenSeats.length ? (
           <Button variant="outlined" onClick={clearChosenHandler}>

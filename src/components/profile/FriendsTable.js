@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-// import Button from "@mui/material/Button";
-// import TextField from "@mui/material/TextField";
-// import { Box } from "@mui/system";
+import { useDispatch, useSelector } from "react-redux";
+import { updateFriends } from "../../store/user-actions";
+
 import { Link } from "react-router-dom";
 import {
   Box,
@@ -18,9 +18,10 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-import AudienceService from "../../services/audience.service";
 
-const FriendsTable = ({ currentUser, setCurrentUser }) => {
+const FriendsTable = () => {
+  const { currentUser, friendsApi } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [friends, setFriends] = useState(currentUser.user.friends);
   const [friendName, setFriendName] = useState("");
@@ -41,39 +42,36 @@ const FriendsTable = ({ currentUser, setCurrentUser }) => {
     setFriendPhone(e.target.value);
   };
 
-  const handleAddFriend = (e) => {
-    if (friends.some((x) => x.friendName == e.target.value)) {
-      setErrorMessage(e.target.value + "已經存在");
+  const handleAddFriend = () => {
+    if (friends.some((x) => x.friendName === friendName)) {
+      setErrorMessage(friendName + "已經存在");
     } else {
       setFriends([...friends, { friendName, friendPhone }]);
+      setFriendName("");
+      setFriendPhone("");
     }
   };
   const handleDeleteFriends = (e) => {
-    setFriends(friends.filter((x) => x.friendName != e.target.value));
+    setFriends(friends.filter((x) => x.friendName !== e.target.value));
   };
 
   const handleEditCheck = () => {
-    AudienceService.editFriends(friends)
-      .then((res) => {
-        let temp = currentUser;
-        temp.user.friends = friends;
-        setCurrentUser(temp);
-        localStorage.setItem("user", JSON.stringify(temp));
-
-        setIsEditing(false);
-        window.alert("修改成功!");
-        setErrorMessage("");
-      })
-      .catch((e) => setErrorMessage(e.response.data));
+    dispatch(updateFriends(friends));
   };
 
   useEffect(() => {
-    if (friends.length == 5) {
+    if (friends.length === 5) {
       setIsFull(true);
     } else {
       setIsFull(false);
     }
   }, [friends]);
+
+  useEffect(() => {
+    if (friendsApi.success) {
+      setIsEditing(false);
+    }
+  }, [friendsApi]);
 
   return (
     <Box sx={{ padding: 1.5 }}>
@@ -141,6 +139,7 @@ const FriendsTable = ({ currentUser, setCurrentUser }) => {
                 <TableCell component="td" scope="row">
                   <TextField
                     onChange={handleChangeName}
+                    value={friendName}
                     label="姓名"
                     variant="standard"
                   />
@@ -148,6 +147,7 @@ const FriendsTable = ({ currentUser, setCurrentUser }) => {
                 <TableCell>
                   <TextField
                     onChange={handleChangePhone}
+                    value={friendPhone}
                     label="聯絡電話"
                     variant="standard"
                   />
@@ -155,7 +155,6 @@ const FriendsTable = ({ currentUser, setCurrentUser }) => {
                 <TableCell align="right">
                   <Button
                     onClick={handleAddFriend}
-                    value={friendName}
                     variant="outlined"
                     color="primary"
                   >

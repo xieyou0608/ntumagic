@@ -1,22 +1,24 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import AuthService from "../../services/auth.service";
-import AppBar from "@mui/material/AppBar";
-import Container from "@mui/material/Container";
-import Toolbar from "@mui/material/Toolbar";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  AppBar,
+  Container,
+  Toolbar,
+  Box,
+  Button,
+  IconButton,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Typography, Grid } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { userLogout } from "../../store/user-actions";
 
-const Nav = ({ currentUser, setCurrentUser }) => {
+const Nav = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
     if (window.confirm("確定要登出嗎")) {
-      AuthService.logout();
-      setCurrentUser(null);
+      dispatch(userLogout());
       window.alert("登出成功，將重新返回首頁");
       navigate("/");
     }
@@ -80,7 +82,7 @@ const Nav = ({ currentUser, setCurrentUser }) => {
                   登入
                 </Button>
               )}
-              {currentUser && currentUser.user.role == "admin" && (
+              {currentUser && currentUser.user.role === "admin" && (
                 <Button
                   component={Link}
                   to="/admin"
@@ -117,7 +119,7 @@ const Nav = ({ currentUser, setCurrentUser }) => {
 
       {/* mobile display */}
       {/* 非座位區 */}
-      {location.pathname != "/booking" && location.pathname != "/preview" && (
+      {location.pathname !== "/booking" && location.pathname !== "/preview" && (
         <AppBar
           position="sticky"
           sx={{
@@ -216,7 +218,8 @@ const Nav = ({ currentUser, setCurrentUser }) => {
 
       {/* mobile display */}
       {/* 座位區 */}
-      {(location.pathname == "/booking" || location.pathname == "/preview") && (
+      {(location.pathname === "/booking" ||
+        location.pathname === "/preview") && (
         <AppBar
           position="sticky"
           sx={{

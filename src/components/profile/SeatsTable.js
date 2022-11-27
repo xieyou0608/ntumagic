@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from "react";
-import SeatService from "../../services/seat.service";
-import { Box, TextField, Button, Typography } from "@mui/material";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-const SeatsTable = ({ currentUser }) => {
-  let [mySeat, setMySeat] = useState(currentUser.user.tickets);
+import React from "react";
+import { useSelector } from "react-redux";
+import {
+  Box,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
+
+const SeatsTable = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const mySeat = currentUser.user.tickets;
 
   return (
     <Box sx={{ padding: 1.5 }}>
