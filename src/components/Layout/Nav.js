@@ -38,7 +38,7 @@ const Nav = () => {
       <AppBar
         position="sticky"
         sx={{
-          backgroundColor: "rgba(0,0,0, 0.7)",
+          backgroundColor: "#242423",
           display: { xs: "none", sm: "flex" },
         }}
       >
