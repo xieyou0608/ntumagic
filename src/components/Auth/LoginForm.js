@@ -54,6 +54,8 @@ const AuthButton = styled(Button)`
   && {
     color: black;
     background-color: #ffc258;
+    padding: 1.5vh;
+    margin-top: 1vh;
   }
 `;
 

@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React from "react";
 import LoginForm from "../components/Auth/LoginForm";
 import { styled } from "@mui/material";
 
@@ -24,12 +22,6 @@ const AuthBox = styled("div")((props) => ({
 }));
 
 const LoginPage = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (currentUser) navigate("/prebooking");
-  }, [currentUser]);
-
   return (
     <AuthLayout>
       <AuthBox>

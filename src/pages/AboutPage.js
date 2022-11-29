@@ -1,36 +1,34 @@
 import React from "react";
 import { styled } from "@mui/material";
 
-const AboutLayout = styled("section")({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  padding: "3rem 0rem",
-  minHeight: "95vh",
-});
+const Layout = styled("div")`
+  display: flex;
+  justify-content: center;
+`;
 
-const About = styled("div")({
-  width: "20rem",
-  height: "20rem",
-  border: "solid 0.1em black",
-  borderRadius: "1rem",
+const StyledBox = styled("div")`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "space-around",
-  padding: "1rem",
+  background-color: white;
+  border: #540b0e solid 0.5vmin;
+  border-radius: 3vmin;
+  padding: 5vh;
+  width: 20rem;
+  height: 20rem;
 
-  "& a": {
-    fontSize: "1.5rem",
-    color: "rgb(82, 82, 161)",
-  },
-});
+  a {
+    font-size: 1.5rem;
+    color: rgb(82, 82, 161);
+  }
+`;
 
 const AboutPage = () => {
   return (
-    <AboutLayout>
-      <About>
+    <Layout>
+      <StyledBox>
         <h2>台大魔術社</h2>
         <a href="https://www.facebook.com/NTUMAGIC/" target="_blank">
           <i className="fa-brands fa-facebook"></i> Facebook
@@ -39,8 +37,8 @@ const AboutPage = () => {
         <a href="https://www.instagram.com/ntu_magic/" target="_blank">
           <i className="fa-brands fa-instagram"></i> Instagram
         </a>
-      </About>
-    </AboutLayout>
+      </StyledBox>
+    </Layout>
   );
 };
 

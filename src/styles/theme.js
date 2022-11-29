@@ -1,11 +1,11 @@
 import { createTheme } from "@mui/material";
 
 const theme = createTheme({
-  //   palette: {
-  //     primary: {
-  //       main: "#ff9800",
-  //     },
-  //   },
+  palette: {
+    gold: {
+      main: "#e6bb6f",
+    },
+  },
 });
 
 export default theme;

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import Nav from "./components/Layout/Nav";
@@ -19,6 +19,7 @@ import PreviewPage from "./pages/PreviewPage";
 function App() {
   const location = useLocation();
   const currentUser = useSelector((state) => state.user.currentUser);
+  const isLogin = !!currentUser;
 
   useEffect(() => {
     if (currentUser) {
@@ -34,15 +35,33 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/booking/*" element={<BookingPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/admin" element={<AdminPage />} />
+        <Route
+          path="/register"
+          element={
+            !isLogin ? <RegisterPage /> : <Navigate to="/prebooking" replace />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            !isLogin ? <LoginPage /> : <Navigate to="/prebooking" replace />
+          }
+        />
+        <Route
+          path="/booking/*"
+          element={isLogin ? <BookingPage /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/profile"
+          element={isLogin ? <ProfilePage /> : <Navigate to="/login" replace />}
+        />
+
         <Route path="/pay" element={<PayPage />} />
         <Route path="/guide" element={<GuidePage />} />
         <Route path="/prebooking" element={<PreBookingPage />} />
         <Route path="/preview" element={<PreviewPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       {showNav && <Footer />}
     </div>
