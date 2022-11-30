@@ -15,11 +15,3 @@ a {
 ul {
   list-style-type: circle;
 }
-
-.app {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 100vh;
-  background-color: #fcefd6;
-}

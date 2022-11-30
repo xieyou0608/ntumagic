@@ -9,11 +9,18 @@ const AuditoriumLayout = styled("div")`
   align-items: center;
   justify-content: center;
   padding: 2rem 4rem;
-  padding-top: 0;
 
-  @media (max-width: 767px) {
-    padding: 2rem 2rem;
+  ${({ theme }) => theme.breakpoints.down("md")} {
+    padding: 2rem 1rem;
+    width: 700px;
   }
+`;
+
+const Stage = styled("div")`
+  border-style: solid;
+  margin-top: 3vh;
+  padding: 0.5rem 30%;
+  background-color: ${({ theme }) => theme.palette.gentle.main};
 `;
 
 const Auditorium = ({ seatsData, chosenSeats, setChosenSeats }) => {
@@ -40,9 +47,10 @@ const Auditorium = ({ seatsData, chosenSeats, setChosenSeats }) => {
           })}
         </Grid>
       )}
+      <Stage>舞台</Stage>
     </AuditoriumLayout>
   );
 };
 
-export { AuditoriumLayout };
+export { AuditoriumLayout, Stage };
 export default Auditorium;

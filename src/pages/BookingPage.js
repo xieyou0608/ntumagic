@@ -1,5 +1,5 @@
 import React from "react";
-import Booking from "../components/booking/Booking";
+import Booking from "../components/Booking/Booking";
 import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import moment from "moment-timezone";
@@ -16,7 +16,8 @@ const BookingPage = () => {
     "2022-05-22 15:00:00"
   );
   let isOthersTime = moment().isAfter("2022-05-22 20:00:00");
-  let isOpening = moment().isBefore("2022-12-14 15:00:00");
+  // let isOpening = moment().isBefore("2022-06-14 15:00:00");
+  let isOpening = moment().isBefore("2022-12-31 15:00:00");
 
   const checkTimeAvailable = () => {
     if (currentUser.user.role === "admin") {
@@ -36,21 +37,8 @@ const BookingPage = () => {
 
   return (
     <div>
-      {!currentUser && (
-        <Grid
-          container
-          spacing={0}
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-          style={{ minHeight: "70vh" }}
-          className="prebooking"
-        >
-          <Alert severity="warning">請先登入帳號</Alert>
-        </Grid>
-      )}
-      {currentUser && checkTimeAvailable() && <Booking />}
-      {currentUser && !checkTimeAvailable() && (
+      {checkTimeAvailable() && <Booking />}
+      {!checkTimeAvailable() && (
         <Grid
           container
           spacing={0}

@@ -3,8 +3,8 @@ import SeatService from "../../services/seat.service";
 import AdminService from "../../services/admin.service";
 import { v4 } from "uuid";
 import { TextField, Button } from "@mui/material";
-import { BookingLayout, Stage } from "../booking/Booking";
-import Auditorium from "../booking/Auditorium";
+import { BookingLayout } from "../Booking/Booking";
+import Auditorium from "../Booking/Auditorium";
 
 const AdminBooking = () => {
   const [seatsData, setSeatsData] = useState(null);
@@ -74,7 +74,6 @@ const AdminBooking = () => {
           setChosenSeats={setChosenSeats}
         />
       </div>
-      <Stage>舞台</Stage>
       <br />
       <div>
         <table>

@@ -1,66 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button, styled } from "@mui/material";
-
-import Auditorium from "./Auditorium";
-import Price from "./Price";
-import BuyerInfo from "./BuyerInfo";
 import SeatService from "../../services/seat.service";
 import { bookTickets, clearAPI } from "../../store/user-actions";
+
+import { Alert, Button, styled } from "@mui/material";
+import PriceSigns from "./PriceSigns";
+import Auditorium from "./Auditorium";
+import Buyer from "./Buyer";
+import Cart from "./Cart";
 
 const BookingLayout = styled("div")`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 1rem 0rem;
   font-family: "Roboto", sans-serif;
+  margin: 5vh 0;
+`;
 
-  @media (max-width: 767px) {
-    width: 700px;
+const OverflowBox = styled("div")`
+  background-color: ${({ theme }) => theme.palette.background.main};
+  border: solid 1vmin black;
+  border-radius: 1.5vmin;
+  margin-top: 3vh;
+  width: 95%;
+  ${({ theme }) => theme.breakpoints.down("md")} {
+    width: 95%;
+    overflow: scroll;
   }
 `;
-
-const LightBoard = styled("div")`
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  border-style: solid;
-  padding: 0.5rem 2rem;
-`;
-const Stage = styled("div")`
-  border-style: solid;
-  padding: 0.5rem 40%;
-`;
-
-const colorMap = {
-  A: "rgb(207, 1, 248)",
-  B: "rgb(255, 210, 64)",
-  C: "rgb(84, 125, 238)",
-};
-
-const PriceSign = styled("div")`
-  width: 30px;
-  height: 15px;
-  background-color: ${(props) => colorMap[props.area]};
-  display: inline-block;
-  margin: 0 0.5rem;
-`;
-
-const PriceSigns = () => {
-  return (
-    <div style={{ marginTop: "1rem" }}>
-      <PriceSign area="A" /> A區 500元
-      <PriceSign area="B" /> B區 400元
-      <PriceSign area="C" /> C區 300元
-    </div>
-  );
-};
 
 const BookingInfo = styled("div")`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  margin-top: 5vh;
+  width: 70vw;
+
+  ${({ theme }) => theme.breakpoints.down("sm")} {
+    width: 100%;
+  }
+`;
+
+const ConfirmBox = styled("div")`
+  margin-top: 5vh;
+  display: flex;
+  column-gap: 3vw;
 `;
 
 const ConfirmButton = styled(Button)`
@@ -78,14 +64,13 @@ const Booking = () => {
   const navigate = useNavigate();
   const [seatsData, setSeatsData] = useState(null);
   const [chosenSeats, setChosenSeats] = useState([]);
-  const [finalChosen, setFinalChosen] = useState(null);
 
   const loadSeatsData = async () => {
     try {
       const res = await SeatService.getAllSeats();
       setSeatsData([...res.data]);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -98,7 +83,9 @@ const Booking = () => {
   };
 
   const submitHandler = () => {
-    setFinalChosen(chosenSeats);
+    if (window.confirm("確定劃位")) {
+      dispatch(bookTickets(chosenSeats));
+    }
   };
 
   useEffect(() => {
@@ -110,20 +97,13 @@ const Booking = () => {
     if (bookingApi.fail) {
       window.alert(bookingApi.errorMsg);
       setChosenSeats([]);
-      setFinalChosen(null);
       loadSeatsData();
     }
   }, [dispatch, navigate, bookingApi]);
 
-  useEffect(() => {
-    if (finalChosen) {
-      dispatch(bookTickets(finalChosen));
-    }
-  }, [dispatch, finalChosen]);
-
   return (
     <BookingLayout>
-      {bookingApi.loading && "isLoading"}
+      {bookingApi.loading && <Alert>isLoading</Alert>}
       {/* <Alert severity="warning">
         劃位功能將於 15:00 關閉 <br />
         使用線上劃位請於 17:00 前進行匯款 <br />
@@ -131,42 +111,50 @@ const Booking = () => {
       </Alert> */}
       <h1>座位區</h1>
       <PriceSigns />
-
-      <LightBoard>燈音控制台</LightBoard>
-      <div>
+      <OverflowBox>
         <Auditorium
           seatsData={seatsData}
           setSeatsData={setSeatsData}
           chosenSeats={chosenSeats}
           setChosenSeats={setChosenSeats}
         />
-      </div>
-      <Stage>舞台</Stage>
+      </OverflowBox>
+
       <BookingInfo>
-        <BuyerInfo />
-        <Price chosenSeats={chosenSeats} />
-        {chosenSeats.length ? (
-          <Button variant="outlined" onClick={clearChosenHandler}>
-            清除
-          </Button>
-        ) : null}
+        <Buyer />
+        <Cart
+          chosenSeats={chosenSeats}
+          clearChosenHandler={clearChosenHandler}
+        />
       </BookingInfo>
+
       {chosenSeats.length ? (
-        <ConfirmButton
-          variant="contained"
-          size="large"
-          color="error"
-          onClick={submitHandler}
-        >
-          確定購票
-        </ConfirmButton>
+        <ConfirmBox>
+          <ConfirmButton
+            variant="contained"
+            size="large"
+            color="error"
+            onClick={submitHandler}
+          >
+            確定劃位
+          </ConfirmButton>
+          <ConfirmButton
+            variant="contained"
+            size="large"
+            onClick={clearChosenHandler}
+          >
+            清空座位
+          </ConfirmButton>
+        </ConfirmBox>
       ) : (
-        <p>請選擇至少一個位子</p>
+        <ConfirmBox>
+          <p>請選擇至少一個位子</p>
+        </ConfirmBox>
       )}
     </BookingLayout>
   );
 };
 
-export { BookingLayout, PriceSigns, LightBoard, Stage };
+export { BookingLayout, OverflowBox };
 
 export default Booking;

@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { loadProfile } from "../store/user-actions";
 
-import UserInfo from "../components/profile/UserInfo";
-import SeatsTable from "../components/profile/SeatsTable";
-import FriendsTable from "../components/profile/FriendsTable";
+import UserInfo from "../components/Profile/UserInfo";
+import SeatsTable from "../components/Profile/SeatsTable";
+import FriendsTable from "../components/Profile/FriendsTable";
 import { Alert, styled } from "@mui/material";
 
 const Layout = styled("div")`

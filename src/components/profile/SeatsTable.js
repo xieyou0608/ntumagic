@@ -19,7 +19,7 @@ const SeatsTable = () => {
   return (
     <Box>
       <TableContainer component={Paper}>
-        <Table aria-label="simple table">
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell
@@ -40,13 +40,8 @@ const SeatsTable = () => {
               </TableRow>
             )}
             {mySeat.map((seat) => (
-              <TableRow
-                key={seat._id}
-                // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {seat.area}區
-                </TableCell>
+              <TableRow key={seat._id}>
+                <TableCell>{seat.area}區</TableCell>
                 <TableCell>{seat.row}排</TableCell>
                 <TableCell>{seat.col}號</TableCell>
                 <TableCell>{seat.paid ? "已付款" : "尚未付款"}</TableCell>

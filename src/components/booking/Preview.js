@@ -3,12 +3,13 @@ import SeatService from "../../services/seat.service";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { Grid } from "@mui/material";
-import { BookingLayout, PriceSigns, LightBoard, Stage } from "./Booking";
-import { AuditoriumLayout } from "./Auditorium";
+import { BookingLayout, OverflowBox } from "./Booking";
+import { AuditoriumLayout, Stage } from "./Auditorium";
 import Seat from "./Seat";
 import SquareButton from "../UI/SquareButton";
+import PriceSigns from "./PriceSigns";
 
-const Preview = ({}) => {
+const Preview = () => {
   const [seatsData, setSeatsData] = useState(null);
 
   const loadSeatsData = async () => {
@@ -31,8 +32,7 @@ const Preview = ({}) => {
     <BookingLayout>
       <h1>預覽座位區</h1>
       <PriceSigns />
-      <LightBoard>燈音控制台</LightBoard>
-      <div>
+      <OverflowBox>
         <AuditoriumLayout>
           {seatsData && (
             <Grid container>
@@ -54,9 +54,9 @@ const Preview = ({}) => {
               })}
             </Grid>
           )}
+          <Stage>舞台</Stage>
         </AuditoriumLayout>
-      </div>
-      <Stage>舞台</Stage>
+      </OverflowBox>
       <br />
       <SquareButton
         color="blue"

@@ -8,6 +8,12 @@ const theme = createTheme({
     gentle: {
       main: "#ffc258",
     },
+    background: {
+      main: "#fcefd6",
+    },
+    border: {
+      main: "#540b0e",
+    },
   },
   typography: {
     // Change font-family of all mui components

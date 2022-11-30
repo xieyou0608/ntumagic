@@ -93,7 +93,6 @@ const FriendsTable = () => {
       </GapBox>
 
       <TableContainer component={Paper}>
-        {/* <Table sx={{ minWidth: 650 }} aria-label="simple table"> */}
         <Table>
           <TableHead>
             <TableRow sx={{ backgroundColor: "#4aedc4" }}>
@@ -115,13 +114,8 @@ const FriendsTable = () => {
               </TableRow>
             )}
             {friends.map((x) => (
-              <TableRow
-                key={x.friendName}
-                // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="td" scope="row">
-                  {x.friendName}
-                </TableCell>
+              <TableRow key={x.friendName}>
+                <TableCell>{x.friendName}</TableCell>
                 <TableCell>{x.friendPhone}</TableCell>
                 {isEditing && (
                   <TableCell>
@@ -130,7 +124,6 @@ const FriendsTable = () => {
                       value={x.friendName}
                       color="error"
                       variant="outlined"
-                      sx={{ m: 0 }}
                     >
                       刪除
                     </Button>
@@ -140,7 +133,7 @@ const FriendsTable = () => {
             ))}
             {isEditing && !isFull && (
               <TableRow>
-                <TableCell component="td" scope="row">
+                <TableCell>
                   <TextField
                     onChange={handleChangeName}
                     value={friendName}

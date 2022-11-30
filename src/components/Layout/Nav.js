@@ -116,116 +116,113 @@ const Nav = () => {
           </Toolbar>
         </Container>
       </AppBar>
-
       {/* mobile display */}
       {/* 非座位區 */}
-      {location.pathname !== "/booking" && location.pathname !== "/preview" && (
-        <AppBar
-          position="sticky"
-          sx={{
-            backgroundColor: "rgba(0,0,0, 0.7)",
-            display: { xs: "flex", sm: "none" },
-          }}
-        >
-          <Container maxWidth="xl">
-            <Box
-              sx={{
-                flexDirection: "column",
-              }}
-            >
-              <Box sx={{ textAlign: "right" }}>
-                <IconButton
-                  size="small"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-              </Box>
-              {menu && (
-                <Button
-                  component={Link}
-                  to="/"
-                  sx={{ my: 0, color: "white", display: "block" }}
-                >
-                  首頁
-                </Button>
-              )}
-              {menu && (
-                <Button
-                  component={Link}
-                  to="/booking"
-                  sx={{ my: 0, color: "white", display: "block" }}
-                >
-                  劃位
-                </Button>
-              )}
-              {menu && currentUser && (
-                <Button
-                  component={Link}
-                  to="/profile"
-                  sx={{ my: 0, color: "white", display: "block" }}
-                >
-                  個人頁面
-                </Button>
-              )}
-              {menu && !currentUser && (
-                <Button
-                  component={Link}
-                  to="/register"
-                  sx={{ my: 0, color: "white", display: "block" }}
-                >
-                  註冊
-                </Button>
-              )}
-              {menu && !currentUser && (
-                <Button
-                  component={Link}
-                  to="/login"
-                  sx={{ my: 0, color: "white", display: "block" }}
-                >
-                  登入
-                </Button>
-              )}
-              {menu && (
-                <Button
-                  component={Link}
-                  to="/about"
-                  sx={{ my: 0, color: "white", display: "block" }}
-                >
-                  關於我們
-                </Button>
-              )}
-              {menu && currentUser && (
-                <Button
-                  onClick={handleLogout}
-                  sx={{
-                    my: 0,
-                    color: "white",
-                    display: "block",
-                    textAlign: "left",
-                  }}
-                >
-                  登出
-                </Button>
-              )}
+      {/* {location.pathname !== "/booking" && location.pathname !== "/preview" && ( */}
+      <AppBar
+        position="sticky"
+        sx={{
+          backgroundColor: "rgba(0,0,0, 0.7)",
+          display: { xs: "flex", sm: "none" },
+        }}
+      >
+        <Container maxWidth="xl">
+          <Box
+            sx={{
+              flexDirection: "column",
+            }}
+          >
+            <Box sx={{ textAlign: "right" }}>
+              <IconButton
+                size="small"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
             </Box>
-          </Container>
-        </AppBar>
-      )}
-
-      {/* mobile display */}
+            {menu && (
+              <Button
+                component={Link}
+                to="/"
+                sx={{ my: 0, color: "white", display: "block" }}
+              >
+                首頁
+              </Button>
+            )}
+            {menu && (
+              <Button
+                component={Link}
+                to="/booking"
+                sx={{ my: 0, color: "white", display: "block" }}
+              >
+                劃位
+              </Button>
+            )}
+            {menu && currentUser && (
+              <Button
+                component={Link}
+                to="/profile"
+                sx={{ my: 0, color: "white", display: "block" }}
+              >
+                個人頁面
+              </Button>
+            )}
+            {menu && !currentUser && (
+              <Button
+                component={Link}
+                to="/register"
+                sx={{ my: 0, color: "white", display: "block" }}
+              >
+                註冊
+              </Button>
+            )}
+            {menu && !currentUser && (
+              <Button
+                component={Link}
+                to="/login"
+                sx={{ my: 0, color: "white", display: "block" }}
+              >
+                登入
+              </Button>
+            )}
+            {menu && (
+              <Button
+                component={Link}
+                to="/about"
+                sx={{ my: 0, color: "white", display: "block" }}
+              >
+                關於我們
+              </Button>
+            )}
+            {menu && currentUser && (
+              <Button
+                onClick={handleLogout}
+                sx={{
+                  my: 0,
+                  color: "white",
+                  display: "block",
+                  textAlign: "left",
+                }}
+              >
+                登出
+              </Button>
+            )}
+          </Box>
+        </Container>
+      </AppBar>
+      {/* )} */}
+      {/* mobile display
       {/* 座位區 */}
-      {(location.pathname === "/booking" ||
+      {/* {(location.pathname === "/booking" ||
         location.pathname === "/preview") && (
         <AppBar
           position="sticky"
           sx={{
             backgroundColor: "rgba(0,0,0, 0.7)",
             display: { xs: "flex", sm: "none" },
-            width: "700px",
           }}
         >
           <Container maxWidth="xl">
@@ -319,7 +316,7 @@ const Nav = () => {
             </Box>
           </Container>
         </AppBar>
-      )}
+      )} */}
     </div>
   );
 };

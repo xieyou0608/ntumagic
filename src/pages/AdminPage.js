@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import AdminBooking from "../components/admin/AdminBooking";
-import UsersMonitor from "../components/admin/UsersMonitor";
-import SeatsMonitor from "../components/admin/SeatsMonitor";
+import AdminBooking from "../components/Admin/AdminBooking";
+import UsersMonitor from "../components/Admin/UsersMonitor";
+import SeatsMonitor from "../components/Admin/SeatsMonitor";
 import { Alert, Box, Button } from "@mui/material";
 import { useSelector } from "react-redux";
 
