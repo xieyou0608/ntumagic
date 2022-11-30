@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFriends } from "../../store/user-actions";
 
-import { Link } from "react-router-dom";
 import {
   Box,
   TextField,
@@ -17,7 +17,19 @@ import {
   TableHead,
   TableRow,
   Paper,
+  styled,
 } from "@mui/material";
+import { EditButton, CheckButton } from "../UI/ProfileButton";
+
+const GapBox = styled(Box)`
+  display: flex;
+  column-gap: 1vw;
+  margin-bottom: 1vh;
+
+  h2 {
+    display: inline;
+  }
+`;
 
 const FriendsTable = () => {
   const { currentUser, friendsApi } = useSelector((state) => state.user);
@@ -74,24 +86,15 @@ const FriendsTable = () => {
   }, [friendsApi]);
 
   return (
-    <Box sx={{ padding: 1.5 }}>
-      <Typography sx={{ display: "inline" }} variant="h5">
-        同行朋友
-      </Typography>
-      {!isEditing && (
-        <Button
-          onClick={handleEditing}
-          variant="outlined"
-          size="small"
-          sx={{ margin: 1 }}
-        >
-          修改
-        </Button>
-      )}
+    <Box>
+      <GapBox>
+        <h2>同行朋友</h2>
+        {!isEditing && <EditButton onClick={handleEditing}>修改</EditButton>}
+      </GapBox>
 
       <TableContainer component={Paper}>
         {/* <Table sx={{ minWidth: 650 }} aria-label="simple table"> */}
-        <Table aria-label="simple table">
+        <Table>
           <TableHead>
             <TableRow sx={{ backgroundColor: "#4aedc4" }}>
               <TableCell>
@@ -121,12 +124,13 @@ const FriendsTable = () => {
                 </TableCell>
                 <TableCell>{x.friendPhone}</TableCell>
                 {isEditing && (
-                  <TableCell align="right">
+                  <TableCell>
                     <Button
                       onClick={handleDeleteFriends}
                       value={x.friendName}
                       color="error"
                       variant="outlined"
+                      sx={{ m: 0 }}
                     >
                       刪除
                     </Button>
@@ -152,14 +156,8 @@ const FriendsTable = () => {
                     variant="standard"
                   />
                 </TableCell>
-                <TableCell align="right">
-                  <Button
-                    onClick={handleAddFriend}
-                    variant="outlined"
-                    color="primary"
-                  >
-                    新增
-                  </Button>
+                <TableCell>
+                  <EditButton onClick={handleAddFriend}>新增</EditButton>
                 </TableCell>
               </TableRow>
             )}
@@ -167,20 +165,8 @@ const FriendsTable = () => {
               <TableRow>
                 <TableCell component="td" colSpan={3} align="center">
                   <Stack direction="row" spacing={2} justifyContent="center">
-                    <Button
-                      onClick={handleEditCheck}
-                      variant="contained"
-                      color="secondary"
-                    >
-                      儲存
-                    </Button>
-                    <Button
-                      onClick={handleEditing}
-                      variant="contained"
-                      color="secondary"
-                    >
-                      取消
-                    </Button>
+                    <CheckButton onClick={handleEditCheck}>儲存</CheckButton>
+                    <CheckButton onClick={handleEditing}>取消</CheckButton>
                   </Stack>
                 </TableCell>
               </TableRow>
@@ -200,15 +186,13 @@ const FriendsTable = () => {
             justifyContent: "center",
           }}
         >
-          <Button
-            variant="contained"
-            color="secondary"
+          <CheckButton
             component={Link}
             to="/booking"
-            sx={{ margin: "1rem 0 0 0" }}
+            sx={{ marginTop: "1rem" }}
           >
             前往劃位！
-          </Button>
+          </CheckButton>
         </Box>
       )}
     </Box>

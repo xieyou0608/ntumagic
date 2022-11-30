@@ -9,7 +9,8 @@ const GuideLayout = styled("div")`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 5vh;
+  margin-top: 5vh;
+  margin-bottom: 15vh;
 `;
 
 const GuideBox = styled("div")`

@@ -10,6 +10,7 @@ const Layout = styled("div")`
 const StyledBox = styled("div")`
   display: flex;
   flex-direction: column;
+  row-gap: 2vh;
   align-items: center;
   background-color: white;
   border: #540b0e solid 0.5vmin;
@@ -25,7 +26,6 @@ const PreBookingPage = () => {
         <Link to="/booking">
           <GuideButton>→直接去劃位!</GuideButton>
         </Link>
-        <br />
         <Typography variant="h5">B. 我想劃多個位子</Typography>
         <Link to="/profile">
           <GuideButton>→新增同行朋友</GuideButton>

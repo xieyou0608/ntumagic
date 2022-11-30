@@ -15,10 +15,6 @@ const AuthForm = styled("form")`
   h1 {
     text-align: center;
   }
-
-  .MuiButtonBase-root {
-    font-weight: 700;
-  }
 `;
 
 const InputBox = (props) => {
@@ -38,9 +34,8 @@ const AuthInput = (props) => {
         flexGrow: 1,
         "& label": {
           // color: "gray",
-          fontWeight: 600,
           // "&.Mui-focused": {
-          //   color: (theme) => theme.palette.error.main,
+          //   color: (theme) => theme.palette.gold.main,
           // },
         },
       }}
@@ -53,7 +48,7 @@ const AuthInput = (props) => {
 const AuthButton = styled(Button)`
   && {
     color: black;
-    background-color: #ffc258;
+    background-color: ${({ theme }) => theme.palette.gentle.main};
     padding: 1.5vh;
     margin-top: 1vh;
   }
