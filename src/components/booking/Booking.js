@@ -7,40 +7,14 @@ import { bookTickets, clearAPI } from "../../store/user-actions";
 import { Alert, Button, styled } from "@mui/material";
 import PriceSigns from "./PriceSigns";
 import Auditorium from "./Auditorium";
-import Buyer from "./Buyer";
-import Cart from "./Cart";
+import BookingInfo from "./BookingInfo";
 
 const BookingLayout = styled("div")`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-family: "Roboto", sans-serif;
   margin: 5vh 0;
-`;
-
-const OverflowBox = styled("div")`
-  background-color: ${({ theme }) => theme.palette.background.main};
-  border: solid 1vmin black;
-  border-radius: 1.5vmin;
-  margin-top: 3vh;
-  width: 95%;
-  ${({ theme }) => theme.breakpoints.down("md")} {
-    width: 95%;
-    overflow: scroll;
-  }
-`;
-
-const BookingInfo = styled("div")`
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin-top: 5vh;
-  width: 70vw;
-
-  ${({ theme }) => theme.breakpoints.down("sm")} {
-    width: 100%;
-  }
 `;
 
 const ConfirmBox = styled("div")`
@@ -111,22 +85,20 @@ const Booking = () => {
       </Alert> */}
       <h1>座位區</h1>
       <PriceSigns />
-      <OverflowBox>
+
+      {seatsData && (
         <Auditorium
           seatsData={seatsData}
           setSeatsData={setSeatsData}
           chosenSeats={chosenSeats}
           setChosenSeats={setChosenSeats}
         />
-      </OverflowBox>
+      )}
 
-      <BookingInfo>
-        <Buyer />
-        <Cart
-          chosenSeats={chosenSeats}
-          clearChosenHandler={clearChosenHandler}
-        />
-      </BookingInfo>
+      <BookingInfo
+        chosenSeats={chosenSeats}
+        clearChosenHandler={clearChosenHandler}
+      />
 
       {chosenSeats.length ? (
         <ConfirmBox>
@@ -155,6 +127,6 @@ const Booking = () => {
   );
 };
 
-export { BookingLayout, OverflowBox };
+export { BookingLayout };
 
 export default Booking;

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SeatService from "../../services/seat.service";
 import AdminService from "../../services/admin.service";
-import { v4 } from "uuid";
 import { TextField, Button } from "@mui/material";
 import { BookingLayout } from "../Booking/Booking";
 import Auditorium from "../Booking/Auditorium";
@@ -66,35 +65,23 @@ const AdminBooking = () => {
   return (
     <BookingLayout>
       <h1>座位區</h1>
-      <div>
+      {seatsData && (
         <Auditorium
           seatsData={seatsData}
           setSeatsData={setSeatsData}
           chosenSeats={chosenSeats}
           setChosenSeats={setChosenSeats}
         />
-      </div>
+      )}
       <br />
       <div>
-        <table>
-          <tbody>
-            {chosenSeats.map((chosen) => {
-              return (
-                <tr key={v4()}>
-                  <td>
-                    <p>{chosen.area} 區 </p>
-                  </td>
-                  <td>
-                    <p>{chosen.row} 排</p>
-                  </td>
-                  <td>
-                    <p>{chosen.col} 號</p>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        {chosenSeats.map((chosen) => (
+          <p key={chosen._id}>
+            <span>{chosen.area} 區 </span>
+            <span>{chosen.row} 排 </span>
+            <span>{chosen.col} 號</span>
+          </p>
+        ))}
 
         {chosenSeats.length ? (
           <Button variant="contained" onClick={clearChosenHandler}>

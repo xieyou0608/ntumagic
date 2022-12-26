@@ -17,7 +17,7 @@ const BookingPage = () => {
   );
   let isOthersTime = moment().isAfter("2022-05-22 20:00:00");
   // let isOpening = moment().isBefore("2022-06-14 15:00:00");
-  let isOpening = moment().isBefore("2022-12-31 15:00:00");
+  let isOpening = moment().isBefore("2023-12-31 15:00:00");
 
   const checkTimeAvailable = () => {
     if (currentUser.user.role === "admin") {
