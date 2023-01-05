@@ -5,7 +5,7 @@ import { loadProfile } from "../store/user-actions";
 import UserInfo from "../components/Profile/UserInfo";
 import SeatsTable from "../components/Profile/SeatsTable";
 import FriendsTable from "../components/Profile/FriendsTable";
-import { Alert, styled } from "@mui/material";
+import { Box, CircularProgress, styled } from "@mui/material";
 
 const Layout = styled("div")`
   display: flex;
@@ -39,7 +39,11 @@ const ProfilePage = () => {
   return (
     <Layout>
       <ProfileBox>
-        {profileApi.loading && <Alert>請稍後...</Alert>}
+        {profileApi.loading && (
+          <Box sx={{ textAlign: "center" }}>
+            <CircularProgress size={100} sx={{ my: 10 }} />
+          </Box>
+        )}
         {currentUser && (
           <>
             <UserInfo />

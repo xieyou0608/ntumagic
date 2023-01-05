@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SeatService from "../../services/seat.service";
 import { bookTickets, clearAPI } from "../../store/user-actions";
 
-import { Alert, Button, styled } from "@mui/material";
+import { Button, CircularProgress, styled } from "@mui/material";
 import PriceSigns from "./PriceSigns";
 import Auditorium from "./Auditorium";
 import BookingInfo from "./BookingInfo";
@@ -77,7 +77,6 @@ const Booking = () => {
 
   return (
     <BookingLayout>
-      {bookingApi.loading && <Alert>isLoading</Alert>}
       {/* <Alert severity="warning">
         劃位功能將於 15:00 關閉 <br />
         使用線上劃位請於 17:00 前進行匯款 <br />
@@ -86,6 +85,7 @@ const Booking = () => {
       <h1>座位區</h1>
       <PriceSigns />
 
+      {!seatsData && <CircularProgress size={100} sx={{ my: 10 }} />}
       {seatsData && (
         <Auditorium
           seatsData={seatsData}
