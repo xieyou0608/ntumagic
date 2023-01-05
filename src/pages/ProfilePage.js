@@ -38,14 +38,16 @@ const ProfilePage = () => {
 
   return (
     <Layout>
-      {profileApi.loading && <Alert>請稍候...</Alert>}
-      {currentUser && (
-        <ProfileBox>
-          <UserInfo />
-          <SeatsTable />
-          <FriendsTable />
-        </ProfileBox>
-      )}
+      <ProfileBox>
+        {profileApi.loading && <Alert>請稍後...</Alert>}
+        {currentUser && (
+          <>
+            <UserInfo />
+            <SeatsTable />
+            <FriendsTable />
+          </>
+        )}
+      </ProfileBox>
     </Layout>
   );
 };

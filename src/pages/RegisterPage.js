@@ -5,7 +5,7 @@ import { AuthLayout, AuthBox } from "./LoginPage";
 const RegisterPage = () => {
   return (
     <AuthLayout>
-      <AuthBox>
+      <AuthBox sx={{ mt: 2 }}>
         <RegisterForm />
       </AuthBox>
     </AuthLayout>

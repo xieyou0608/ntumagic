@@ -1,16 +1,53 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  AppBar,
-  Container,
-  Toolbar,
-  Box,
-  Button,
-  IconButton,
-} from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import { Box, Button, IconButton, styled } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { userLogout } from "../../store/user-actions";
+
+const StyledLink = styled(Link)`
+  color: white;
+  font-size: 14px;
+
+  ${({ theme }) => theme.breakpoints.down("sm")} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+  }
+`;
+
+const PcNavbar = styled("nav")`
+  display: flex;
+  column-gap: 6vmin;
+  padding-left: 6vmin;
+  padding-right: 6vmin;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 10vh;
+  width: 100%;
+
+  ${({ theme }) => theme.breakpoints.down("sm")} {
+    display: none;
+  }
+`;
+
+const MobileNavbar = styled("nav")`
+  position: sticky;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding-left: 6vmin;
+  padding-right: 6vmin;
+
+  display: flex;
+  flex-direction: column;
+
+  ${({ theme }) => theme.breakpoints.up("sm")} {
+    display: none;
+  }
+`;
 
 const Nav = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -24,300 +61,48 @@ const Nav = () => {
     }
   };
 
-  const [menu, setMenu] = useState(false);
-  const handleMenu = () => {
-    if (menu) setMenu(false);
-    else setMenu(true);
+  const [openNav, setOpenNav] = useState(false);
+  const toggleNav = () => {
+    setOpenNav((prev) => !prev);
   };
 
-  const location = useLocation();
+  const content = (
+    <>
+      <StyledLink to="/">首頁</StyledLink>
+      {currentUser && <StyledLink to="/booking">劃位</StyledLink>}
+      {currentUser && <StyledLink to="/profile">個人頁面</StyledLink>}
+      {currentUser && currentUser.user.role === "admin" && (
+        <StyledLink to="/admin">後台</StyledLink>
+      )}
+      {!currentUser && <StyledLink to="/preview">預覽座位</StyledLink>}
+      <StyledLink to="/about" sx={{ flexGrow: 1 }}>
+        聯絡我們
+      </StyledLink>
+      {!currentUser && <StyledLink to="/register">註冊</StyledLink>}
+      {!currentUser && <StyledLink to="/login">登入</StyledLink>}
+      {currentUser && (
+        <Button
+          onClick={handleLogout}
+          sx={{ color: "white", fontSize: "14px" }}
+        >
+          登出
+        </Button>
+      )}
+    </>
+  );
 
   return (
-    <div>
-      {/* PC display */}
-      <AppBar
-        position="sticky"
-        sx={{
-          backgroundColor: "#242423",
-          display: { xs: "none", sm: "flex" },
-        }}
-      >
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <Box sx={{ display: "flex", flexGrow: 1 }}>
-              <Button component={Link} to="/" sx={{ my: 2, color: "white" }}>
-                首頁
-              </Button>
-              <Button
-                component={Link}
-                to="/booking"
-                sx={{ my: 2, color: "white" }}
-              >
-                劃位
-              </Button>
-              {currentUser && (
-                <Button
-                  component={Link}
-                  to="/profile"
-                  sx={{ my: 2, color: "white" }}
-                >
-                  個人頁面
-                </Button>
-              )}
-              {!currentUser && (
-                <Button
-                  component={Link}
-                  to="/register"
-                  sx={{ my: 2, color: "white" }}
-                >
-                  註冊
-                </Button>
-              )}
-              {!currentUser && (
-                <Button
-                  component={Link}
-                  to="/login"
-                  sx={{ my: 2, color: "white" }}
-                >
-                  登入
-                </Button>
-              )}
-              {currentUser && currentUser.user.role === "admin" && (
-                <Button
-                  component={Link}
-                  to="/admin"
-                  sx={{ my: 2, color: "white" }}
-                >
-                  後台
-                </Button>
-              )}
-
-              <Button
-                component={Link}
-                to="/about"
-                sx={{ my: 2, color: "white" }}
-              >
-                聯絡我們
-              </Button>
-              {currentUser && (
-                <Box
-                  sx={{
-                    flexGrow: 1,
-                    display: "flex",
-                    justifyContent: "flex-end",
-                  }}
-                >
-                  <Button onClick={handleLogout} sx={{ my: 2, color: "white" }}>
-                    登出
-                  </Button>
-                </Box>
-              )}
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-      {/* mobile display */}
-      {/* 非座位區 */}
-      {/* {location.pathname !== "/booking" && location.pathname !== "/preview" && ( */}
-      <AppBar
-        position="sticky"
-        sx={{
-          backgroundColor: "rgba(0,0,0, 0.7)",
-          display: { xs: "flex", sm: "none" },
-        }}
-      >
-        <Container maxWidth="xl">
-          <Box
-            sx={{
-              flexDirection: "column",
-            }}
-          >
-            <Box sx={{ textAlign: "right" }}>
-              <IconButton
-                size="small"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-            </Box>
-            {menu && (
-              <Button
-                component={Link}
-                to="/"
-                sx={{ my: 0, color: "white", display: "block" }}
-              >
-                首頁
-              </Button>
-            )}
-            {menu && (
-              <Button
-                component={Link}
-                to="/booking"
-                sx={{ my: 0, color: "white", display: "block" }}
-              >
-                劃位
-              </Button>
-            )}
-            {menu && currentUser && (
-              <Button
-                component={Link}
-                to="/profile"
-                sx={{ my: 0, color: "white", display: "block" }}
-              >
-                個人頁面
-              </Button>
-            )}
-            {menu && !currentUser && (
-              <Button
-                component={Link}
-                to="/register"
-                sx={{ my: 0, color: "white", display: "block" }}
-              >
-                註冊
-              </Button>
-            )}
-            {menu && !currentUser && (
-              <Button
-                component={Link}
-                to="/login"
-                sx={{ my: 0, color: "white", display: "block" }}
-              >
-                登入
-              </Button>
-            )}
-            {menu && (
-              <Button
-                component={Link}
-                to="/about"
-                sx={{ my: 0, color: "white", display: "block" }}
-              >
-                關於我們
-              </Button>
-            )}
-            {menu && currentUser && (
-              <Button
-                onClick={handleLogout}
-                sx={{
-                  my: 0,
-                  color: "white",
-                  display: "block",
-                  textAlign: "left",
-                }}
-              >
-                登出
-              </Button>
-            )}
-          </Box>
-        </Container>
-      </AppBar>
-      {/* )} */}
-      {/* mobile display
-      {/* 座位區 */}
-      {/* {(location.pathname === "/booking" ||
-        location.pathname === "/preview") && (
-        <AppBar
-          position="sticky"
-          sx={{
-            backgroundColor: "rgba(0,0,0, 0.7)",
-            display: { xs: "flex", sm: "none" },
-          }}
-        >
-          <Container maxWidth="xl">
-            <Box
-              sx={{
-                flexDirection: "column",
-                display: { xs: "flex", sm: "none" },
-                // width: "700px",
-                // overflow: "visible",
-                // overflowX: "visible",
-              }}
-            >
-              <Box sx={{ textAlign: "right" }}>
-                <IconButton
-                  size="small"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-              </Box>
-              {menu && (
-                <Button
-                  component={Link}
-                  to="/"
-                  sx={{ my: 0, color: "white", display: "block" }}
-                >
-                  首頁
-                </Button>
-              )}
-              {menu && (
-                <Button
-                  component={Link}
-                  to="/booking"
-                  sx={{ my: 0, color: "white", display: "block" }}
-                >
-                  劃位
-                </Button>
-              )}
-              {menu && currentUser && (
-                <Button
-                  component={Link}
-                  to="/profile"
-                  sx={{ my: 0, color: "white", display: "block" }}
-                >
-                  個人頁面
-                </Button>
-              )}
-              {menu && !currentUser && (
-                <Button
-                  component={Link}
-                  to="/register"
-                  sx={{ my: 0, color: "white", display: "block" }}
-                >
-                  註冊
-                </Button>
-              )}
-              {menu && !currentUser && (
-                <Button
-                  component={Link}
-                  to="/login"
-                  sx={{ my: 0, color: "white", display: "block" }}
-                >
-                  登入
-                </Button>
-              )}
-              {menu && (
-                <Button
-                  component={Link}
-                  to="/about"
-                  sx={{ my: 0, color: "white", display: "block" }}
-                >
-                  關於我們
-                </Button>
-              )}
-              {menu && currentUser && (
-                <Button
-                  onClick={handleLogout}
-                  sx={{
-                    my: 0,
-                    color: "white",
-                    display: "block",
-                    textAlign: "left",
-                  }}
-                >
-                  登出
-                </Button>
-              )}
-            </Box>
-          </Container>
-        </AppBar>
-      )} */}
-    </div>
+    <>
+      <PcNavbar>{content}</PcNavbar>
+      <MobileNavbar>
+        <Box sx={{ textAlign: "right" }}>
+          <IconButton onClick={toggleNav} sx={{ color: "white" }}>
+            <MenuIcon />
+          </IconButton>
+        </Box>
+        {openNav && <>{content}</>}
+      </MobileNavbar>
+    </>
   );
 };
 
