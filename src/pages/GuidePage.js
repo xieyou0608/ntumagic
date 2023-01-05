@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert, styled } from "@mui/material";
-import SquareButton from "../components/UI/SquareButton";
+import { ContainedButton } from "../components/UI/GuideButtons";
 import ForwardIcon from "@mui/icons-material/Forward";
 
 const GuideLayout = styled("div")`
@@ -157,8 +157,9 @@ const GuidePage = () => {
         <h2>Step 5（重要！）</h2>
         <p>魔夜當日請出示劃位成功通知信領取實體票</p>
       </GuideBox>
-
-      <SquareButton onClick={handleGuide}>點我開始</SquareButton>
+      <ContainedButton onClick={handleGuide} sx={{ mt: 2 }}>
+        點我開始
+      </ContainedButton>
     </GuideLayout>
   );
 };

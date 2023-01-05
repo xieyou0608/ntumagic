@@ -14,6 +14,9 @@ const theme = createTheme({
     border: {
       main: "#540b0e",
     },
+    darkBlue: {
+      main: "#234b88",
+    },
   },
   typography: {
     // Change font-family of all mui components

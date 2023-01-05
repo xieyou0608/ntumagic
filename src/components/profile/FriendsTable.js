@@ -12,23 +12,22 @@ import {
   Stack,
   Table,
   TableBody,
-  TableCell,
+  TableCell as muiTableCell,
   TableContainer,
   TableHead,
   TableRow,
   Paper,
   styled,
 } from "@mui/material";
-import { EditButton, CheckButton } from "../UI/ProfileButton";
+import { EditButton, CheckButton } from "../UI/ProfileButtons";
+import theme from "../../styles/theme";
 
-const GapBox = styled(Box)`
-  display: flex;
-  column-gap: 1vw;
-  margin-bottom: 1vh;
+const TableCell = styled(muiTableCell)`
+  background-color: ${theme.palette.background.main};
+`;
 
-  h2 {
-    display: inline;
-  }
+const HeaderTableCell = styled(muiTableCell)`
+  background-color: ${theme.palette.gentle.main};
 `;
 
 const FriendsTable = () => {
@@ -87,22 +86,22 @@ const FriendsTable = () => {
 
   return (
     <Box>
-      <GapBox>
+      <Stack direction="row" spacing={2} mb={1}>
         <h2>同行朋友</h2>
         {!isEditing && <EditButton onClick={handleEditing}>修改</EditButton>}
-      </GapBox>
+      </Stack>
 
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
-            <TableRow sx={{ backgroundColor: "#4aedc4" }}>
-              <TableCell>
+            <TableRow>
+              <HeaderTableCell>
                 <Typography>姓名</Typography>
-              </TableCell>
-              <TableCell>
+              </HeaderTableCell>
+              <HeaderTableCell>
                 <Typography>聯絡電話</Typography>
-              </TableCell>
-              {isEditing && <TableCell></TableCell>}
+              </HeaderTableCell>
+              {isEditing && <HeaderTableCell></HeaderTableCell>}
             </TableRow>
           </TableHead>
           <TableBody>

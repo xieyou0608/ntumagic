@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import moment from "moment-timezone";
 import { Grid } from "@mui/material";
-import SquareButton from "../components/UI/SquareButton";
+import { ContainedButton } from "../components/UI/GuideButtons";
 import { useSelector } from "react-redux";
 
 const BookingPage = () => {
@@ -54,14 +54,13 @@ const BookingPage = () => {
             （現場將於 17:00 開始進行售票）
           </Alert>
 
-          <SquareButton
-            color="#1465dd"
+          <ContainedButton
             onClick={() => {
               navigate("/preview");
             }}
           >
             查看當前座位
-          </SquareButton>
+          </ContainedButton>
         </Grid>
       )}
     </div>

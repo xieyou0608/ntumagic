@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { styled } from "@mui/material";
-import HomeButton from "../components/UI/HomeButton";
 import poster from "../img/magic_night.jpg";
+import { OutlinedButton } from "../components/UI/GuideButtons";
 
 const HomeLayout = styled("div")`
   height: 100vh;
@@ -9,7 +9,6 @@ const HomeLayout = styled("div")`
   color: ${({ theme }) => theme.palette.gold.main};
   background-image: linear-gradient(90deg, #000000 50%, #2c2c2c 100%);
 
-  /* @media (max-width: 600px) */
   ${({ theme }) => theme.breakpoints.down("sm")} {
     background-image: none;
     background-color: #000000;
@@ -80,11 +79,11 @@ const HomePage = () => {
           地點：民生社區活動中心集會堂 <br />
         </p>
         <Link to="/guide">
-          <HomeButton type="button">點我劃位</HomeButton>
+          <OutlinedButton type="button">點我劃位</OutlinedButton>
         </Link>
         <br />
         <Link to="/preview">
-          <HomeButton type="button">座位預覽</HomeButton>
+          <OutlinedButton type="button">座位預覽</OutlinedButton>
         </Link>
       </Info>
     </HomeLayout>

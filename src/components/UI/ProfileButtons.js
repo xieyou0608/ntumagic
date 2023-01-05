@@ -13,8 +13,9 @@ EditButton.defaultProps = {
 
 const CheckButton = styled(Button)`
   && {
-    background-color: ${({ theme }) => theme.palette.gentle.main};
+    background-color: ${({ theme }) => theme.palette.darkBlue.main};
     color: black;
+    color: white;
   }
 `;
 

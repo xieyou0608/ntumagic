@@ -2,23 +2,37 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateBank } from "../../store/user-actions";
 
-import { Box, styled, TextField } from "@mui/material";
-import { EditButton, CheckButton } from "../UI/ProfileButton";
+import {
+  Box,
+  Typography,
+  Table,
+  TableBody,
+  TableCell as muiTableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  styled,
+  TextField,
+} from "@mui/material";
+import { EditButton, CheckButton } from "../UI/ProfileButtons";
+import theme from "../../styles/theme";
 
-const Layout = styled(Box)`
-  font-size: large;
+const TableCell = styled(muiTableCell)`
+  background-color: ${theme.palette.background.main};
 `;
 
 const BankBox = styled(Box)`
   display: flex;
   align-items: center;
   column-gap: 1vw;
+  margin: 8px 0;
 `;
 const EditBox = styled(Box)`
   display: flex;
   column-gap: 1vw;
   align-items: flex-start;
-  margin-top: 1vh;
+  margin: 8px 0;
 `;
 
 const UserInfo = () => {
@@ -52,46 +66,29 @@ const UserInfo = () => {
     }
   }, [bankApi]);
 
+  const userinfo = [
+    { title: "姓名", content: currentUser.user.username },
+    { title: "手機", content: currentUser.user.phone },
+    { title: "信箱", content: currentUser.user.email },
+    {
+      title: "身分",
+      content: currentUser.user.isStudent ? "校內學生" : "校外人士",
+    },
+    { title: "已劃位數", content: currentUser.user.tickets.length },
+  ];
+
   return (
-    <Layout>
-      <h1>個人資料 </h1>
-      <table style={{ width: "100%" }}>
-        <tbody>
-          <tr>
-            <td>姓名</td>
-            <td>{currentUser.user.username}</td>
-          </tr>
-          <tr>
-            <td>手機</td>
-            <td>{currentUser.user.phone}</td>
-          </tr>
-          <tr>
-            <td>信箱</td>
-            <td>{currentUser.user.email}</td>
-          </tr>
-          <tr>
-            <td>身分</td>
-            <td>{currentUser.user.isStudent ? "校內學生" : "校外人士"}</td>
-          </tr>
-          <tr>
-            <td>已劃位數 </td>
-            <td>{currentUser.user.tickets.length}</td>
-          </tr>
-          {!isEditingBank && (
-            <tr>
-              <td>付款帳號</td>
-              <td>
-                <BankBox>
-                  {currentUser.user.bankAccount
-                    ? currentUser.user.bankAccount
-                    : "尚未設定"}
-                  <EditButton onClick={handleEditingBank}>修改</EditButton>
-                </BankBox>
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+    <Box>
+      <h2>個人資料</h2>
+      {!isEditingBank && (
+        <BankBox>
+          付款帳號：
+          {currentUser.user.bankAccount
+            ? currentUser.user.bankAccount
+            : "尚未設定"}
+          <EditButton onClick={handleEditingBank}>修改</EditButton>
+        </BankBox>
+      )}
       {isEditingBank && (
         <form onSubmit={handleSubmitBank}>
           <EditBox>
@@ -108,7 +105,32 @@ const UserInfo = () => {
           </EditBox>
         </form>
       )}
-    </Layout>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell
+                colSpan={2}
+                align="center"
+                sx={{
+                  backgroundColor: theme.palette.gentle.main,
+                }}
+              >
+                <Typography>個人資料</Typography>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {userinfo.map((info) => (
+              <TableRow key={info.title}>
+                <TableCell>{info.title}</TableCell>
+                <TableCell>{info.content}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 };
 
