@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Grid, Typography, styled } from "@mui/material";
-import { RoundedButton } from "../components/UI/GuideButtons";
+import { Typography, styled } from "@mui/material";
+import { DarkBlueButton } from "../components/UI/GuideButtons";
 
 const Layout = styled("div")`
   display: flex;
@@ -24,11 +24,11 @@ const PreBookingPage = () => {
       <StyledBox>
         <Typography variant="h5">A. 我只要劃一個位子</Typography>
         <Link to="/booking">
-          <RoundedButton>→直接去劃位!</RoundedButton>
+          <DarkBlueButton>→直接去劃位!</DarkBlueButton>
         </Link>
         <Typography variant="h5">B. 我想劃多個位子</Typography>
         <Link to="/profile">
-          <RoundedButton>→新增同行朋友</RoundedButton>
+          <DarkBlueButton>→新增同行朋友</DarkBlueButton>
         </Link>
       </StyledBox>
     </Layout>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SeatService from "../../services/seat.service";
 import { useNavigate } from "react-router-dom";
 import { BookingLayout } from "./Booking";
-import { ContainedButton } from "../UI/GuideButtons";
+import { GentleYellowButton } from "../UI/GuideButtons";
 import PriceSigns from "./PriceSigns";
 import Auditorium from "./Auditorium";
 
@@ -33,7 +33,7 @@ const Preview = () => {
       <PriceSigns />
       {seatsData && <Auditorium seatsData={seatsData} chosenSeats={[]} />}
       <br />
-      <ContainedButton onClick={goToGuide}>前往劃位</ContainedButton>
+      <GentleYellowButton onClick={goToGuide}>前往劃位</GentleYellowButton>
     </BookingLayout>
   );
 };

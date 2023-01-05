@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { styled } from "@mui/material";
 import poster from "../img/magic_night.jpg";
-import { OutlinedButton } from "../components/UI/GuideButtons";
+import { GoldButton } from "../components/UI/GuideButtons";
 
 const HomeLayout = styled("div")`
   height: 100vh;
@@ -79,11 +79,11 @@ const HomePage = () => {
           地點：民生社區活動中心集會堂 <br />
         </p>
         <Link to="/guide">
-          <OutlinedButton type="button">點我劃位</OutlinedButton>
+          <GoldButton type="button">點我劃位</GoldButton>
         </Link>
         <br />
         <Link to="/preview">
-          <OutlinedButton type="button">座位預覽</OutlinedButton>
+          <GoldButton type="button">座位預覽</GoldButton>
         </Link>
       </Info>
     </HomeLayout>
