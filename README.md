@@ -3,7 +3,7 @@
 提供第 26 屆魔幻之夜觀眾進行線上劃位  
 專案採前後端分離開發，此為前端 repo，後端 repo 請至[這裡](https://github.com/xieyou0608/ntumagic-server)  
 
-![劃位範例](https://j.gifs.com/36Xxj9.gif)
+![劃位範例](https://i.imgur.com/V4Ks3Kk.gif)
 
 
 ## Tech Stack
@@ -21,7 +21,7 @@ $ npm install && npm start
 ## 劃位流程安排
 UX 設計理念：讓用戶跟著設定的流程跳轉頁面  
 每一頁會有1~2個大按鈕引導觀眾劃位，其他連結則在 anchor tag 或 nav 出現  
-![劃位流程圖](./doc/劃位流程圖.jpg)
+![劃位流程圖](./docs/劃位流程圖.jpg)
 
 &nbsp;
 ## 劃位限制
