@@ -43,6 +43,7 @@ const Booking = () => {
     try {
       const res = await SeatService.getAllSeats();
       setSeatsData([...res.data]);
+      console.log(res.data)
     } catch (error) {
       console.log(error);
     }

@@ -34,7 +34,8 @@ const RegisterForm = () => {
     setPhone(e.target.value);
   };
 
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
+    e.preventDefault();
     if (password !== confirmPwd) {
       setErrorMessage("密碼不相符");
     } else {
