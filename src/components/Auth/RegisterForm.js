@@ -16,6 +16,7 @@ const RegisterForm = () => {
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChangeEmail = (e) => {
@@ -41,11 +42,13 @@ const RegisterForm = () => {
     } else {
       setErrorMessage("");
       try {
+        setIsLoading(true);
         await AuthService.register(email, password, username, phone);
         window.alert("註冊成功! 將前往登入頁面");
         navigate("/login");
       } catch (error) {
         setErrorMessage(error.response.data);
+        setIsLoading(false);
       }
     }
   };
@@ -82,7 +85,7 @@ const RegisterForm = () => {
         <AuthInput onChange={handleChangePhone} type="text" label="聯絡電話" />
       </InputBox>
       <AuthButton type="submit" variant="contained">
-        註冊
+        {isLoading ? "註冊中..." : "註冊"}
       </AuthButton>
       <Button component={Link} to="/login">
         已經註冊，點此登入
