@@ -1,16 +1,11 @@
 import { renderWithProviders } from "../../setupTest";
-import { screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-
 import LoginForm from "./LoginForm";
 
-const mockDispatch = jest.fn();
-jest.mock("react-redux", () => {
-  return {
-    ...jest.requireActual("react-redux"),
-    useDispatch: () => mockDispatch,
-  };
-});
+import { screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import axios from "axios";
+
+jest.mock("axios");
 
 describe("LoginForm unit test", () => {
   test("the login form is display correctly", () => {
@@ -29,15 +24,36 @@ describe("LoginForm unit test", () => {
     expect(goToRegisterLink).toBeInTheDocument();
   });
 
-  test("click loginBtn will trigger dispatch", () => {
+  test("login success", async () => {
+    const res = { status: 200, data: { token: "mockJWT123" } };
+    axios.post.mockResolvedValue(res);
+
     renderWithProviders(<LoginForm />);
-
     const loginBtn = screen.getByRole("button", { name: "登入" });
+    expect(loginBtn.textContent).toBe("登入");
+
     userEvent.click(loginBtn);
+    expect(loginBtn.textContent).toBe("登入中...");
 
-    expect(mockDispatch).toHaveBeenCalled();
+    await waitFor(() => expect(loginBtn.textContent).toBe("登入"));
+    const errorAlert = screen.queryByRole("alert");
+    expect(errorAlert).toBeNull();
+  });
 
-    // 如果沒有寫 preventDefault, test log 會報錯，但還是會通過測試
-    // expect(submitEvent.preventDefault).toHaveBeenCalled();
+  test("login fail", async () => {
+    const res = { status: 400, message: '"email" is not allowed to be empty' };
+    axios.post.mockRejectedValue(res);
+
+    renderWithProviders(<LoginForm />);
+    const loginBtn = screen.getByRole("button", { name: "登入" });
+    expect(loginBtn.textContent).toBe("登入");
+
+    userEvent.click(loginBtn);
+    expect(loginBtn.textContent).toBe("登入中...");
+
+    await waitFor(() => expect(loginBtn.textContent).toBe("登入"));
+    const errorAlert = screen.getByRole("alert");
+    expect(errorAlert).toBeInTheDocument();
+    expect(errorAlert.textContent).toBe('"email" is not allowed to be empty');
   });
 });
