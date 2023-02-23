@@ -7,7 +7,7 @@ import axios from "axios";
 
 jest.mock("axios");
 
-describe("LoginForm unit test", () => {
+describe("LoginForm test", () => {
   test("the login form is display correctly", () => {
     renderWithProviders(<LoginForm />);
 

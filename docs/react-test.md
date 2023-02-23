@@ -57,3 +57,10 @@ https://medium.com/enjoy-life-enjoy-coding/react-unit-test-react-%E7%9A%84-route
 但顯然上面那樣是過不了測試的，因為只 render 了 ```<Login/>```，而沒有 render ```<Register/>```，假使把上面換成```<App/>```就可以通過，而且也是正確的測試方式，但既然是 unit test，在 LoginForm.test.js 裡引入 App 顯然超怪，換個 keyword ```react router integration test```後找到了下面這篇討論  
 [Recommended approach for route-based tests within routes of react-router](https://stackoverflow.com/questions/65270992/recommended-approach-for-route-based-tests-within-routes-of-react-router)
 回覆的蠻完整的，大致上是說從 Unit Test 的角度來說，我的```<Login/>```需要負責的是點下按鈕後把 user 推到 "/register" 即可，而要測試換頁後出現註冊畫面就是 integration test 的範圍了(也就是```<App/>```)。
+
+
+## mock 汙染問題
+https://stackoverflow.com/questions/53611098/how-can-i-mock-the-window-alert-method-in-jest  
+這篇提到  
+jest.spyOn(window, 'alert').mockImplementation(() => {});  
+會比 window.alert = jest.fn() 好，因為後者會汙染 suite
