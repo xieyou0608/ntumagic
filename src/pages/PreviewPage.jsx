@@ -1,5 +1,5 @@
 import React from "react";
-import Preview from "../components/Booking/Preview";
+import Preview from "../components/booking/Preview";
 
 const PreviewPage = ({}) => {
   return (

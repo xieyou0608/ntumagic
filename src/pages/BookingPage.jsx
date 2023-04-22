@@ -1,5 +1,5 @@
 import React from "react";
-import Booking from "../components/Booking/Booking";
+import Booking from "../components/booking/Booking";
 import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import moment from "moment-timezone";
