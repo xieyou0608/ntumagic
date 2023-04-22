@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import SeatService from "../../services/seat.service";
 import AdminService from "../../services/admin.service";
 import { TextField, Button } from "@mui/material";
-import { BookingLayout } from "../Booking/Booking";
-import Auditorium from "../Booking/Auditorium";
+import { BookingLayout } from "../booking/Booking";
+import Auditorium from "../booking/Auditorium";
 
 const AdminBooking = () => {
   const [seatsData, setSeatsData] = useState(null);

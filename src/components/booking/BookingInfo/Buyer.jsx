@@ -30,9 +30,8 @@ const TableCell = styled(muiTableCell)`
 const Buyer = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const username = currentUser.user.username;
-  const numFriends = currentUser.user.friends.length;
-  const numAvailable = numFriends + 1;
   const numTickets = currentUser.user.tickets.length;
+  const numAvailable = 6 - numTickets;
   return (
     <TableContainer component={Paper}>
       <Table>

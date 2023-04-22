@@ -4,7 +4,6 @@ import { loadProfile } from "../store/user-actions";
 
 import UserInfo from "../components/Profile/UserInfo";
 import SeatsTable from "../components/Profile/SeatsTable";
-import FriendsTable from "../components/Profile/FriendsTable";
 import { Box, CircularProgress, styled } from "@mui/material";
 
 const Layout = styled("div")`
@@ -22,6 +21,8 @@ const ProfileBox = styled("div")`
   border-radius: 3vmin;
   row-gap: 3vh;
   padding: 7vmin;
+
+  min-width: 55vw;
 
   ${({ theme }) => theme.breakpoints.down("sm")} {
     padding: 5vw;
@@ -48,7 +49,6 @@ const ProfilePage = () => {
           <>
             <UserInfo />
             <SeatsTable />
-            <FriendsTable />
           </>
         )}
       </ProfileBox>

@@ -64,8 +64,7 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats }) => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const chosenHandler = () => {
     let seats_arr = [];
-    let available =
-      currentUser.user.friends.length - currentUser.user.tickets.length + 1;
+    let available = 6 - currentUser.user.tickets.length;
 
     if (chosenSeats.includes(seatData)) {
       seats_arr = chosenSeats.filter((chosen) => chosen !== seatData);
