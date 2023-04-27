@@ -90,9 +90,6 @@ const Booking = ({ isTesting, isStudentTime }) => {
         buyer.bankAccount
       );
       window.alert("劃位成功!");
-      if (isTesting) {
-        window.alert("測試劃位將於系統開放後清除");
-      }
       navigate("/pay");
     } catch (error) {
       console.log(error);
@@ -133,7 +130,7 @@ const Booking = ({ isTesting, isStudentTime }) => {
         />
       )}
       <br />
-      <Alert color="error">測試劃位將於系統開放後清除</Alert>
+      {isTesting && <Alert color="error">測試劃位將於系統開放後清除</Alert>}
 
       <BookingInfo
         chosenSeats={chosenSeats}
