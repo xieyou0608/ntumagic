@@ -14,7 +14,7 @@ import {
 const TableContainer = styled(muiTableContainer)`
   width: 35vw;
   ${({ theme }) => theme.breakpoints.down("sm")} {
-    width: 50vw;
+    width: 100%;
   }
 `;
 

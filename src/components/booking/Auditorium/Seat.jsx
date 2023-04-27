@@ -56,10 +56,8 @@ const ChosenSeat = styled(AvailableSeat)`
 
 const Seat = ({ seatData, chosenSeats, setChosenSeats }) => {
   const location = useLocation();
-  let isPreview = false;
-  if (location.pathname === "/preview") {
-    isPreview = true;
-  }
+  // const isPreview = location.pathname === "/preview";
+  const isAdmin = location.pathname === "/admin";
 
   // const currentUser = useSelector((state) => state.user.currentUser);
   const chosenHandler = () => {
@@ -77,6 +75,13 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats }) => {
     setChosenSeats(seats_arr);
   };
 
+  if (isAdmin && seatData.area === "X") {
+    return <BlankSpace onClick={chosenHandler} />;
+  }
+  if (isAdmin && seatData.area === "S") {
+    return <SoldSeat onClick={chosenHandler}>S</SoldSeat>;
+  }
+
   if (seatData.area === "X") {
     return <BlankSpace />;
   }
@@ -88,9 +93,9 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats }) => {
   }
 
   // colored seat
-  if (isPreview) {
-    return <PreviewSeat area={seatData.area}>{seatData.col}</PreviewSeat>;
-  }
+  // if (isPreview) {
+  //   return <PreviewSeat area={seatData.area}>{seatData.col}</PreviewSeat>;
+  // }
 
   if (chosenSeats.includes(seatData)) {
     return <ChosenSeat onClick={chosenHandler}>{seatData.col}</ChosenSeat>;

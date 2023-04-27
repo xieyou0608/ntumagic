@@ -17,7 +17,9 @@ const TableContainer = styled(muiTableContainer)`
   margin-left: 5vw;
 
   ${({ theme }) => theme.breakpoints.down("sm")} {
-    width: 35vw;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 5vh;
   }
 `;
 

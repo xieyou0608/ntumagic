@@ -78,8 +78,24 @@ const AdminBooking = ({ token }) => {
     <BookingLayout>
       <h1>座位區</h1>
       <Button variant="contained" color="error" onClick={clearAllSeats}>
-        清除所有座位
+        清除所有訂位
       </Button>
+      <p>上面這個會清掉所有人的劃位，請謹慎使用，或不要按</p>
+      <br />
+      <div>
+        <p>
+          <h2>說明:</h2>
+          選擇位子之後填A, B, C, X, S <br />
+          X
+          是不能坐人的地方(沒椅子的地方)，會呈現空白，觀眾不能點，但你可以點然後改回
+          A 區之類 <br />S
+          是特別座(Special)，觀眾劃位會看到是被劃走，但後台可以看到白色 S 方塊{" "}
+          <br />
+          白色數字方塊是被劃走的位子，就不能改，有需要改再另外討論
+          <br />
+          剛開始改你可以另外開個視窗看觀眾會看到的樣子
+        </p>
+      </div>
       {seatsData && (
         <Auditorium
           seatsData={seatsData}

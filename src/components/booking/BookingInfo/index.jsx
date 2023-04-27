@@ -1,5 +1,4 @@
 import Cart from "./Cart";
-import Buyer from "./Buyer";
 import BuyerForm from "./BuyerForm";
 import { styled } from "@mui/material";
 
@@ -11,7 +10,10 @@ const InfoLayout = styled("div")`
   width: 70vw;
 
   ${({ theme }) => theme.breakpoints.down("sm")} {
-    width: 100%;
+    width: 80vw;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `;
 

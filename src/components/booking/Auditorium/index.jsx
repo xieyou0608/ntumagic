@@ -34,7 +34,7 @@ const Row = styled("div")`
 
 const Stage = styled("div")`
   border-style: solid;
-  margin-top: 3vh;
+  margin-bottom: 3vh;
   padding: 0.5rem 30%;
   background-color: ${({ theme }) => theme.palette.gentle.main};
 `;
@@ -47,6 +47,7 @@ const Auditorium = ({ seatsData, chosenSeats, setChosenSeats }) => {
   return (
     <OverflowBox>
       <AuditoriumLayout>
+        <Stage>舞台</Stage>
         {rows.map((row) => {
           return (
             <Row key={rowId[row]}>
@@ -65,7 +66,6 @@ const Auditorium = ({ seatsData, chosenSeats, setChosenSeats }) => {
             </Row>
           );
         })}
-        <Stage>舞台</Stage>
       </AuditoriumLayout>
     </OverflowBox>
   );
