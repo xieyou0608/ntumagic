@@ -10,13 +10,8 @@ import { useSelector } from "react-redux";
 const BookingPage = () => {
   const navigate = useNavigate();
   moment.tz.setDefault("Asia/Taipei");
-  let isStudentTime = moment().isBetween(
-    "2023-04-28 20:00:00",
-    "2023-04-29 20:00:00"
-  );
-  let isOthersTime = moment().isAfter("2022-05-22 20:00:00");
-  // let isOpening = moment().isBefore("2022-06-14 15:00:00");
-  let isOpening = moment().isBefore("2023-12-31 15:00:00");
+  let isTesting = moment().isBefore("2023-04-28 20:00:00");
+  let isStudentTime = moment().isBefore("2023-04-29 20:00:00");
 
   // const checkTimeAvailable = () => {
   //   if (currentUser.user.role === "admin") {
@@ -36,7 +31,7 @@ const BookingPage = () => {
 
   return (
     <div>
-      <Booking isStudentTime={isStudentTime} />
+      <Booking isTesting={isTesting} isStudentTime={isStudentTime} />
       {/* {!checkTimeAvailable() && (
         <Grid
           container

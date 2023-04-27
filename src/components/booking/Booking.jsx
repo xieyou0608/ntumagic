@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SeatService from "../../services/seat.service";
 import { bookTickets, clearAPI } from "../../store/user-actions";
 
-import { Button, CircularProgress, styled } from "@mui/material";
+import { Button, CircularProgress, styled, Alert } from "@mui/material";
 import PriceSigns from "./PriceSigns";
 import Auditorium from "./Auditorium";
 import BookingInfo from "./BookingInfo";
@@ -32,7 +32,7 @@ const ConfirmButton = styled(Button)`
   }
 `;
 
-const Booking = () => {
+const Booking = ({ isTesting, isStudentTime }) => {
   const navigate = useNavigate();
   const [seatsData, setSeatsData] = useState(null);
   const [chosenSeats, setChosenSeats] = useState([]);
@@ -72,6 +72,10 @@ const Booking = () => {
       window.alert("請填寫匯款資訊!");
       return;
     }
+    if (isStudentTime && !buyer.email.includes("ntu.edu.tw")) {
+      window.alert("現在為校內售票時間，請使用台大信箱");
+      return;
+    }
 
     localStorage.setItem("buyer", JSON.stringify(buyer));
 
@@ -86,6 +90,9 @@ const Booking = () => {
         buyer.bankAccount
       );
       window.alert("劃位成功!");
+      if (isTesting) {
+        window.alert("測試劃位將於系統開放後清除");
+      }
       navigate("/pay");
     } catch (error) {
       console.log(error);
@@ -125,6 +132,8 @@ const Booking = () => {
           setChosenSeats={setChosenSeats}
         />
       )}
+      <br />
+      <Alert color="error">測試劃位將於系統開放後清除</Alert>
 
       <BookingInfo
         chosenSeats={chosenSeats}
