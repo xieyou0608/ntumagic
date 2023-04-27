@@ -88,7 +88,7 @@ const GuidePage = () => {
         <h2>Step 1</h2>
         <p>
           請於系統開放後至<Link to="/booking">劃位頁面</Link>選擇座位 <br />
-          ※單次最多可劃 4 張票
+          ※單個信箱最多可劃 6 張票
         </p>
       </GuideBox>
       <Arrow />
@@ -97,7 +97,7 @@ const GuidePage = () => {
         <p>
           選擇位置後請填寫信箱及預計匯款帳戶末五碼
           <br />
-          ※校內售票時段請填寫 NTU mail
+          ※校內售票時段請使用 NTU mail (ntu.edu.tw)
           <br />
           ※若需使用其他付款方式請私訊粉專
         </p>
