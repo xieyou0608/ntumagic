@@ -15,7 +15,7 @@ import AdminService from "../../services/admin.service";
 import { v4 as uuidv4 } from "uuid";
 import UserRow from "./UserRow";
 
-const UsersMonitor = ({ token }) => {
+const UsersMonitor = () => {
   const [users, setUsers] = useState([]);
   const [showId, setShowId] = useState(false);
   const [showDate, setShowDate] = useState(false);
@@ -28,7 +28,7 @@ const UsersMonitor = ({ token }) => {
   };
 
   useEffect(() => {
-    AdminService.getAllUser(token)
+    AdminService.getAllUser()
       .then((res) => {
         setUsers(res.data);
       })
@@ -45,11 +45,6 @@ const UsersMonitor = ({ token }) => {
           確認付款
         </Button>
         更新觀眾所有座位的付款狀態，全部都會變成已付款。
-        <br />
-        <Button color="secondary" variant="contained">
-          已傳郵件
-        </Button>
-        更新通知狀態。這個狀態是給後台看而已，如果之前人工寄信過的按這個
         <br />
         <Button color="primary" variant="contained">
           傳送郵件

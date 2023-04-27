@@ -62,9 +62,24 @@ const AdminBooking = ({ token }) => {
     }
   }, [finalChosen, newArea]);
 
+  const clearAllSeats = async () => {
+    if (window.confirm("確定要清出所有座位?")) {
+      try {
+        await AdminService.clearAllSeats();
+        alert("成功清除");
+        loadSeatsData();
+      } catch (e) {
+        alert("Something wrong");
+      }
+    }
+  };
+
   return (
     <BookingLayout>
       <h1>座位區</h1>
+      <Button variant="contained" color="error" onClick={clearAllSeats}>
+        清除所有座位
+      </Button>
       {seatsData && (
         <Auditorium
           seatsData={seatsData}

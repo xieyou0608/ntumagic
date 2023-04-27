@@ -50,7 +50,7 @@ const MobileNavbar = styled("nav")`
 `;
 
 const Nav = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const currentUser = JSON.parse(localStorage.getItem("admin"));
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {

@@ -92,6 +92,7 @@ const BuyerForm = ({ buyer, setBuyer }) => {
                 <InputBox>
                   <BuyerInput
                     onChange={handleBuyerChange}
+                    value={buyer.email}
                     type="email"
                     label="信箱"
                     name="email"
@@ -100,6 +101,7 @@ const BuyerForm = ({ buyer, setBuyer }) => {
                 <InputBox>
                   <BuyerInput
                     onChange={handleBuyerChange}
+                    value={buyer.username}
                     type="text"
                     label="姓名"
                     name="username"
@@ -108,6 +110,7 @@ const BuyerForm = ({ buyer, setBuyer }) => {
                 <InputBox>
                   <BuyerInput
                     onChange={handleBuyerChange}
+                    value={buyer.bankAccount}
                     type="text"
                     label="預計匯款帳戶末五碼"
                     name="bankAccount"

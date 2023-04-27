@@ -6,24 +6,10 @@ import { v4 as uuidv4 } from "uuid";
 const UserRow = ({ userdata, showId, showDate }) => {
   let [user, setUser] = useState(userdata);
 
-  const handleDeleteUser = (e) => {
-    if (window.confirm("確定要刪除用戶嗎?")) {
-      console.log(e.target.value);
-      let _user_id = e.target.value;
-      AdminService.deleteUser(_user_id)
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
-
   const handleClearSeats = (e) => {
     if (window.confirm("確定刪除座位?")) {
       let user_id = e.target.value;
-      AdminService.clearSeats(user_id)
+      AdminService.clearUserSeats(user_id)
         .then((res) => {
           console.log(res.data);
           setUser(res.data);
@@ -52,20 +38,6 @@ const UserRow = ({ userdata, showId, showDate }) => {
     if (window.confirm("確認傳送email")) {
       let user_id = e.target.value;
       AdminService.sendEmail(user_id)
-        .then((res) => {
-          console.log(res.data);
-          setUser(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
-
-  const handleCheckEmail = (e) => {
-    if (window.confirm("確認email已經傳送過")) {
-      let user_id = e.target.value;
-      AdminService.checkEmail(user_id)
         .then((res) => {
           console.log(res.data);
           setUser(res.data);
@@ -118,14 +90,7 @@ const UserRow = ({ userdata, showId, showDate }) => {
         >
           確認付款
         </Button>
-        <Button
-          onClick={handleCheckEmail}
-          value={user._id}
-          color="secondary"
-          variant="contained"
-        >
-          已傳郵件
-        </Button>
+
         <Button
           onClick={handleSendEmail}
           value={user._id}
@@ -141,14 +106,6 @@ const UserRow = ({ userdata, showId, showDate }) => {
           variant="contained"
         >
           清除座位
-        </Button>
-        <Button
-          onClick={handleDeleteUser}
-          value={user._id}
-          color="error"
-          variant="contained"
-        >
-          刪除用戶
         </Button>
       </TableCell>
     </TableRow>

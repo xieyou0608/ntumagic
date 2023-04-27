@@ -46,7 +46,6 @@ const Booking = () => {
     try {
       const res = await SeatService.getAllSeats();
       setSeatsData([...res.data]);
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -54,6 +53,11 @@ const Booking = () => {
 
   useEffect(() => {
     loadSeatsData();
+    const lastBuyer = localStorage.getItem("buyer");
+    if (lastBuyer) {
+      console.log(JSON.parse(lastBuyer));
+      setBuyer(JSON.parse(lastBuyer));
+    }
   }, []);
 
   const clearChosenHandler = () => {
@@ -69,6 +73,8 @@ const Booking = () => {
       return;
     }
 
+    localStorage.setItem("buyer", JSON.stringify(buyer));
+
     try {
       const positions = chosenSeats.map((x) => {
         return { row: x.row, col: x.col };
@@ -83,7 +89,7 @@ const Booking = () => {
       navigate("/pay");
     } catch (error) {
       console.log(error);
-      alert("位置已被其他人選擇，請重新劃位");
+      alert(error.response.data);
       setChosenSeats([]);
       loadSeatsData();
     }
