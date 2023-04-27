@@ -1,5 +1,5 @@
 import axios from "axios";
-const SEATS_API = process.env.REACT_APP_API_URL + "/tickets";
+const SEATS_API = process.env.REACT_APP_API_URL + "/seats";
 
 class SeatService {
   getAllSeats() {

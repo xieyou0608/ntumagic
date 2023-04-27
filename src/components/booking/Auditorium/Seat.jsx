@@ -64,7 +64,7 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats }) => {
   // const currentUser = useSelector((state) => state.user.currentUser);
   const chosenHandler = () => {
     let seats_arr = [];
-    let available = 4;
+    let available = 6;
 
     if (chosenSeats.includes(seatData)) {
       seats_arr = chosenSeats.filter((chosen) => chosen !== seatData);
