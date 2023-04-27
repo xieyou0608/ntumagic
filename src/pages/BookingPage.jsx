@@ -8,37 +8,36 @@ import { GentleYellowButton } from "../components/UI/GuideButtons";
 import { useSelector } from "react-redux";
 
 const BookingPage = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
   moment.tz.setDefault("Asia/Taipei");
   let isStudentTime = moment().isBetween(
-    "2022-05-21 20:00:00",
-    "2022-05-22 15:00:00"
+    "2023-04-28 20:00:00",
+    "2023-04-29 20:00:00"
   );
   let isOthersTime = moment().isAfter("2022-05-22 20:00:00");
   // let isOpening = moment().isBefore("2022-06-14 15:00:00");
   let isOpening = moment().isBefore("2023-12-31 15:00:00");
 
-  const checkTimeAvailable = () => {
-    if (currentUser.user.role === "admin") {
-      return true;
-    }
-    if (!isOpening) {
-      return false;
-    }
-    if (isStudentTime && currentUser.user.isStudent) {
-      return true;
-    } else if (isOthersTime) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  // const checkTimeAvailable = () => {
+  //   if (currentUser.user.role === "admin") {
+  //     return true;
+  //   }
+  //   if (!isOpening) {
+  //     return false;
+  //   }
+  //   if (isStudentTime && currentUser.user.isStudent) {
+  //     return true;
+  //   } else if (isOthersTime) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
 
   return (
     <div>
-      {checkTimeAvailable() && <Booking />}
-      {!checkTimeAvailable() && (
+      <Booking isStudentTime={isStudentTime} />
+      {/* {!checkTimeAvailable() && (
         <Grid
           container
           spacing={0}
@@ -62,7 +61,7 @@ const BookingPage = () => {
             查看當前座位
           </GentleYellowButton>
         </Grid>
-      )}
+      )} */}
     </div>
   );
 };

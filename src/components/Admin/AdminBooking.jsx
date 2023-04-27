@@ -5,7 +5,7 @@ import { TextField, Button } from "@mui/material";
 import { BookingLayout } from "../booking/Booking";
 import Auditorium from "../booking/Auditorium";
 
-const AdminBooking = () => {
+const AdminBooking = ({ token }) => {
   const [seatsData, setSeatsData] = useState(null);
   const [chosenSeats, setChosenSeats] = useState([]);
   const [finalChosen, setFinalChosen] = useState(null);
@@ -17,7 +17,7 @@ const AdminBooking = () => {
 
   const loadSeatsData = async () => {
     try {
-      const res = await SeatService.getAllSeats();
+      const res = await SeatService.getAllSeats(token);
       setSeatsData([...res.data]);
     } catch (e) {
       console.log(e);

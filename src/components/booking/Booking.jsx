@@ -33,17 +33,20 @@ const ConfirmButton = styled(Button)`
 `;
 
 const Booking = () => {
-  const bookingApi = useSelector((state) => state.user.bookingApi);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [seatsData, setSeatsData] = useState(null);
   const [chosenSeats, setChosenSeats] = useState([]);
+  const [buyer, setBuyer] = useState({
+    email: "",
+    username: "",
+    bankAccount: "",
+  });
 
   const loadSeatsData = async () => {
     try {
       const res = await SeatService.getAllSeats();
       setSeatsData([...res.data]);
-      console.log(res.data)
+      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -57,24 +60,45 @@ const Booking = () => {
     setChosenSeats([]);
   };
 
-  const submitHandler = () => {
-    if (window.confirm("確定劃位")) {
-      dispatch(bookTickets(chosenSeats));
+  const submitHandler = async () => {
+    if (!window.confirm("確定劃位")) {
+      return;
     }
-  };
+    if (!checkBuyer()) {
+      window.alert("請填寫匯款資訊!");
+      return;
+    }
 
-  useEffect(() => {
-    if (bookingApi.success) {
+    try {
+      const positions = chosenSeats.map((x) => {
+        return { row: x.row, col: x.col };
+      });
+      const res = await SeatService.booking(
+        positions,
+        buyer.email,
+        buyer.username,
+        buyer.bankAccount
+      );
       window.alert("劃位成功!");
-      dispatch(clearAPI("bookingApi"));
       navigate("/pay");
-    }
-    if (bookingApi.fail) {
-      window.alert(bookingApi.errorMsg);
+    } catch (error) {
+      console.log(error);
+      alert("位置已被其他人選擇，請重新劃位");
       setChosenSeats([]);
       loadSeatsData();
     }
-  }, [dispatch, navigate, bookingApi]);
+  };
+
+  const checkBuyer = () => {
+    if (
+      buyer.email === "" ||
+      buyer.bankAccount === "" ||
+      buyer.username === ""
+    ) {
+      return false;
+    }
+    return true;
+  };
 
   return (
     <BookingLayout>
@@ -99,6 +123,8 @@ const Booking = () => {
       <BookingInfo
         chosenSeats={chosenSeats}
         clearChosenHandler={clearChosenHandler}
+        buyer={buyer}
+        setBuyer={setBuyer}
       />
 
       {chosenSeats.length ? (

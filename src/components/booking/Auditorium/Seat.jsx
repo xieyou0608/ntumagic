@@ -61,16 +61,16 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats }) => {
     isPreview = true;
   }
 
-  const currentUser = useSelector((state) => state.user.currentUser);
+  // const currentUser = useSelector((state) => state.user.currentUser);
   const chosenHandler = () => {
     let seats_arr = [];
-    let available = 6 - currentUser.user.tickets.length;
+    let available = 4;
 
     if (chosenSeats.includes(seatData)) {
       seats_arr = chosenSeats.filter((chosen) => chosen !== seatData);
     } else {
       // 管理員無劃位上限
-      if (currentUser.user.role === "admin" || chosenSeats.length < available)
+      if (chosenSeats.length < available)
         seats_arr = [...chosenSeats, seatData];
       else seats_arr = [...chosenSeats];
     }

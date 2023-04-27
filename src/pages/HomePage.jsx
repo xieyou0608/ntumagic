@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { styled } from "@mui/material";
-import poster from "../img/magic_night.jpg";
+import poster from "../img/magic_night28.jpg";
 import { GoldButton } from "../components/UI/GuideButtons";
 
 const HomeLayout = styled("div")`
@@ -16,7 +16,7 @@ const HomeLayout = styled("div")`
 `;
 
 const Poster = styled("img")`
-  width: 50vw;
+  width: 80vw;
   height: 100vh;
   object-fit: contain;
 
@@ -73,17 +73,13 @@ const HomePage = () => {
       <Info className="info">
         <h1>台大魔夜劃位系統</h1>
         <p>
-          時間：2022/6/14（二）
+          時間：2023/5/25（二）
           <MobileBr />
           18:00進場 18:30開始 <br />
           地點：民生社區活動中心集會堂 <br />
         </p>
         <Link to="/guide">
           <GoldButton type="button">點我劃位</GoldButton>
-        </Link>
-        <br />
-        <Link to="/preview">
-          <GoldButton type="button">座位預覽</GoldButton>
         </Link>
       </Info>
     </HomeLayout>

@@ -15,7 +15,7 @@ import AdminService from "../../services/admin.service";
 import { v4 as uuidv4 } from "uuid";
 import UserRow from "./UserRow";
 
-const UsersMonitor = () => {
+const UsersMonitor = ({ token }) => {
   const [users, setUsers] = useState([]);
   const [showId, setShowId] = useState(false);
   const [showDate, setShowDate] = useState(false);
@@ -28,7 +28,7 @@ const UsersMonitor = () => {
   };
 
   useEffect(() => {
-    AdminService.getAllUser()
+    AdminService.getAllUser(token)
       .then((res) => {
         setUsers(res.data);
       })

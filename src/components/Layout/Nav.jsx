@@ -69,25 +69,13 @@ const Nav = () => {
   const content = (
     <>
       <StyledLink to="/">首頁</StyledLink>
-      {currentUser && <StyledLink to="/booking">劃位</StyledLink>}
-      {currentUser && <StyledLink to="/profile">個人頁面</StyledLink>}
+      <StyledLink to="/booking">劃位</StyledLink>
       {currentUser && currentUser.user.role === "admin" && (
         <StyledLink to="/admin">後台</StyledLink>
       )}
-      {!currentUser && <StyledLink to="/preview">預覽座位</StyledLink>}
       <StyledLink to="/about" sx={{ flexGrow: 1 }}>
         聯絡我們
       </StyledLink>
-      {!currentUser && <StyledLink to="/register">註冊</StyledLink>}
-      {!currentUser && <StyledLink to="/login">登入</StyledLink>}
-      {currentUser && (
-        <Button
-          onClick={handleLogout}
-          sx={{ color: "white", fontSize: "14px" }}
-        >
-          登出
-        </Button>
-      )}
     </>
   );
 

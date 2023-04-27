@@ -17,7 +17,6 @@ const StyledBox = styled("div")`
 `;
 
 const PayPage = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
   return (
     <Layout>
       <StyledBox>
@@ -28,26 +27,18 @@ const PayPage = () => {
           <Typography>帳號: 153200800025</Typography>
           <Typography>戶名: 楊皓勛</Typography>
         </Alert>
-        {currentUser.user.bankAccount ? (
-          <Typography>您的付款帳號: {currentUser.user.bankAccount}</Typography>
-        ) : (
-          <Typography>
-            您的付款帳號: 尚未設定
-            <Button component={Link} to="/profile" size="small">
-              前往設定
-            </Button>
-          </Typography>
-        )}
-        <Typography>繳費說明:</Typography>
-        <Typography>1. 完成付款之後，請填寫您的付款帳戶末5碼</Typography>
-        <Typography>
-          2. 待確認款項後，會於個人頁面顯示付款成功，並寄信至您的信箱
-        </Typography>
-        <Typography>3. 晚會當日請依信件至會場索取實體票</Typography>
 
-        <Button component={Link} to="/profile" variant="contained">
+        <Typography>繳費說明:</Typography>
+        <Typography>1. 完成付款之後，我們將寄信至您的信箱</Typography>
+        <Typography>2. 晚會當日請依信件至會場索取實體票</Typography>
+        <Typography>3. 若未收到信件請洽粉絲專頁</Typography>
+
+        {/* <Button component={Link} to="/my-ticket" variant="contained">
           我知道了
         </Button>
+        <Button component={Link} to="/my-ticket" variant="contained">
+          我知道了
+        </Button> */}
       </StyledBox>
     </Layout>
   );

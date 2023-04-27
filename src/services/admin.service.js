@@ -1,6 +1,6 @@
 import axios from "axios";
 const ADMIN_API = process.env.REACT_APP_API_URL + "/admin";
-const SEATS_API = process.env.REACT_APP_API_URL + "/seats";
+const SEATS_API = process.env.REACT_APP_API_URL + "/tickets";
 
 class AdminService {
   modifyArea(positions, newArea) {
@@ -24,28 +24,28 @@ class AdminService {
     );
   }
 
-  getAllUser() {
-    let token;
-    if (localStorage.getItem("user")) {
-      token = JSON.parse(localStorage.getItem("user")).token;
-    } else {
-      token = "";
-    }
+  getAllUser(token) {
+    // let token;
+    // if (localStorage.getItem("user")) {
+    //   token = JSON.parse(localStorage.getItem("user")).token;
+    // } else {
+    //   token = "";
+    // }
 
-    return axios.get(ADMIN_API + "/users", {
+    return axios.get(ADMIN_API + "/emails", {
       headers: {
         Authorization: token,
       },
     });
   }
 
-  getAllSeats() {
-    let token;
-    if (localStorage.getItem("user")) {
-      token = JSON.parse(localStorage.getItem("user")).token;
-    } else {
-      token = "";
-    }
+  getAllSeats(token) {
+    // let token;
+    // if (localStorage.getItem("user")) {
+    //   token = JSON.parse(localStorage.getItem("user")).token;
+    // } else {
+    //   token = "";
+    // }
     return axios.get(SEATS_API + "/", {
       headers: {
         Authorization: token,

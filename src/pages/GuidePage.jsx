@@ -69,22 +69,13 @@ const MobileBr = styled("br")`
 `;
 
 const GuidePage = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
-  const navigate = useNavigate();
-  const handleGuide = () => {
-    if (currentUser) {
-      navigate("/prebooking");
-    } else {
-      navigate("/register");
-    }
-  };
   return (
     <GuideLayout>
       <h1>劃位說明</h1>
       <GuideBox>
         <h3>劃位開放時間:</h3>
-        <p>校內售票：5/21(六) 20:00</p>
-        <p>校外售票：5/22(日) 20:00</p>
+        <p>校內售票：4/28(五) 20:00</p>
+        <p>校外售票：4/29(日) 20:00</p>
         <br />
         <p>
           票種：A區 500元、
@@ -96,38 +87,25 @@ const GuidePage = () => {
       <GuideBox>
         <h2>Step 1</h2>
         <p>
-          請使用信箱
-          <Link to="/register">
-            {/* <i class="fa-solid fa-link">註冊帳號</i> */}
-            註冊帳號
-          </Link>
-          ，並
-          <Link to="/login">登入系統</Link>
+          請於系統開放後至<Link to="/booking">劃位頁面</Link>選擇座位 <br />
+          ※單次最多可劃 4 張票
         </p>
-        <p>※以 ntu mail 註冊之帳號可於校內售票階段先行劃位</p>
       </GuideBox>
       <Arrow />
       <GuideBox>
         <h2>Step 2</h2>
-        <ol className="AorB">
-          <li>
-            若您只需劃一個位子，
-            <MobileBr />請<Link to="/booking">直接進行劃位</Link>
-          </li>
-          <MobileBr />
-          <li>
-            若您需要劃多個位子，
-            <MobileBr />請<Link to="/profile">填寫同行朋友資料</Link>
-          </li>
-        </ol>
+        <p>
+          選擇位置後請填寫信箱及預計匯款帳戶末五碼
+          <br />
+          ※校內售票時段請填寫 NTU mail
+          <br />
+          ※若需使用其他付款方式請私訊粉專
+        </p>
       </GuideBox>
       <Arrow />
       <GuideBox>
         <h2>Step 3</h2>
         <p>劃位成功之後，請於隔日15:00前 匯款至以下帳戶</p>
-        <p>
-          並<Link to="/profile">填寫付款帳戶末5碼</Link>
-        </p>
         <Alert icon={false} severity="success">
           <p>
             銀行代碼：008 華南銀行
@@ -144,10 +122,6 @@ const GuidePage = () => {
         <p>
           確認款項後，我們將寄出劃位成功通知信至您的信箱
           <br />
-          您也可於
-          <Link to="/profile">個人頁面</Link>
-          確認付款狀態
-          <br />
           <br />
           註：若付款後三日皆沒有收到信，請私訊台大魔術社粉絲專頁
         </p>
@@ -157,9 +131,9 @@ const GuidePage = () => {
         <h2>Step 5（重要！）</h2>
         <p>魔夜當日請出示劃位成功通知信領取實體票</p>
       </GuideBox>
-      <GentleYellowButton onClick={handleGuide} sx={{ mt: 2 }}>
-        點我開始
-      </GentleYellowButton>
+      <Link to="/booking">
+        <GentleYellowButton sx={{ mt: 2 }}>點我開始</GentleYellowButton>
+      </Link>
     </GuideLayout>
   );
 };

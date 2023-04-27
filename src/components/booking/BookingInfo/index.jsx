@@ -1,5 +1,6 @@
 import Cart from "./Cart";
 import Buyer from "./Buyer";
+import BuyerForm from "./BuyerForm";
 import { styled } from "@mui/material";
 
 const InfoLayout = styled("div")`
@@ -14,11 +15,12 @@ const InfoLayout = styled("div")`
   }
 `;
 
-const BookingInfo = ({ chosenSeats, clearChosenHandler }) => {
+const BookingInfo = ({ chosenSeats, clearChosenHandler, buyer, setBuyer }) => {
   return (
     <InfoLayout>
-      <Buyer />
+      {/* <Buyer /> */}
       <Cart chosenSeats={chosenSeats} clearChosenHandler={clearChosenHandler} />
+      <BuyerForm buyer={buyer} setBuyer={setBuyer} />
     </InfoLayout>
   );
 };
