@@ -74,6 +74,13 @@ const UserRow = ({ userdata, showId, showDate }) => {
       </TableCell>
       <TableCell>{user.bankAccount}</TableCell>
       <TableCell>
+        {user.verified ? (
+          "已驗證"
+        ) : (
+          <span style={{ color: "red" }}> 尚未驗證</span>
+        )}
+      </TableCell>
+      <TableCell>
         {user.emailSent ? (
           "已寄信"
         ) : (

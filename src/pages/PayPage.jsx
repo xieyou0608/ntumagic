@@ -21,7 +21,8 @@ const PayPage = () => {
     <Layout>
       <StyledBox>
         <Typography variant="h5">感謝您的劃位!</Typography>
-        <Typography>請於劃位後至隔日15:00前將總金額匯款至:</Typography>
+        <Typography color="red">請先至信箱收取驗證信</Typography>
+        <Typography>並於至隔日15:00前將總金額匯款至:</Typography>
         <Alert icon={false} severity="info">
           <Typography>銀行代碼: 008 華南銀行</Typography>
           <Typography>帳號: 153200800025</Typography>

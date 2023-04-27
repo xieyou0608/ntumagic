@@ -22,6 +22,11 @@ class AuthService {
   getCurrentUser() {
     return JSON.parse(localStorage.getItem("user"));
   }
+  verify(verifyToken) {
+    return axios.patch(USER_API + "/verify", {
+      verifyToken,
+    });
+  }
 }
 
 export default new AuthService();

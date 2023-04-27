@@ -11,6 +11,7 @@ import BookingPage from "./pages/BookingPage";
 import AdminPage from "./pages/AdminPage";
 import PayPage from "./pages/PayPage";
 import GuidePage from "./pages/GuidePage";
+import VerifyPage from "./pages/VerifyPage";
 
 function App() {
   const location = useLocation();
@@ -36,6 +37,7 @@ function App() {
         <Route path="/pay" element={<PayPage />} />
         <Route path="/guide" element={<GuidePage />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/verify" element={<VerifyPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       {showNav && <Footer />}
