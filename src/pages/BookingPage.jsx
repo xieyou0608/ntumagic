@@ -11,7 +11,8 @@ const BookingPage = () => {
   const navigate = useNavigate();
   moment.tz.setDefault("Asia/Taipei");
   let isTesting = moment().isBefore("2023-04-28 20:00:00");
-  let isStudentTime = moment().isBefore("2023-04-29 20:00:00");
+  let isStudentTime = moment().isBetween("2023-04-28 20:00:00", "2023-04-29 20:00:00")
+  // let isStudentTime = moment().isBefore("2023-04-29 20:00:00");
 
   // const checkTimeAvailable = () => {
   //   if (currentUser.user.role === "admin") {
