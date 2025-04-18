@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Button, TableCell, TableRow } from "@mui/material";
 import AdminService from "../../services/admin.service";
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
+import 'moment/locale/zh-tw';
+moment.locale('zh-tw');
 
 const UserRow = ({ userdata, showId, showDate }) => {
   let [user, setUser] = useState(userdata);
@@ -51,7 +54,7 @@ const UserRow = ({ userdata, showId, showDate }) => {
   return (
     <TableRow>
       {showId && <TableCell>{user._id}</TableCell>}
-      {showDate && <TableCell>{user.date}</TableCell>}
+      {showDate && <TableCell>{moment(user.date).format('YYYY/MM/DD')}</TableCell>}
       <TableCell>{user.email}</TableCell>
       <TableCell component="td" scope="row">
         {user.username}
@@ -67,7 +70,7 @@ const UserRow = ({ userdata, showId, showDate }) => {
                 <span style={{ color: "red" }}> 尚未付款</span>
               )}
               <br />
-              {t.bookDate}
+              {moment(t.bookDate).format('YYYY/MM/DD HH:mm')}
             </p>
           );
         })}
