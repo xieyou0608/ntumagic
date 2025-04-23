@@ -12,6 +12,8 @@ const BookingPage = () => {
   moment.tz.setDefault("Asia/Taipei");
   let isTesting = moment().isBefore("2023-04-28 20:00:00");
   let isStudentTime = moment().isBetween("2023-04-28 20:00:00", "2023-04-29 20:00:00")
+  let isOthersTime = moment().isBetween("2023-04-29 20:00:00", "2023-05-25 15:00:00");
+  let isOpening = moment().isBetween("2023-04-28 20:00:00", "2023-05-25 15:00:00");
   // let isStudentTime = moment().isBefore("2023-04-29 20:00:00");
 
   // const checkTimeAvailable = () => {

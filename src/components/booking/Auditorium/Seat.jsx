@@ -10,7 +10,7 @@ const StyledSeat = styled("div")`
   font-size: 12px;
 
   height: 100%;
-  width: 2.9%;
+  width: 2.27%;
 
   border-style: solid;
   border-color: black;

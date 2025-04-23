@@ -35,13 +35,13 @@ const Row = styled("div")`
 const Stage = styled("div")`
   border-style: solid;
   margin-bottom: 3vh;
-  padding: 0.5rem 30%;
+  padding: 0.5rem 34.5%;
   background-color: ${({ theme }) => theme.palette.gentle.main};
 `;
 
-const rows = [...Array(24).keys()];
-const rowId = [...Array(24).keys()].map((_) => uuidv4());
-const NUM_COLS = 34;
+const rows = [...Array(17).keys()];
+const rowId = [...Array(17).keys()].map((_) => uuidv4());
+const NUM_COLS = 44;
 
 const Auditorium = ({ seatsData, chosenSeats, setChosenSeats }) => {
   return (

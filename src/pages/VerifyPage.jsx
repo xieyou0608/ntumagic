@@ -51,7 +51,7 @@ const VerifyPage = () => {
       )}
       {status === "success" && (
         <StyledBox>
-          <Typography variant="h5">驗證成功!</Typography>
+          <Typography variant="h5">驗證成功！</Typography>
           <br />
           <p>{email}</p>
           <br />
@@ -62,7 +62,7 @@ const VerifyPage = () => {
       )}
       {status === "fail" && (
         <StyledBox>
-          <Typography variant="h5">驗證失敗!</Typography>
+          <Typography variant="h5">驗證失敗！</Typography>
           <br />
           <p>{email}</p>
           <br />

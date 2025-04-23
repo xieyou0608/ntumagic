@@ -20,20 +20,21 @@ const PayPage = () => {
   return (
     <Layout>
       <StyledBox>
-        <Typography variant="h5">感謝您的劃位!</Typography>
+        <Typography variant="h5">感謝您的劃位！</Typography>
         <Typography color="red">
           首次劃位請至信箱收取驗證信
           <br />
-          並於10分鐘內完成驗證
+          並於 10 分鐘內完成驗證
         </Typography>
-        <Typography>並於至隔日15:00前將總金額匯款至:</Typography>
+        <Typography>並於至隔日 15:00 前將總金額匯款至：</Typography>
         <Alert icon={false} severity="info">
-          <Typography>銀行代碼: 008 華南銀行</Typography>
-          <Typography>帳號: 153200800025</Typography>
-          <Typography>戶名: 楊皓勛</Typography>
+          {/* TODO */}
+          <Typography>銀行代碼：700 中華郵政</Typography>
+          <Typography>帳號：00312180252039</Typography>
+          <Typography>戶名：黃宗軒</Typography>
         </Alert>
 
-        <Typography>繳費說明:</Typography>
+        <Typography>繳費說明：</Typography>
         <Typography>1. 完成付款之後，我們將寄信至您的信箱</Typography>
         <Typography>2. 晚會當日請依信件至會場索取實體票</Typography>
         <Typography>3. 若未收到信件請洽粉絲專頁</Typography>

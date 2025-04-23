@@ -41,7 +41,7 @@ export const userRegister = createAsyncThunk(
   async ({ email, password, username, phone }, { rejectWithValue }) => {
     try {
       await AuthService.register(email, password, username, phone);
-      window.alert("註冊成功! 將前往登入頁面");
+      window.alert("註冊成功！將前往登入頁面");
       return; // fulfilled
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -54,7 +54,7 @@ export const updateBank = createAsyncThunk(
   async (bank, { rejectWithValue }) => {
     try {
       await AudienceService.editBankAccount(bank);
-      window.alert("修改成功!");
+      window.alert("修改成功！");
       return bank;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -68,7 +68,7 @@ export const updateFriends = createAsyncThunk(
     try {
       await AudienceService.editFriends(friends);
       // localStorage.setItem("user", JSON.stringify(temp));
-      window.alert("修改成功!");
+      window.alert("修改成功！");
       return friends;
     } catch (error) {
       return rejectWithValue(error.response.data);
