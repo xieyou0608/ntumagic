@@ -47,7 +47,7 @@ const SeatsMonitor = () => {
             {seats.map((x) => (
               <TableRow
                 key={x._id}
-                // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell>{x.area + "區" + x.row + "-" + x.col}</TableCell>
                 <TableCell>{x.buyer}</TableCell>
