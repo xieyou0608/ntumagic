@@ -78,9 +78,9 @@ const GuidePage = () => {
         <p>校外售票：5/10(六) 20:00</p>
         <br />
         <p>
-          票種：A區 500元、
+          票種：A區 600元、
           <MobileBr />
-          B區 400元 、C區 300元
+          B區 500元 、C區 400元
         </p>
       </GuideBox>
 
@@ -105,7 +105,7 @@ const GuidePage = () => {
       <Arrow />
       <GuideBox>
         <h2>Step 3</h2>
-        <p>劃位成功之後，請於隔日 15:00 前 匯款至以下帳戶</p>
+        <p>劃位成功之後，請於隔日 15:00 前匯款至以下帳戶</p>
         <Alert icon={false} severity="success">
           <p>
             銀行代碼：700 中華郵政

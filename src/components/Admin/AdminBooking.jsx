@@ -39,7 +39,7 @@ const AdminBooking = ({ token }) => {
   useEffect(() => {
     const submitChosen = (submitData) => {
       let positions = submitData.map((x) => {
-        return { row: x.row, col: x.col };
+        return { row: x.row, col: x.col, area: x.area };
       });
       AdminService.modifyArea(positions, newArea)
         .then((res) => {
@@ -85,7 +85,7 @@ const AdminBooking = ({ token }) => {
       <div>
         <p>
           <h2>說明：</h2>
-          選擇位子之後填A, B, C, X, S <br />
+          選擇位子之後填 A, B, C, X, S <br />
           X 是不能坐人的地方（沒椅子的地方），會呈現空白，觀眾不能點，但你可以點然後改回
           A 區之類 <br />
           S 是特別座（Special），觀眾劃位會看到是被劃走，但後台可以看到白色 S 方塊

@@ -28,11 +28,11 @@ const TableCell = styled(muiTableCell)`
 const Cart = ({ chosenSeats }) => {
   const priceDict = (area) => {
     if (area === "A") {
-      return 500;
+      return 600;
     } else if (area === "B") {
-      return 400;
+      return 500;
     } else if (area === "C") {
-      return 300;
+      return 400;
     } else {
       return 200;
     }

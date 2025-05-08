@@ -65,11 +65,12 @@ const Booking = ({ isTesting, isStudentTime }) => {
   };
 
   const submitHandler = async () => {
+    // console.log("【Debug】送出前 chosenSeats:", chosenSeats);
     if (!window.confirm("確定劃位")) {
       return;
     }
     if (!checkBuyer()) {
-      window.alert("請填寫匯款資訊!");
+      window.alert("請填寫匯款資訊！");
       return;
     }
     if (isStudentTime && !buyer.email.includes("ntu.edu.tw")) {
@@ -81,7 +82,7 @@ const Booking = ({ isTesting, isStudentTime }) => {
 
     try {
       const positions = chosenSeats.map((x) => {
-        return { row: x.row, col: x.col };
+        return { row: x.row, col: x.col, area: x.area };
       });
       const res = await SeatService.booking(
         positions,
@@ -89,7 +90,8 @@ const Booking = ({ isTesting, isStudentTime }) => {
         buyer.username,
         buyer.bankAccount
       );
-      window.alert("劃位成功!");
+      // console.log("booking 回傳 res:", res);
+      window.alert("劃位成功！");
       navigate("/pay");
     } catch (error) {
       console.log(error);
