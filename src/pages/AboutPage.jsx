@@ -30,11 +30,19 @@ const AboutPage = () => {
     <Layout>
       <StyledBox>
         <h2>台大魔術社</h2>
-        <a href="https://www.facebook.com/NTUMAGIC/" target="_blank">
+        <a
+          href="https://www.facebook.com/NTUMAGIC/"
+          target="_blank"
+          rel="noreferrer"
+        >
           <i className="fa-brands fa-facebook"></i> Facebook
         </a>
 
-        <a href="https://www.instagram.com/ntu_magic/" target="_blank">
+        <a
+          href="https://www.instagram.com/ntu_magic/"
+          target="_blank"
+          rel="noreferrer"
+        >
           <i className="fa-brands fa-instagram"></i> Instagram
         </a>
       </StyledBox>

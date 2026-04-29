@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { styled } from "@mui/material";
 
@@ -37,9 +36,6 @@ const colorMap = {
   B: "rgb(255, 210, 64)",
   C: "rgb(84, 125, 238)",
 };
-const PreviewSeat = styled(StyledSeat)`
-  background-color: ${(props) => colorMap[props.area]};
-`;
 const AvailableSeat = styled(StyledSeat)`
   background-color: ${(props) => colorMap[props.area]};
   cursor: pointer;
@@ -56,10 +52,8 @@ const ChosenSeat = styled(AvailableSeat)`
 
 const Seat = ({ seatData, chosenSeats, setChosenSeats }) => {
   const location = useLocation();
-  // const isPreview = location.pathname === "/preview";
   const isAdmin = location.pathname === "/admin";
 
-  // const currentUser = useSelector((state) => state.user.currentUser);
   const chosenHandler = () => {
     let seats_arr = [];
     let available = 6;
@@ -91,11 +85,6 @@ const Seat = ({ seatData, chosenSeats, setChosenSeats }) => {
   if (seatData.area === "S" || seatData.sold) {
     return <SoldSeat>{seatData.col}</SoldSeat>;
   }
-
-  // colored seat
-  // if (isPreview) {
-  //   return <PreviewSeat area={seatData.area}>{seatData.col}</PreviewSeat>;
-  // }
 
   if (chosenSeats.includes(seatData)) {
     return <ChosenSeat onClick={chosenHandler}>{seatData.col}</ChosenSeat>;

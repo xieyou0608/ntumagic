@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SeatService from "../../services/seat.service";
-import { bookTickets, clearAPI } from "../../store/user-actions";
 
-import { Button, CircularProgress, styled, Alert } from "@mui/material";
+import { Alert, Button, CircularProgress, styled } from "@mui/material";
 import PriceSigns from "./PriceSigns";
 import Auditorium from "./Auditorium";
 import BookingInfo from "./BookingInfo";
@@ -81,21 +79,24 @@ const Booking = ({ isTesting, isStudentTime }) => {
     localStorage.setItem("buyer", JSON.stringify(buyer));
 
     try {
-      const positions = chosenSeats.map((x) => {
-        return { row: x.row, col: x.col, area: x.area };
-      });
-      const res = await SeatService.booking(
+      const positions = chosenSeats.map((x) => ({
+        floor: x.floor,
+        area: x.area,
+        row: x.row,
+        col: x.col,
+      }));
+      await SeatService.booking(
         positions,
         buyer.email,
         buyer.username,
         buyer.bankAccount
       );
-      // console.log("booking 回傳 res:", res);
       window.alert("劃位成功！");
       navigate("/pay");
     } catch (error) {
       console.log(error);
-      alert(error.response.data);
+      const msg = error.response?.data?.message || "劃位失敗，請重試";
+      alert(msg);
       setChosenSeats([]);
       loadSeatsData();
     }

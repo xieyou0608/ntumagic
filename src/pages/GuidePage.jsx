@@ -1,6 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Alert, styled } from "@mui/material";
 import { GentleYellowButton } from "../components/UI/GuideButtons";
 import ForwardIcon from "@mui/icons-material/Forward";
@@ -108,11 +107,11 @@ const GuidePage = () => {
         <p>劃位成功之後，請於隔日 15:00 前匯款至以下帳戶</p>
         <Alert icon={false} severity="success">
           <p>
-            銀行代碼：700 中華郵政
+            銀行代碼：822 中國信託
             <br />
-            帳號：00312180252039
+            帳號：0000901564138410
             <br />
-            戶名：黃宗軒
+            戶名：劉耀璘
           </p>
         </Alert>
       </GuideBox>

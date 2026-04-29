@@ -1,7 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { Alert, Typography, Button, styled } from "@mui/material";
+import { Alert, Typography, styled } from "@mui/material";
 
 const Layout = styled("div")`
   display: flex;
@@ -28,10 +26,9 @@ const PayPage = () => {
         </Typography>
         <Typography>並於至隔日 15:00 前將總金額匯款至：</Typography>
         <Alert icon={false} severity="info">
-          {/* TODO */}
-          <Typography>銀行代碼：700 中華郵政</Typography>
-          <Typography>帳號：00312180252039</Typography>
-          <Typography>戶名：黃宗軒</Typography>
+          <Typography>銀行代碼：822 中國信託</Typography>
+          <Typography>帳號：0000901564138410</Typography>
+          <Typography>戶名：劉耀璘</Typography>
         </Alert>
 
         <Typography>繳費說明：</Typography>

@@ -3,88 +3,102 @@ import { Button, TableCell, TableRow } from "@mui/material";
 import AdminService from "../../services/admin.service";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
-import 'moment/locale/zh-tw';
-moment.locale('zh-tw');
+import "moment/locale/zh-tw";
+moment.locale("zh-tw");
 
-const UserRow = ({ userdata, showId, showDate }) => {
-  let [user, setUser] = useState(userdata);
+// booking shape:
+// { id (=email), email, username, phone, bankAccount,
+//   emailVerified, emailVerifyToken, emailSent, createdAt, updatedAt,
+//   seats: [{ id, area, row, col, floor, sold, buyerEmail, paid, bookedAt }] }
 
-  const handleClearSeats = (e) => {
-    if (window.confirm("確定刪除座位?")) {
-      let user_id = e.target.value;
-      AdminService.clearUserSeats(user_id)
-        .then((res) => {
-          console.log(res.data);
-          setUser(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+const formatTimestamp = (ts) => {
+  if (!ts) return "";
+  if (typeof ts === "string") return moment(ts).format("YYYY/MM/DD HH:mm");
+  if (ts._seconds) return moment(ts._seconds * 1000).format("YYYY/MM/DD HH:mm");
+  if (ts.seconds) return moment(ts.seconds * 1000).format("YYYY/MM/DD HH:mm");
+  return moment(ts).format("YYYY/MM/DD HH:mm");
+};
+
+const UserRow = ({ userdata, showId, showDate, onChanged }) => {
+  const [booking, setBooking] = useState(userdata);
+
+  const refresh = () => {
+    if (onChanged) onChanged();
   };
 
-  const handlePaidSeats = (e) => {
-    if (window.confirm("確認付款狀態")) {
-      let user_id = e.target.value;
-      AdminService.paidSeats(user_id)
-        .then((res) => {
-          console.log(res.data);
-          setUser(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+  const handleClearSeats = () => {
+    if (!window.confirm("確定刪除座位?")) return;
+    AdminService.clearByEmail(booking.email)
+      .then(() => {
+        // 後端清完後該筆 booking 就沒有座位了；簡單的方式請父元件重抓
+        refresh();
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("刪除失敗");
+      });
   };
 
-  const handleSendEmail = (e) => {
-    if (window.confirm("確認傳送email")) {
-      let user_id = e.target.value;
-      AdminService.sendEmail(user_id)
-        .then((res) => {
-          console.log(res.data);
-          setUser(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+  const handlePaidSeats = () => {
+    if (!window.confirm("確認付款狀態")) return;
+    AdminService.markPaid(booking.email)
+      .then(() => {
+        // 樂觀更新：把每個座位 paid = true
+        setBooking((prev) => ({
+          ...prev,
+          seats: prev.seats.map((s) => ({ ...s, paid: true })),
+        }));
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("更新失敗");
+      });
+  };
+
+  const handleSendEmail = () => {
+    if (!window.confirm("確認傳送 email")) return;
+    AdminService.sendPaidEmail(booking.email)
+      .then(() => {
+        setBooking((prev) => ({ ...prev, emailSent: true }));
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("寄信失敗");
+      });
   };
 
   return (
     <TableRow>
-      {showId && <TableCell>{user._id}</TableCell>}
-      {showDate && <TableCell>{moment(user.date).format('YYYY/MM/DD')}</TableCell>}
-      <TableCell>{user.email}</TableCell>
+      {showId && <TableCell>{booking.id}</TableCell>}
+      {showDate && <TableCell>{formatTimestamp(booking.createdAt)}</TableCell>}
+      <TableCell>{booking.email}</TableCell>
       <TableCell component="td" scope="row">
-        {user.username}
+        {booking.username}
       </TableCell>
       <TableCell>
-        {user.tickets.map((t) => {
-          return (
-            <p key={uuidv4()}>
-              {t.area + "區" + t.row + "排" + t.col + "號"}
-              {t.paid ? (
-                " 已付款"
-              ) : (
-                <span style={{ color: "red" }}> 尚未付款</span>
-              )}
-              <br />
-              {moment(t.bookDate).format('YYYY/MM/DD HH:mm')}
-            </p>
-          );
-        })}
+        {(booking.seats || []).map((t) => (
+          <p key={t.id || uuidv4()}>
+            {(t.floor === 2 ? "二樓 " : "") + t.area + "區" + t.row + "排" + t.col + "號"}
+            {t.paid ? (
+              " 已付款"
+            ) : (
+              <span style={{ color: "red" }}> 尚未付款</span>
+            )}
+            <br />
+            {formatTimestamp(t.bookedAt)}
+          </p>
+        ))}
       </TableCell>
-      <TableCell>{user.bankAccount}</TableCell>
+      <TableCell>{booking.bankAccount}</TableCell>
       <TableCell>
-        {user.verified ? (
+        {booking.emailVerified ? (
           "已驗證"
         ) : (
           <span style={{ color: "red" }}> 尚未驗證</span>
         )}
       </TableCell>
       <TableCell>
-        {user.emailSent ? (
+        {booking.emailSent ? (
           "已寄信"
         ) : (
           <span style={{ color: "red" }}> 尚未寄信</span>
@@ -94,7 +108,6 @@ const UserRow = ({ userdata, showId, showDate }) => {
       <TableCell>
         <Button
           onClick={handlePaidSeats}
-          value={user._id}
           color="success"
           variant="contained"
         >
@@ -103,7 +116,6 @@ const UserRow = ({ userdata, showId, showDate }) => {
 
         <Button
           onClick={handleSendEmail}
-          value={user._id}
           color="primary"
           variant="contained"
         >
@@ -111,7 +123,6 @@ const UserRow = ({ userdata, showId, showDate }) => {
         </Button>
         <Button
           onClick={handleClearSeats}
-          value={user._id}
           color="error"
           variant="contained"
         >

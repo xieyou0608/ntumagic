@@ -1,57 +1,65 @@
 import React, { useEffect, useState } from "react";
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
 import AdminBooking from "../components/Admin/AdminBooking";
 import UsersMonitor from "../components/Admin/UsersMonitor";
-import SeatsMonitor from "../components/Admin/SeatsMonitor";
-import { Alert, Box, Button, TextField } from "@mui/material";
-import AuthService from "../services/auth.service";
+import { Box, Button, TextField } from "@mui/material";
+import { auth } from "../firebase";
 
 const AdminPage = () => {
-  // const currentUser = useSelector((state) => state.user.currentUser);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [adminUser, setAdminUser] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("user");
 
-  let adminBoard;
-  if (currentUser) {
-    if (status === "user") {
-      adminBoard = <UsersMonitor token={currentUser.token} />;
-    }
-    if (status === "seat")
-      adminBoard = <AdminBooking token={currentUser.token} />;
-  }
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setAdminUser(user);
+      setAuthLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
+
   const handleAdminLogin = async (e) => {
     e.preventDefault();
     try {
-      console.log("t");
-      const res = await AuthService.login(email, password);
-      console.log(res);
-      if (res.data.token) {
-        setCurrentUser(res.data);
-        localStorage.setItem("admin", JSON.stringify(res.data));
-      }
-    } catch (e) {
-      alert("something went wrong");
+      await signInWithEmailAndPassword(auth, email, password);
+      // onAuthStateChanged 會更新 adminUser
+    } catch (err) {
+      console.log(err);
+      alert("登入失敗，請確認帳號密碼");
     }
   };
 
-  useEffect(() => {
-    const user = localStorage.getItem("admin");
-    if (user) {
-      setCurrentUser(JSON.parse(user));
+  const handleLogout = async () => {
+    if (!window.confirm("確定要登出嗎")) return;
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.log(err);
     }
-  }, []);
+  };
+
+  let adminBoard = null;
+  if (adminUser) {
+    if (status === "user") adminBoard = <UsersMonitor />;
+    if (status === "seat") adminBoard = <AdminBooking />;
+  }
+
+  if (authLoading) {
+    return null;
+  }
 
   return (
     <div>
-      {!currentUser && (
+      {!adminUser && (
         <Box sx={{ width: "60vw" }}>
           <form onSubmit={handleAdminLogin}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -59,12 +67,14 @@ const AdminPage = () => {
                 value={email}
                 onChange={handleEmailChange}
                 label="信箱"
+                type="email"
                 sx={{ background: "white" }}
               />
               <TextField
                 value={password}
                 onChange={handlePasswordChange}
                 label="密碼"
+                type="password"
                 sx={{ background: "white" }}
               />
               <Button type="submit">登入</Button>
@@ -72,13 +82,16 @@ const AdminPage = () => {
           </form>
         </Box>
       )}
-      {currentUser && currentUser.user.role === "admin" && (
+      {adminUser && (
         <Box>
           <Button onClick={() => setStatus("user")} variant="contained">
             用戶後台
           </Button>
           <Button onClick={() => setStatus("seat")} variant="contained">
             修改座位
+          </Button>
+          <Button onClick={handleLogout} variant="outlined" color="error">
+            登出
           </Button>
 
           {adminBoard}

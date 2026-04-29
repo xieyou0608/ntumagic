@@ -1,65 +1,26 @@
 import React from "react";
-import Booking from "../components/booking/Booking";
-import { useNavigate } from "react-router-dom";
-import Alert from "@mui/material/Alert";
 import moment from "moment-timezone";
-import { Grid } from "@mui/material";
-import { GentleYellowButton } from "../components/UI/GuideButtons";
-import { useSelector } from "react-redux";
+import Booking from "../components/booking/Booking";
+
+// 階段時間限制（每年活動更新；要跟 functions/lib/phases.js 同步）
+//
+// 真正擋住搶位仍由後端 phase gate 處理；前端這邊只用來：
+//   - isTesting 期間顯示「測試劃位將於系統開放後清除」提示
+//   - isStudentTime（校內優先）期間提早擋下非 @ntu.edu.tw 提交，
+//     免得送到後端再被 403
+moment.tz.setDefault("Asia/Taipei");
+
+const NTU_START = "2026-05-01 20:00:00"; // TEST 結束 → 進入 NTU_ONLY
+const NTU_END = "2026-05-02 15:00:00"; // NTU_ONLY 結束 → 進入 GAP
 
 const BookingPage = () => {
-  const navigate = useNavigate();
-  moment.tz.setDefault("Asia/Taipei");
-  let isTesting = moment().isBefore("2023-04-28 20:00:00");
-  let isStudentTime = moment().isBetween("2023-04-28 20:00:00", "2023-04-29 20:00:00")
-  let isOthersTime = moment().isBetween("2023-04-29 20:00:00", "2023-05-25 15:00:00");
-  let isOpening = moment().isBetween("2023-04-28 20:00:00", "2023-05-25 15:00:00");
-  // let isStudentTime = moment().isBefore("2023-04-29 20:00:00");
-
-  // const checkTimeAvailable = () => {
-  //   if (currentUser.user.role === "admin") {
-  //     return true;
-  //   }
-  //   if (!isOpening) {
-  //     return false;
-  //   }
-  //   if (isStudentTime && currentUser.user.isStudent) {
-  //     return true;
-  //   } else if (isOthersTime) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
+  const now = moment();
+  const isTesting = now.isBefore(NTU_START);
+  const isStudentTime = now.isBetween(NTU_START, NTU_END);
 
   return (
     <div>
       <Booking isTesting={isTesting} isStudentTime={isStudentTime} />
-      {/* {!checkTimeAvailable() && (
-        <Grid
-          container
-          spacing={0}
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-          style={{ minHeight: "70vh" }}
-          className="prebooking"
-        >
-          <Alert severity="warning">
-            線上劃位已截止，請於現場進行購票，感謝您的支持！
-            <br />
-            （現場將於 17:00 開始進行售票）
-          </Alert>
-
-          <GentleYellowButton
-            onClick={() => {
-              navigate("/preview");
-            }}
-          >
-            查看當前座位
-          </GentleYellowButton>
-        </Grid>
-      )} */}
     </div>
   );
 };

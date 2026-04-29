@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 import theme from "./styles/theme";
@@ -15,10 +15,6 @@ import VerifyPage from "./pages/VerifyPage";
 
 function App() {
   const location = useLocation();
-
-  useEffect(() => {
-    localStorage.removeItem("user");
-  }, []);
 
   const showNav = location.pathname !== "/" && location.pathname !== "/guide";
 

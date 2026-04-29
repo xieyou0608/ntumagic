@@ -1,29 +1,11 @@
 import axios from "axios";
-const USER_API = process.env.REACT_APP_API_URL + "/user";
+const AUDIENCE_API = process.env.REACT_APP_API_URL + "/audience";
 
 class AuthService {
-  login(email, password) {
-    return axios.post(USER_API + "/login", {
+  // audience 不需要登入，這支只剩 email 驗證
+  verify(email, verifyToken) {
+    return axios.patch(AUDIENCE_API + "/verify", {
       email,
-      password,
-    });
-  }
-  logout() {
-    localStorage.removeItem("user");
-  }
-  register(email, password, username, phone) {
-    return axios.post(USER_API + "/register", {
-      email,
-      password,
-      username,
-      phone,
-    });
-  }
-  getCurrentUser() {
-    return JSON.parse(localStorage.getItem("user"));
-  }
-  verify(verifyToken) {
-    return axios.patch(USER_API + "/verify", {
       verifyToken,
     });
   }

@@ -2,52 +2,25 @@ import axios from "axios";
 const SEATS_API = process.env.REACT_APP_API_URL + "/seats";
 
 class SeatService {
+  // 後端公開，不需要 auth
   getAllSeats() {
-    let token;
-    if (localStorage.getItem("user")) {
-      token = JSON.parse(localStorage.getItem("user")).token;
-    } else {
-      token = "";
-    }
-    return axios.get(SEATS_API + "/", {
-      headers: {
-        Authorization: token,
-      },
-    });
+    return axios.get(SEATS_API);
   }
 
-  booking(positions, email, username, bankAccount) {
+  // positions: [{ floor, area, row, col }]
+  booking(positions, email, username, bankAccount, phone) {
     return axios.patch(SEATS_API + "/booking", {
       positions,
       email,
       username,
+      phone,
       bankAccount,
     });
   }
 
-  getMySeats() {
-    let token;
-    let user_id;
-    if (localStorage.getItem("user")) {
-      token = JSON.parse(localStorage.getItem("user")).token;
-      user_id = JSON.parse(localStorage.getItem("user")).user._id;
-    } else {
-      token = "";
-      user_id = "";
-    }
-    return axios.post(
-      SEATS_API + "/getSeat",
-      { user_id },
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
-  }
-
-  getPreviewSeats() {
-    return axios.get(SEATS_API);
+  // 用 email 查觀眾自己訂的座位
+  getMySeatsByEmail(email) {
+    return axios.post(SEATS_API + "/getSeat", { email });
   }
 }
 

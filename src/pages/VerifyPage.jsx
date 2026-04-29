@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Typography, Button, styled, CircularProgress } from "@mui/material";
 import AuthService from "../services/auth.service";
 
@@ -21,21 +21,20 @@ const VerifyPage = () => {
 
   const params = new URLSearchParams(window.location.search);
   const email = params.get("email");
-  console.log(email);
   const verifyToken = params.get("verifyToken");
-  console.log(verifyToken);
-  const verify = async () => {
+
+  const verify = useCallback(async () => {
     try {
-      await AuthService.verify(verifyToken);
+      await AuthService.verify(email, verifyToken);
       setStatus("success");
     } catch (e) {
       setStatus("fail");
     }
-  };
+  }, [email, verifyToken]);
 
   useEffect(() => {
     verify();
-  }, []);
+  }, [verify]);
 
   const handleRetry = () => {
     setStatus("pending");

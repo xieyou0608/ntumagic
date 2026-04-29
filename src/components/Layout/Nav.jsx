@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { Box, Button, IconButton, styled } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Box, IconButton, styled } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { userLogout } from "../../store/user-actions";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const StyledLink = styled(Link)`
   color: white;
@@ -50,16 +50,14 @@ const MobileNavbar = styled("nav")`
 `;
 
 const Nav = () => {
-  const currentUser = JSON.parse(localStorage.getItem("admin"));
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    if (window.confirm("確定要登出嗎")) {
-      dispatch(userLogout());
-      window.alert("登出成功，將重新返回首頁");
-      navigate("/");
-    }
-  };
+  const [adminUser, setAdminUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setAdminUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const [openNav, setOpenNav] = useState(false);
   const toggleNav = () => {
@@ -70,9 +68,7 @@ const Nav = () => {
     <>
       <StyledLink to="/">首頁</StyledLink>
       <StyledLink to="/booking">劃位</StyledLink>
-      {currentUser && currentUser.user.role === "admin" && (
-        <StyledLink to="/admin">後台</StyledLink>
-      )}
+      {adminUser && <StyledLink to="/admin">後台</StyledLink>}
       <StyledLink to="/about" sx={{ flexGrow: 1 }}>
         聯絡我們
       </StyledLink>

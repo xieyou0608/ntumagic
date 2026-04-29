@@ -5,7 +5,7 @@ import { TextField, Button } from "@mui/material";
 import { BookingLayout } from "../booking/Booking";
 import Auditorium from "../booking/Auditorium";
 
-const AdminBooking = ({ token }) => {
+const AdminBooking = () => {
   const [seatsData, setSeatsData] = useState(null);
   const [chosenSeats, setChosenSeats] = useState([]);
   const [finalChosen, setFinalChosen] = useState(null);
@@ -17,7 +17,7 @@ const AdminBooking = ({ token }) => {
 
   const loadSeatsData = async () => {
     try {
-      const res = await SeatService.getAllSeats(token);
+      const res = await SeatService.getAllSeats();
       setSeatsData([...res.data]);
     } catch (e) {
       console.log(e);
@@ -38,12 +38,14 @@ const AdminBooking = ({ token }) => {
 
   useEffect(() => {
     const submitChosen = (submitData) => {
-      let positions = submitData.map((x) => {
-        return { row: x.row, col: x.col, area: x.area };
-      });
+      const positions = submitData.map((x) => ({
+        floor: x.floor,
+        area: x.area,
+        row: x.row,
+        col: x.col,
+      }));
       AdminService.modifyArea(positions, newArea)
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
           window.alert("修改成功！");
           setChosenSeats([]);
           setFinalChosen(null);
@@ -83,8 +85,8 @@ const AdminBooking = ({ token }) => {
       <p>上面這個會清掉所有人的劃位，請謹慎使用，或不要按</p>
       <br />
       <div>
+        <h2>說明：</h2>
         <p>
-          <h2>說明：</h2>
           選擇位子之後填 A, B, C, X, S <br />
           X 是不能坐人的地方（沒椅子的地方），會呈現空白，觀眾不能點，但你可以點然後改回
           A 區之類 <br />
@@ -106,7 +108,7 @@ const AdminBooking = ({ token }) => {
       <br />
       <div>
         {chosenSeats.map((chosen) => (
-          <p key={chosen._id}>
+          <p key={chosen.id || `${chosen.floor}-${chosen.area}-${chosen.row}-${chosen.col}`}>
             <span>{chosen.area} 區 </span>
             <span>{chosen.row} 排 </span>
             <span>{chosen.col} 號</span>

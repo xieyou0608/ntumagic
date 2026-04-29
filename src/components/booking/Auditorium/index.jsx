@@ -87,7 +87,7 @@ const Auditorium = ({ seatsData, chosenSeats, setChosenSeats }) => {
                                         )
                                         .map((seat_obj) => {
                                             return (<Seat
-                                                key={seat_obj._id}
+                                                key={seat_obj.id}
                                                 seatData={seat_obj}
                                                 chosenSeats={chosenSeats}
                                                 setChosenSeats={setChosenSeats}

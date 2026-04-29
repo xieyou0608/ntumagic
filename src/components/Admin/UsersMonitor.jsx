@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -12,30 +12,29 @@ import {
   Paper,
 } from "@mui/material";
 import AdminService from "../../services/admin.service";
-import { v4 as uuidv4 } from "uuid";
 import UserRow from "./UserRow";
 
 const UsersMonitor = () => {
-  const [users, setUsers] = useState([]);
+  const [bookings, setBookings] = useState([]);
   const [showId, setShowId] = useState(false);
   const [showDate, setShowDate] = useState(false);
 
-  const handleShowId = () => {
-    setShowId(!showId);
-  };
-  const handleShowDate = () => {
-    setShowDate(!showDate);
-  };
+  const handleShowId = () => setShowId((v) => !v);
+  const handleShowDate = () => setShowDate((v) => !v);
 
-  useEffect(() => {
-    AdminService.getAllUser()
+  const loadBookings = useCallback(() => {
+    AdminService.getAllBookings()
       .then((res) => {
-        setUsers(res.data);
+        setBookings(res.data);
       })
       .catch((e) => {
         console.log(e);
       });
   }, []);
+
+  useEffect(() => {
+    loadBookings();
+  }, [loadBookings]);
 
   return (
     <Box sx={{ padding: "3rem" }}>
@@ -72,7 +71,7 @@ const UsersMonitor = () => {
         {showId ? "隱藏 ID" : "顯示 ID"}
       </Button>
       <Button onClick={handleShowDate} variant="outlined">
-        {showDate ? "隱藏註冊日期" : "顯示註冊日期"}
+        {showDate ? "隱藏建立日期" : "顯示建立日期"}
       </Button>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
@@ -80,12 +79,12 @@ const UsersMonitor = () => {
             <TableRow sx={{ backgroundColor: "#4aedc4" }}>
               {showId && (
                 <TableCell>
-                  <Typography>_id</Typography>
+                  <Typography>id</Typography>
                 </TableCell>
               )}
               {showDate && (
                 <TableCell>
-                  <Typography>註冊日期</Typography>
+                  <Typography>建立日期</Typography>
                 </TableCell>
               )}
               <TableCell>
@@ -110,12 +109,13 @@ const UsersMonitor = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((userdata) => (
+            {bookings.map((booking) => (
               <UserRow
-                userdata={userdata}
+                userdata={booking}
                 showId={showId}
                 showDate={showDate}
-                key={uuidv4()}
+                onChanged={loadBookings}
+                key={booking.id || booking.email}
               />
             ))}
           </TableBody>
