@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SeatService from "../../services/seat.service";
 
-import { Alert, Button, CircularProgress, styled } from "@mui/material";
+import {
+  Alert,
+  Backdrop,
+  Button,
+  CircularProgress,
+  Typography,
+  styled,
+} from "@mui/material";
 import PriceSigns from "./PriceSigns";
 import Auditorium from "./Auditorium";
 import BookingInfo from "./BookingInfo";
@@ -39,6 +46,7 @@ const Booking = ({
   const navigate = useNavigate();
   const [seatsData, setSeatsData] = useState(null);
   const [chosenSeats, setChosenSeats] = useState([]);
+  const [submitting, setSubmitting] = useState(false);
   const [buyer, setBuyer] = useState({
     email: "",
     username: "",
@@ -83,6 +91,7 @@ const Booking = ({
 
     localStorage.setItem("buyer", JSON.stringify(buyer));
 
+    setSubmitting(true);
     try {
       const positions = chosenSeats.map((x) => ({
         floor: x.floor,
@@ -104,6 +113,8 @@ const Booking = ({
       alert(msg);
       setChosenSeats([]);
       loadSeatsData();
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -156,6 +167,7 @@ const Booking = ({
             size="large"
             color="error"
             onClick={submitHandler}
+            disabled={submitting}
           >
             確定劃位
           </ConfirmButton>
@@ -163,6 +175,7 @@ const Booking = ({
             variant="contained"
             size="large"
             onClick={clearChosenHandler}
+            disabled={submitting}
           >
             清空座位
           </ConfirmButton>
@@ -172,6 +185,19 @@ const Booking = ({
           <p>請選擇至少一個位子</p>
         </ConfirmBox>
       )}
+
+      <Backdrop
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.modal + 1,
+          flexDirection: "column",
+          gap: 2,
+        }}
+        open={submitting}
+      >
+        <CircularProgress color="inherit" />
+        <Typography variant="h6">劃位中，請稍候...</Typography>
+      </Backdrop>
     </BookingLayout>
   );
 };
