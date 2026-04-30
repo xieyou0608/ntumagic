@@ -10,6 +10,7 @@ import {
   TableRow,
   TableCell as muiTableCell,
 } from "@mui/material";
+import { PRICES } from "../../../event-config";
 
 const TableContainer = styled(muiTableContainer)`
   width: 35vw;
@@ -26,17 +27,7 @@ const TableCell = styled(muiTableCell)`
 `;
 
 const Cart = ({ chosenSeats }) => {
-  const priceDict = (area) => {
-    if (area === "A") {
-      return 600;
-    } else if (area === "B") {
-      return 500;
-    } else if (area === "C") {
-      return 400;
-    } else {
-      return 200;
-    }
-  };
+  const priceDict = (area) => PRICES[area] ?? 0;
 
   const compute_total = () => {
     if (chosenSeats.length) {

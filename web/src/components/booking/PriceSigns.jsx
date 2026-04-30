@@ -1,4 +1,5 @@
 import { styled } from "@mui/material";
+import { PRICES } from "../../event-config";
 
 const colorMap = {
   A: "rgb(207, 1, 248)",
@@ -17,9 +18,9 @@ const PriceSign = styled("div")`
 const PriceSigns = () => {
   return (
     <div style={{ marginTop: "1rem" }}>
-      <PriceSign area="A" /> A區 600元
-      <PriceSign area="B" /> B區 500元
-      <PriceSign area="C" /> C區 400元
+      <PriceSign area="A" /> A區 {PRICES.A}元
+      <PriceSign area="B" /> B區 {PRICES.B}元
+      <PriceSign area="C" /> C區 {PRICES.C}元
     </div>
   );
 };

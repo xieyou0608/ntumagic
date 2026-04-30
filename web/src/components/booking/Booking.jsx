@@ -30,7 +30,7 @@ const ConfirmButton = styled(Button)`
   }
 `;
 
-const Booking = ({ isTesting, isStudentTime }) => {
+const Booking = ({ isTesting, isStudentTime, testingNotice }) => {
   const navigate = useNavigate();
   const [seatsData, setSeatsData] = useState(null);
   const [chosenSeats, setChosenSeats] = useState([]);
@@ -133,7 +133,7 @@ const Booking = ({ isTesting, isStudentTime }) => {
         />
       )}
       <br />
-      {isTesting && <Alert color="error">測試劃位將於系統開放後清除</Alert>}
+      {isTesting && <Alert color="error">{testingNotice}</Alert>}
 
       <BookingInfo
         chosenSeats={chosenSeats}

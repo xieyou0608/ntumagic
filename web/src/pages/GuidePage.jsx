@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Alert, styled } from "@mui/material";
 import { GentleYellowButton } from "../components/UI/GuideButtons";
 import ForwardIcon from "@mui/icons-material/Forward";
+import { PRICES, BANK_INFO, PHASE_LABELS } from "../event-config";
 
 const GuideLayout = styled("div")`
   display: flex;
@@ -73,13 +74,14 @@ const GuidePage = () => {
       <h1>劃位說明</h1>
       <GuideBox>
         <h3>劃位開放時間:</h3>
-        <p>校內售票：5/09(五) 20:00</p>
-        <p>校外售票：5/10(六) 20:00</p>
+        <p>校內售票：{PHASE_LABELS.NTU_START}</p>
+        <p>校外售票：{PHASE_LABELS.PUBLIC_START}</p>
+        <p>劃位截止：{PHASE_LABELS.PUBLIC_END}（之後請現場購票）</p>
         <br />
         <p>
-          票種：A區 600元、
+          票種：A區 {PRICES.A}元、
           <MobileBr />
-          B區 500元 、C區 400元
+          B區 {PRICES.B}元 、C區 {PRICES.C}元
         </p>
       </GuideBox>
 
@@ -107,11 +109,11 @@ const GuidePage = () => {
         <p>劃位成功之後，請於隔日 15:00 前匯款至以下帳戶</p>
         <Alert icon={false} severity="success">
           <p>
-            銀行代碼：822 中國信託
+            銀行代碼：{BANK_INFO.bankCode}
             <br />
-            帳號：0000901564138410
+            帳號：{BANK_INFO.account}
             <br />
-            戶名：劉耀璘
+            戶名：{BANK_INFO.holder}
           </p>
         </Alert>
       </GuideBox>

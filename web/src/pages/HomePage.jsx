@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { styled } from "@mui/material";
 import poster from "../img/magic_night28.jpg";
 import { GoldButton } from "../components/UI/GuideButtons";
+import { EVENT_DATE, EVENT_TIME } from "../event-config";
 
 const HomeLayout = styled("div")`
   height: 100vh;
@@ -73,9 +74,9 @@ const HomePage = () => {
       <Info className="info">
         <h1>台大魔夜劃位系統</h1>
         <p>
-          時間：2025/6/12（四）
+          時間：{EVENT_DATE}
           <MobileBr />
-          18:00 進場 18:30 開始 <br />
+          {EVENT_TIME} <br />
           地點：國立臺灣藝術教育館 南海劇場 <br />
         </p>
         <Link to="/guide">

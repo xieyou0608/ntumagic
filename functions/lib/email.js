@@ -1,16 +1,11 @@
 const nodemailer = require("nodemailer");
-
-// 每年活動改這裡（不放 env，當作 code 的一部分跟著版本走）
-const EVENT_NAME = "第 30 屆台大魔幻之夜";
-const EVENT_DATETIME = "魔夜時間：2026/06/12（四）18:30 進場 19:00 開始"; // TODO: 確切日期 TBD
-const EVENT_VENUE =
-  "魔夜地點：國立臺灣藝術教育館 南海劇場（近捷運小南門站 3 號出口）";
-const BANK_INFO = [
-  "銀行代碼：822 中國信託",
-  "帳號：0000901564138410",
-  "戶名：劉耀璘",
-];
-const PRICES = { S: 600, A: 500, B: 400, C: 300 };
+const {
+  EVENT_NAME,
+  EVENT_DATETIME,
+  EVENT_VENUE,
+  BANK_INFO,
+  PRICES,
+} = require("./event-config");
 
 function transporter() {
   const user = process.env.GMAIL_ACCOUNT;

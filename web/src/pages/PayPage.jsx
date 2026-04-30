@@ -1,5 +1,6 @@
 import React from "react";
 import { Alert, Typography, styled } from "@mui/material";
+import { BANK_INFO } from "../event-config";
 
 const Layout = styled("div")`
   display: flex;
@@ -26,9 +27,9 @@ const PayPage = () => {
         </Typography>
         <Typography>並於至隔日 15:00 前將總金額匯款至：</Typography>
         <Alert icon={false} severity="info">
-          <Typography>銀行代碼：822 中國信託</Typography>
-          <Typography>帳號：0000901564138410</Typography>
-          <Typography>戶名：劉耀璘</Typography>
+          <Typography>銀行代碼：{BANK_INFO.bankCode}</Typography>
+          <Typography>帳號：{BANK_INFO.account}</Typography>
+          <Typography>戶名：{BANK_INFO.holder}</Typography>
         </Alert>
 
         <Typography>繳費說明：</Typography>

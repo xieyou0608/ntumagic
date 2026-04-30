@@ -114,6 +114,15 @@ node scripts/seed-seats.js --reset  # 重灌
 
 換劇場時改 `scripts/generate-seats.js` 重跑 `--reset` 即可，DB schema / API / 前端都不用動。
 
+## 每年活動要改的設定
+
+每年活動改變的東西（票價、phase 時間、活動日期、匯款資訊）都集中在兩支設定檔，前後端各一份：
+
+- [functions/lib/event-config.js](functions/lib/event-config.js) — 後端：phase 時間、寄信文案、匯款帳戶、票價（含 S 區）
+- [web/src/event-config.js](web/src/event-config.js) — 前端顯示用：活動日期、票價（A/B/C）、匯款帳戶、校內/校外時間 label
+
+兩邊要同步改（後端的 phase 時間是 source of truth、前端只做 UX 提示）。CRA 不能直接 import 出 `web/src/` 之外的檔案，所以暫時維持兩份；確認對齊就好。
+
 ## API 摘要
 
 | Method | Path                       | 用途                                  |

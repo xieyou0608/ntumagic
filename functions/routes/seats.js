@@ -80,7 +80,6 @@ router.use("/booking", (req, res, next) => {
   const email = (req.body.email || "").toLowerCase();
   switch (phase) {
     case "TEST":
-    case "GAP":
     case "PUBLIC":
       return next();
     case "NTU_ONLY":
@@ -90,6 +89,10 @@ router.use("/booking", (req, res, next) => {
           .json({ success: false, message: "目前為校內優先時段，請使用台大信箱" });
       }
       return next();
+    case "GAP":
+      return res
+        .status(403)
+        .json({ success: false, message: "測試結束，劃位將於校內售票時段開放" });
     case "CLOSED":
     default:
       return res

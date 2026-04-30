@@ -36,8 +36,10 @@
 ## 開發習慣
 
 - **換劇場** = 改 `scripts/generate-seats.js` + 重跑 `node scripts/seed-seats.js --reset`，DB schema / API / 前端都不用動
-- **階段時間**（測試 / NTU 優先 / 公開）兩處 hardcode 要同步：[functions/lib/phases.js](functions/lib/phases.js) 跟 [web/src/pages/BookingPage.jsx](web/src/pages/BookingPage.jsx)。後端是真正的 gate，前端只做 UX 提示
-- **寄信文案 + 匯款資訊**：hardcode 在 [functions/lib/email.js](functions/lib/email.js)；每年活動改這裡
+- **每年活動要改的設定**（票價、phase 時間、活動日期、寄信文案、匯款資訊）集中在兩支 event-config，前後端各一份要一起改：
+  - [functions/lib/event-config.js](functions/lib/event-config.js) — 後端 source of truth（phase gate、寄信、票價含 S 區）
+  - [web/src/event-config.js](web/src/event-config.js) — 前端顯示用（活動日期、A/B/C 票價、匯款 UI、校內/校外時間 label）
+  - CRA 擋 `src/` 外的 import，所以暫時維持兩份；不打算為此引 craco/Vite。後端是真正的 gate，前端只做 UX 提示
 - **booking transaction**：[functions/routes/seats.js](functions/routes/seats.js)，6 張上限由後端擋；座位用 query (floor, area, row, col) lookup（不用 doc id 直查），詳見 implementation-research.md 2.3 / 2.4
 - **doc id 用 Firestore auto-id**：座位身分靠 query 找，admin 改 area 是單純 update（不用刪舊 doc + 寫新 doc）
 - **Secret 走 Cloud Secret Manager**：`GMAIL_PASSWORD` / `EMAIL_HASH_SECRET`；非機敏走 `functions/.env`
