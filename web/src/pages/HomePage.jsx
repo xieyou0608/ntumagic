@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { styled } from "@mui/material";
-import poster from "../img/magic_night28.jpg";
+import poster from "../img/magic_night30.jpg";
+import posterSm from "../img/magic_night30-sm.jpg";
 import { GoldButton } from "../components/UI/GuideButtons";
 import { EVENT_DATE, EVENT_TIME } from "../event-config";
 
@@ -70,7 +71,12 @@ const MobileBr = styled("br")`
 const HomePage = () => {
   return (
     <HomeLayout>
-      <Poster src={poster} alt="魔夜宣傳海報" />
+      <Poster
+        src={poster}
+        srcSet={`${posterSm} 1200w, ${poster} 3000w`}
+        sizes="(max-width: 600px) 100vw, 80vw"
+        alt="魔夜宣傳海報"
+      />
       <Info className="info">
         <h1>台大魔夜劃位系統</h1>
         <p>
