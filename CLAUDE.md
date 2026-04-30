@@ -44,27 +44,21 @@
 - **doc id 用 Firestore auto-id**：座位身分靠 query 找，admin 改 area 是單純 update（不用刪舊 doc + 寫新 doc）
 - **Secret 走 Cloud Secret Manager**：`GMAIL_PASSWORD` / `EMAIL_HASH_SECRET`；非機敏走 `functions/.env`
 
-## 本機 emulator
+## 本機開發
 
-```sh
-firebase emulators:start --only functions,firestore,auth,hosting
-# Hosting + API: http://localhost:5005
-# UI: http://localhost:4000
-```
+repo 根目錄統一用 npm script，背後就是上面的 firebase / seed 指令包好：
 
-Seed emulator 的 Firestore：
+- `npm run emulators` — 啟 emulator，import/export `.emulator-data/`（接續上次狀態）
+- `npm run emulators:clean` — 砍 `.emulator-data/` 重啟
+- `npm run emulators:seed` — 對 emulator 跑 seed-seats.js --reset（要先有 emulator 在跑）
+- `npm run web` — CRA dev server（port 3000，hot reload），`REACT_APP_API_URL` 自動指 emulator
 
-```sh
-FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 GOOGLE_CLOUD_PROJECT=ntu-magic-night node scripts/seed-seats.js
-```
+預設網址：emulator hosting `http://localhost:5005`、UI `http://localhost:4000`、CRA dev server `http://localhost:3000`。
 
 Functions emulator 用的 secret 走 `functions/.secret.local`（已 gitignore，僅本機 dummy 值）；env 走 `functions/.env.local` 或 `functions/.env`。
 
 ## 部署
 
-```sh
-cd web && npm run build && cd ..
-firebase deploy
-```
-
-一行推 functions + hosting + firestore rules / indexes。
+- `npm run deploy` — 前端 build + 全部部署（functions + hosting + firestore rules / indexes）
+- `npm run deploy:web` — 前端 build + 只部署 hosting
+- `npm run deploy:functions` — 只部署 functions

@@ -1,0 +1,14 @@
+{
+  "name": "ntumagic",
+  "private": true,
+  "description": "台大魔幻之夜劃位系統 — repo-level dev scripts",
+  "scripts": {
+    "web": "REACT_APP_API_URL=http://localhost:5005/api npm --prefix web start",
+    "emulators": "mkdir -p ./.emulator-data && firebase emulators:start --only functions,firestore,auth,hosting --import=./.emulator-data --export-on-exit",
+    "emulators:clean": "rm -rf ./.emulator-data && firebase emulators:start --only functions,firestore,auth,hosting --export-on-exit=./.emulator-data",
+    "emulators:seed": "FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 GOOGLE_CLOUD_PROJECT=ntu-magic-night node scripts/seed-seats.js --reset",
+    "deploy:web": "npm --prefix web run build && firebase deploy --only hosting",
+    "deploy:functions": "firebase deploy --only functions",
+    "deploy": "npm --prefix web run build && firebase deploy"
+  }
+}

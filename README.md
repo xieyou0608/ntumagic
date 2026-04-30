@@ -80,39 +80,34 @@ cd ../scripts && npm install
    ```
 3. **設一般 env**：`cp functions/.env.example functions/.env`，填 `ADMIN_EMAIL` / `GMAIL_ACCOUNT` / `VERIFY_BASE_URL`
 
-## 本機 emulator
+## 本機開發
 
-```sh
-firebase emulators:start --only functions,firestore,auth,hosting
-```
+repo 根目錄統一用 npm script：
+
+| 指令 | 用途 |
+| --- | --- |
+| `npm run emulators` | 啟 emulator（functions / firestore / auth / hosting），import/export `.emulator-data/` |
+| `npm run emulators:clean` | 砍掉 `.emulator-data/` 重啟，狀態歸零 |
+| `npm run emulators:seed` | 對 emulator 跑 `seed-seats.js --reset`（要先有 emulator 在跑） |
+| `npm run web` | CRA dev server（port 3000，hot reload），`REACT_APP_API_URL` 自動指到 emulator hosting |
 
 預設網址：
 
-- 前端：http://localhost:5005
-- API（透過 hosting rewrite）：http://localhost:5005/api/...
+- 前端 dev server（hot reload）：http://localhost:3000
+- 前端 + API（emulator hosting）：http://localhost:5005
 - Emulator UI：http://localhost:4000
 
-Seed 座位（連 emulator）：
-
-```sh
-FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 GOOGLE_CLOUD_PROJECT=ntu-magic-night node scripts/seed-seats.js
-```
+典型流程：T1 跑 `emulators:clean`，T2 跑 `emulators:seed`，T3 跑 `web`。之後想接續上次狀態就直接 `emulators`（會 import）。
 
 ## 部署
 
-```sh
-cd web && npm run build && cd ..
-firebase deploy
-```
+| 指令 | 用途 |
+| --- | --- |
+| `npm run deploy` | 前端 build + 全部部署（functions + hosting + firestore rules / indexes） |
+| `npm run deploy:web` | 前端 build + 只部署 hosting |
+| `npm run deploy:functions` | 只部署 functions |
 
-第一次活動前 / 換劇場時：
-
-```sh
-node scripts/seed-seats.js          # 第一次
-node scripts/seed-seats.js --reset  # 重灌
-```
-
-換劇場時改 `scripts/generate-seats.js` 重跑 `--reset` 即可，DB schema / API / 前端都不用動。
+第一次活動前 / 換劇場：改 `scripts/generate-seats.js`、用 ADC 對 prod 跑 `cd scripts && npm run seed:reset`，DB schema / API / 前端都不用動。
 
 ## 每年活動要改的設定
 
