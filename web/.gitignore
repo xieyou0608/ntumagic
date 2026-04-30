@@ -1,0 +1,21 @@
+# CRA defaults
+node_modules/
+.pnp
+.pnp.js
+
+# testing
+coverage/
+
+# production build
+build/
+
+# env (CRA 慣例：.env 可進 commit；.env.local 家族不進)
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

@@ -1,0 +1,15 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "seats",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "floor", "order": "ASCENDING" },
+        { "fieldPath": "area", "order": "ASCENDING" },
+        { "fieldPath": "row", "order": "ASCENDING" },
+        { "fieldPath": "col", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
