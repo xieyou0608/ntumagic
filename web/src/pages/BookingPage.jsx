@@ -15,13 +15,14 @@ const BookingPage = () => {
   const isStudentTime = now.isBetween(PHASES.NTU_START, PHASES.PUBLIC_START);
 
   const testingNotice = `${PHASE_LABELS.TEST_END} 後會清空劃位，並於 ${PHASE_LABELS.NTU_START} 開放正式劃位`;
-
+  const studentNotice = `現在為校內優先劃位時間，請使用台大信箱 ntu.edu.tw 進行劃位`;
   return (
     <div>
       <Booking
         isTesting={isTesting}
-        isStudentTime={isStudentTime}
         testingNotice={testingNotice}
+        isStudentTime={isStudentTime}
+        studentNotice={studentNotice}
       />
     </div>
   );

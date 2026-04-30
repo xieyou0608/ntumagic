@@ -24,8 +24,8 @@ export const PHASES = {
 
 // 對應 PHASES 的中文 label，給 UI 顯示用
 export const PHASE_LABELS = {
-  TEST_END: "5/04(一) 12:00",
-  NTU_START: "5/04(一) 20:00",
-  PUBLIC_START: "5/05(二) 20:00",
-  PUBLIC_END: "5/22(五) 15:00",
+  TEST_END: "2026/05/04(一) 12:00",
+  NTU_START: "2026/05/04(一) 20:00",
+  PUBLIC_START: "2026/05/05(二) 20:00",
+  PUBLIC_END: "2026/05/22(五) 15:00",
 };

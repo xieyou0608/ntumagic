@@ -4,6 +4,7 @@ import { Alert, styled } from "@mui/material";
 import { GentleYellowButton } from "../components/UI/GuideButtons";
 import ForwardIcon from "@mui/icons-material/Forward";
 import { PRICES, BANK_INFO, PHASE_LABELS } from "../event-config";
+import paidSuccess from "../img/paid_success.png";
 
 const GuideLayout = styled("div")`
   display: flex;
@@ -57,6 +58,19 @@ const GuideBox = styled("div")`
   }
 `;
 
+const GuideComment = styled("p")`
+  color: gray;
+  font-size: 0.8rem;
+`;
+
+const ExampleImage = styled("img")`
+  width: 100%;
+  max-width: 400px;
+  margin-top: 1vh;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+`;
+
 const Arrow = styled(ForwardIcon)`
   font-size: 5vh;
   transform: rotate(90deg);
@@ -74,38 +88,34 @@ const GuidePage = () => {
       <h1>劃位說明</h1>
       <GuideBox>
         <h3>劃位開放時間:</h3>
-        <p>校內售票：{PHASE_LABELS.NTU_START}</p>
-        <p>校外售票：{PHASE_LABELS.PUBLIC_START}</p>
-        <p>劃位截止：{PHASE_LABELS.PUBLIC_END}（之後請現場購票）</p>
-        <br />
         <p>
+          校內劃位：{PHASE_LABELS.NTU_START}
+          <br />
+          校外劃位：{PHASE_LABELS.PUBLIC_START}
+          <br />
+          <br />
           票種：A區 {PRICES.A}元、
           <MobileBr />
           B區 {PRICES.B}元 、C區 {PRICES.C}元
+          <GuideComment>※ 校內劃位請使用台大信箱 ntu.edu.tw</GuideComment>
+          <GuideComment>
+            ※ 線上劃位將於 {PHASE_LABELS.PUBLIC_END}截止，之後請現場購票
+          </GuideComment>
         </p>
       </GuideBox>
 
       <GuideBox>
         <h2>Step 1</h2>
         <p>
-          請於系統開放後至<Link to="/booking">劃位頁面</Link>選擇座位 <br />
-          ※單個信箱最多可劃 6 張票
+          於系統開放後至<Link to="/booking">劃位頁面</Link>
+          選擇座位，並填寫信箱及匯款帳戶末五碼
+          <GuideComment>※單個信箱最多可劃 6 張票</GuideComment>
+          <GuideComment>※若需使用其他付款方式請私訊粉專</GuideComment>
         </p>
       </GuideBox>
       <Arrow />
       <GuideBox>
         <h2>Step 2</h2>
-        <p>
-          選擇位置後請填寫信箱及預計匯款帳戶末五碼
-          <br />
-          ※校內售票時段請使用 NTU mail (ntu.edu.tw)
-          <br />
-          ※若需使用其他付款方式請私訊粉專
-        </p>
-      </GuideBox>
-      <Arrow />
-      <GuideBox>
-        <h2>Step 3</h2>
         <p>劃位成功之後，請於隔日 15:00 前匯款至以下帳戶</p>
         <Alert icon={false} severity="success">
           <p>
@@ -119,19 +129,15 @@ const GuidePage = () => {
       </GuideBox>
       <Arrow />
       <GuideBox>
-        <h2>Step 4</h2>
+        <h2>Step 3（重要！）</h2>
         <p>
           確認款項後，我們將寄出劃位成功通知信至您的信箱
-          <br />
-          <br />
-          註：若付款後三日皆沒有收到信，請私訊台大魔術社粉絲專頁
+          <p>魔夜當日請出示劃位成功通知信領取實體票</p>
+          註：若付款後 3 日皆沒有收到信，請私訊台大魔術社粉絲專頁
         </p>
+        <ExampleImage src={paidSuccess} alt="劃位成功通知信範例" />
       </GuideBox>
       <Arrow />
-      <GuideBox>
-        <h2>Step 5（重要！）</h2>
-        <p>魔夜當日請出示劃位成功通知信領取實體票</p>
-      </GuideBox>
       <Link to="/booking">
         <GentleYellowButton sx={{ mt: 2 }}>點我開始</GentleYellowButton>
       </Link>

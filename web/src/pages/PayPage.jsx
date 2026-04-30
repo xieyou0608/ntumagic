@@ -21,11 +21,9 @@ const PayPage = () => {
       <StyledBox>
         <Typography variant="h5">感謝您的劃位！</Typography>
         <Typography color="red">
-          首次劃位請至信箱收取驗證信
-          <br />
-          並於 10 分鐘內完成驗證
+          請至信箱收取劃位成功通知，確保能收到信之後，
         </Typography>
-        <Typography>並於至隔日 15:00 前將總金額匯款至：</Typography>
+        <Typography>於隔日 15:00 前將總金額匯款至：</Typography>
         <Alert icon={false} severity="info">
           <Typography>銀行代碼：{BANK_INFO.bankCode}</Typography>
           <Typography>帳號：{BANK_INFO.account}</Typography>

@@ -30,7 +30,12 @@ const ConfirmButton = styled(Button)`
   }
 `;
 
-const Booking = ({ isTesting, isStudentTime, testingNotice }) => {
+const Booking = ({
+  isTesting,
+  isStudentTime,
+  testingNotice,
+  studentNotice,
+}) => {
   const navigate = useNavigate();
   const [seatsData, setSeatsData] = useState(null);
   const [chosenSeats, setChosenSeats] = useState([]);
@@ -121,6 +126,9 @@ const Booking = ({ isTesting, isStudentTime, testingNotice }) => {
         今日 17:00 後將開放現場購票
       </Alert> */}
       <h1>座位區</h1>
+      {isTesting && <Alert color="error">{testingNotice}</Alert>}
+      {isStudentTime && <Alert color="info">{studentNotice}</Alert>}
+
       <PriceSigns />
 
       {!seatsData && <CircularProgress size={100} sx={{ my: 10 }} />}
@@ -133,7 +141,6 @@ const Booking = ({ isTesting, isStudentTime, testingNotice }) => {
         />
       )}
       <br />
-      {isTesting && <Alert color="error">{testingNotice}</Alert>}
 
       <BookingInfo
         chosenSeats={chosenSeats}
