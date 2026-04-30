@@ -2,11 +2,37 @@
 
 每年一次的線上劃位系統。2026 起翻新成全 Firebase（Firestore + Functions + Hosting），前後端 mono-repo。
 
-線上版：[https://ntu-magic-night.web.app/](https://ntu-magic-night.web.app/)
+線上版：
 
-舊版（MERN）已 archive：[ntumagic-server (archived)](https://github.com/xieyou0608/ntumagic-server)
+- 自訂網域：[https://ntumagic.club](https://ntumagic.club)
+- Firebase 預設：[https://ntu-magic-night.web.app/](https://ntu-magic-night.web.app/)
 
-![劃位流程圖](./docs/劃位流程圖.jpg)
+舊版後端（MERN）已 archive：[ntumagic-server (archived)](https://github.com/xieyou0608/ntumagic-server)
+
+## 劃位流程
+
+觀眾不需要註冊帳號，只填**信箱、姓名、匯款末五碼**就能下訂；確認入帳跟寄通知信都是管理員手動操作。
+
+```mermaid
+flowchart TD
+    Start([開始]) --> Home[首頁]
+    Home --> Guide[劃位說明頁]
+    Home -. 可選 .-> Preview[座位預覽]
+    Preview -.-> Guide
+
+    subgraph 觀眾
+        Guide --> Booking[劃位頁<br/>選位 + 填信箱／姓名／匯款末五碼]
+        Booking --> Verify[送出後收驗證信]
+        Verify --> Transfer[使用者匯款]
+    end
+
+    subgraph 管理員
+        Confirm[後台確認入帳] --> SendMail[寄付款成功通知信]
+    end
+
+    Transfer --> Confirm
+    SendMail --> End([結束])
+```
 
 ## 結構
 
