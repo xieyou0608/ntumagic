@@ -5,6 +5,7 @@ const colorMap = {
   A: "rgb(207, 1, 248)",
   B: "rgb(255, 210, 64)",
   C: "rgb(84, 125, 238)",
+  S: "white",
 };
 
 const PriceSign = styled("div")`
@@ -13,6 +14,7 @@ const PriceSign = styled("div")`
   background-color: ${(props) => colorMap[props.area]};
   display: inline-block;
   margin: 0 0.5rem;
+  border: 1px solid black;
 `;
 
 const PriceSigns = () => {
@@ -21,6 +23,7 @@ const PriceSigns = () => {
       <PriceSign area="A" /> A區 {PRICES.A}元
       <PriceSign area="B" /> B區 {PRICES.B}元
       <PriceSign area="C" /> C區 {PRICES.C}元
+      <PriceSign area="S" /> 已劃位 / 不開放
     </div>
   );
 };

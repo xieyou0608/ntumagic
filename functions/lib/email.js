@@ -6,6 +6,12 @@ const {
   BANK_INFO,
   PRICES,
 } = require("./event-config");
+const { currentPhase } = require("./phases");
+
+// TEST 階段寄出的信主旨加上 (測試) 前綴，避免測試信被當成正式通知。
+function testTag() {
+  return currentPhase() === "TEST" ? "(測試)" : "";
+}
 
 function transporter() {
   const user = process.env.GMAIL_ACCOUNT;
@@ -41,7 +47,7 @@ function bookingMail({ to, username, seats }) {
     from: process.env.GMAIL_ACCOUNT,
     to,
     cc: process.env.GMAIL_ACCOUNT,
-    subject: `【${EVENT_NAME}】劃位通知`,
+    subject: `【${EVENT_NAME}】${testTag()}劃位通知`,
     html: `<h3>${username} 您好：</h3>
       <p>感謝您支持${EVENT_NAME}</p>
       <p>================================================</p>
@@ -64,7 +70,7 @@ function paidMail({ to, username, seats }) {
     from: process.env.GMAIL_ACCOUNT,
     to,
     cc: process.env.GMAIL_ACCOUNT,
-    subject: `【${EVENT_NAME}】付款成功通知信`,
+    subject: `【${EVENT_NAME}】${testTag()}付款成功通知信`,
     html: `<h3>${username} 您好：</h3>
       <p>恭喜您！您已成功付款！</p>
       <p>您的座位：</p>

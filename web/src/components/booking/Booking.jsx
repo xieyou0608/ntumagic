@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import SeatService from "../../services/seat.service";
 
 import {
-  Alert,
   Backdrop,
   Button,
   CircularProgress,
@@ -19,7 +18,6 @@ const BookingLayout = styled("div")`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 5vh 0;
 `;
 
 const ConfirmBox = styled("div")`
@@ -37,12 +35,7 @@ const ConfirmButton = styled(Button)`
   }
 `;
 
-const Booking = ({
-  isTesting,
-  isStudentTime,
-  testingNotice,
-  studentNotice,
-}) => {
+const Booking = ({ isStudentTime }) => {
   const navigate = useNavigate();
   const [seatsData, setSeatsData] = useState(null);
   const [chosenSeats, setChosenSeats] = useState([]);
@@ -85,7 +78,7 @@ const Booking = ({
       window.alert("請填寫所有欄位");
       return;
     }
-    if (isStudentTime && !buyer.email.includes("ntu.edu.tw")) {
+    if (isStudentTime && !buyer.email.toLowerCase().endsWith("@ntu.edu.tw")) {
       window.alert("現在為校內售票時間，請使用台大信箱");
       return;
     }
@@ -134,15 +127,6 @@ const Booking = ({
 
   return (
     <BookingLayout>
-      {/* <Alert severity="warning">
-        劃位功能將於 15:00 關閉 <br />
-        使用線上劃位請於 17:00 前進行匯款 <br />
-        今日 17:00 後將開放現場購票
-      </Alert> */}
-      <h1>座位區</h1>
-      {isTesting && <Alert color="error">{testingNotice}</Alert>}
-      {isStudentTime && <Alert color="info">{studentNotice}</Alert>}
-
       <PriceSigns />
 
       {!seatsData && <CircularProgress size={100} sx={{ my: 10 }} />}
