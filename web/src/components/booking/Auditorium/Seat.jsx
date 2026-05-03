@@ -16,6 +16,7 @@ const StyledSeat = styled("div")`
   border-width: 0.05rem;
   cursor: default;
   transition: 0.5s;
+  touch-action: manipulation;
 `;
 
 const SoldSeat = styled(StyledSeat)`
@@ -39,9 +40,11 @@ const AvailableSeat = styled(StyledSeat)`
   background-color: ${(props) => colorMap[props.area]};
   cursor: pointer;
 
-  &:hover {
-    transform: scale(1.2);
-    opacity: 0.5;
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.2);
+      opacity: 0.5;
+    }
   }
 `;
 const ChosenSeat = styled(AvailableSeat)`
