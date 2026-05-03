@@ -10,6 +10,11 @@
     "emulators:admin": "FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099 GOOGLE_CLOUD_PROJECT=ntu-magic-night node scripts/set-admin-claim.js admin@example.com admin1234",
     "deploy:web": "npm --prefix web run build && firebase deploy --only hosting",
     "deploy:functions": "firebase deploy --only functions",
-    "deploy": "npm --prefix web run build && firebase deploy"
+    "deploy": "npm --prefix web run build && firebase deploy",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.8.3"
   }
 }
