@@ -3,8 +3,10 @@ const SEATS_API = process.env.REACT_APP_API_URL + "/seats";
 
 class SeatService {
   // 後端公開，不需要 auth
-  getAllSeats() {
-    return axios.get(SEATS_API);
+  // bypassCache: 撞到 409 之後 reload 用，加 query param 繞過 CDN/瀏覽器 cache 拿最新狀態
+  getAllSeats({ bypassCache = false } = {}) {
+    const url = bypassCache ? `${SEATS_API}?_=${Date.now()}` : SEATS_API;
+    return axios.get(url);
   }
 
   // positions: [{ floor, area, row, col }]

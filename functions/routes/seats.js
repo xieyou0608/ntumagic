@@ -47,10 +47,16 @@ function seatLookupQuery(p) {
 // GET /api/seats — 全部座位（含 placeholder 跟 sold 狀態），給前端畫圖用
 // orderBy(sortIndex) 讓回傳的 array 順序對齊 generate_seats() 的 layout 順序，
 // 前端 Auditorium 才能用 array slice 切出每 row。
+//
+// Cache-Control: 開賣瞬間 2000 人同時載入這支 → 600 doc reads × 2000 = 120 萬 reads，
+// 而且會擠掉 booking endpoint 的 Function instance。Firebase Hosting CDN 看到這個 header
+// 會在 edge cache 15 秒，把同瞬間的 burst 收斂成 1 次回源。
+// stale 不會造成超賣 — 後端 transaction 還是會擋（撞到回 409，前端帶 cache-bust 重撈）。
 router.get("/", async (_req, res) => {
   try {
     const snap = await db.collection("seats").orderBy("sortIndex").get();
     const seats = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    res.set("Cache-Control", "public, max-age=15, s-maxage=15");
     res.status(200).json(seats);
   } catch (err) {
     console.error("GET /api/seats failed:", err);

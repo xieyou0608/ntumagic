@@ -15,7 +15,7 @@ exports.api = onRequest(
     invoker: "public",
     memory: "256MiB",
     timeoutSeconds: 30,
-    maxInstances: 10,
+    maxInstances: 50,
   },
   app
 );

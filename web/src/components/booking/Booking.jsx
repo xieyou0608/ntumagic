@@ -47,9 +47,9 @@ const Booking = ({ isStudentTime }) => {
     contact: "",
   });
 
-  const loadSeatsData = async () => {
+  const loadSeatsData = async ({ bypassCache = false } = {}) => {
     try {
-      const res = await SeatService.getAllSeats();
+      const res = await SeatService.getAllSeats({ bypassCache });
       setSeatsData([...res.data]);
     } catch (error) {
       console.log(error);
@@ -107,7 +107,7 @@ const Booking = ({ isStudentTime }) => {
       const msg = error.response?.data?.message || "劃位失敗，請重試";
       alert(msg);
       setChosenSeats([]);
-      loadSeatsData();
+      loadSeatsData({ bypassCache: true });
     } finally {
       setSubmitting(false);
     }
