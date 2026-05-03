@@ -3,7 +3,7 @@ const Joi = require("joi");
 
 const { db, FieldValue } = require("../lib/firestore");
 const { requireAdmin } = require("../lib/auth-middleware");
-const { sendMail, paidMail } = require("../lib/email");
+const { sendMail, paidMail, bookingMail } = require("../lib/email");
 
 // 用 (floor, area, row, col) 找 sellable seat doc。座位是 auto-id，沒辦法 by id 直查。
 function seatLookupQuery(p) {
@@ -126,7 +126,11 @@ router.patch("/clearByEmail", async (req, res) => {
     const bookingRef = db.doc(`bookings/${email}`);
     batch.set(
       bookingRef,
-      { emailSent: false, updatedAt: FieldValue.serverTimestamp() },
+      {
+        bookingMailSent: false,
+        paidMailSent: false,
+        updatedAt: FieldValue.serverTimestamp(),
+      },
       { merge: true }
     );
     await batch.commit();
@@ -184,7 +188,11 @@ router.patch("/removeSeat", async (req, res) => {
       });
       tx.set(
         db.doc(`bookings/${email}`),
-        { emailSent: false, updatedAt: FieldValue.serverTimestamp() },
+        {
+          bookingMailSent: false,
+          paidMailSent: false,
+          updatedAt: FieldValue.serverTimestamp(),
+        },
         { merge: true }
       );
     });
@@ -303,12 +311,50 @@ router.post("/sendPaidEmail", async (req, res) => {
     );
 
     await bookingSnap.ref.update({
-      emailSent: true,
+      paidMailSent: true,
       updatedAt: FieldValue.serverTimestamp(),
     });
     res.json({ success: true });
   } catch (err) {
     console.error("sendPaidEmail failed:", err);
+    res.status(500).json({ success: false, message: "寄信失敗" });
+  }
+});
+
+// POST /api/admin/sendBookingEmail — 重寄劃位通知信。
+// 兩種使用情境：
+//   1) 第一次劃位時 sendMail 失敗，bookingMailSent 卡在 false，admin 補寄
+//   2) admin 改動座位後，user 拿到的舊劃位信內容過時，重寄一份反映現況
+// 寄出的內容用 user 目前所有座位（不只是某次劃位的 batch），跟 sendPaidEmail 邏輯一致。
+router.post("/sendBookingEmail", async (req, res) => {
+  const email = (req.body.email || "").toLowerCase();
+  if (!email) return res.status(400).json({ success: false, message: "Missing email" });
+
+  try {
+    const [bookingSnap, seatSnap] = await Promise.all([
+      db.doc(`bookings/${email}`).get(),
+      db.collection("seats").where("buyerEmail", "==", email).get(),
+    ]);
+    if (!bookingSnap.exists) {
+      return res.status(404).json({ success: false, message: "找不到訂單" });
+    }
+    if (seatSnap.empty) {
+      return res.status(400).json({ success: false, message: "該 email 目前沒有座位" });
+    }
+    const booking = bookingSnap.data();
+    const seats = seatSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
+
+    await sendMail(
+      bookingMail({ to: booking.email, username: booking.username, seats })
+    );
+
+    await bookingSnap.ref.update({
+      bookingMailSent: true,
+      updatedAt: FieldValue.serverTimestamp(),
+    });
+    res.json({ success: true });
+  } catch (err) {
+    console.error("sendBookingEmail failed:", err);
     res.status(500).json({ success: false, message: "寄信失敗" });
   }
 });

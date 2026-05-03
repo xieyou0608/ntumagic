@@ -66,6 +66,12 @@ class AdminService {
     const headers = await authHeader();
     return axios.post(ADMIN_API + "/sendPaidEmail", { email }, { headers });
   }
+
+  // 重寄劃位通知信給某 email
+  async sendBookingEmail(email) {
+    const headers = await authHeader();
+    return axios.post(ADMIN_API + "/sendBookingEmail", { email }, { headers });
+  }
 }
 
 export default new AdminService();

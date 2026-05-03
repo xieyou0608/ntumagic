@@ -74,7 +74,7 @@ exports.api = onRequest(app);
 - Function 端：
   - 跑 booking transaction 寫進 Firestore
   - **transaction commit 成功後**才寄出劃位通知信（寄信失敗只記 log 不回滾）
-- 第二次劃位同 email：merge 既有 booking doc，只把 `emailSent` 重置成 `false` 提醒 admin 補寄付款通知信
+- 第二次劃位同 email：merge 既有 booking doc，把 `bookingMailSent` / `paidMailSent` 都重置成 `false`（座位變了，舊信內容過時，提醒 admin 補寄）
 
 → 跟現有 Express 的邏輯幾乎一樣，只是把 `User` model + bcrypt password 那一坨刪掉。
 
@@ -244,7 +244,8 @@ bookings/{email}          // email 當 doc ID（小寫化）
   username: string
   phone: string | null
   bankAccount: string
-  emailSent: boolean       // admin 是否寄過付款通知信（劃新位會重置）
+  bookingMailSent: boolean // 系統是否成功寄出劃位通知信（寄信失敗會卡 false 等 admin 補寄；劃新位 / admin 改動座位會重置）
+  paidMailSent: boolean    // admin 是否寄過付款成功通知信（劃新位 / admin 改動座位會重置）
   createdAt: Timestamp
   updatedAt: Timestamp
   // 沒有 password / role / uid（沒有帳號概念）
@@ -339,7 +340,7 @@ await db.runTransaction(async (tx) => {
     });
   }
 
-  // 6. 寫 booking（merge；emailSent 一律重置成 false，劃新位後 admin 要補寄）
+  // 6. 寫 booking（merge；兩個 mailSent flag 一律重置成 false，劃新位後座位變了舊信過時）
   tx.set(
     bookingRef,
     {
@@ -347,7 +348,8 @@ await db.runTransaction(async (tx) => {
       username,
       phone,
       bankAccount,
-      emailSent: false,
+      bookingMailSent: false,
+      paidMailSent: false,
       updatedAt: FieldValue.serverTimestamp(),
       ...(bookingSnap.exists
         ? {}

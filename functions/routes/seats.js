@@ -177,14 +177,17 @@ router.patch("/booking", async (req, res) => {
         });
       });
 
-      // 6) 寫 booking。第二次劃位 merge 既有資料，emailSent 重置成 false 提醒 admin 補寄。
+      // 6) 寫 booking。第二次劃位 merge 既有資料，兩個 mail flag 都重置成 false：
+      //    - bookingMailSent: 等下面 sendMail 成功才補寫 true
+      //    - paidMailSent: 既有座位內容變了，原本寄出的付款信已過時，admin 要重寄
       const bookingPayload = {
         email,
         username,
         phone,
         bankAccount,
         contact,
-        emailSent: false,
+        bookingMailSent: false,
+        paidMailSent: false,
         updatedAt: now,
       };
       if (isNewBooking) bookingPayload.createdAt = now;
@@ -212,9 +215,19 @@ router.patch("/booking", async (req, res) => {
   }
 
   // 7) DB 已 commit，寄信屬於 side effect，失敗只記 log 不回滾。
+  //    寄信成功後再補寫 bookingMailSent: true，admin UI 才看得出狀態。
+  //    寫失敗也只 log，下次 admin 用「重寄劃位信」按鈕補。
   try {
     await sendMail(bookingMail({ to: email, username, seats: lockedSeats }));
     console.log("劃位 email 發送成功:", email);
+    try {
+      await db.doc(`bookings/${email}`).update({
+        bookingMailSent: true,
+        updatedAt: FieldValue.serverTimestamp(),
+      });
+    } catch (updateErr) {
+      console.error("更新 bookingMailSent flag 失敗:", updateErr);
+    }
   } catch (mailErr) {
     console.error("劃位 email 發送失敗:", mailErr);
   }

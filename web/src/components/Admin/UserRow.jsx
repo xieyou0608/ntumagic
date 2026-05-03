@@ -12,7 +12,7 @@ const totalPrice = (seats) =>
 
 // booking shape:
 // { id (=email), email, username, phone, bankAccount, contact,
-//   emailSent, createdAt, updatedAt,
+//   bookingMailSent, paidMailSent, createdAt, updatedAt,
 //   seats: [{ id, area, row, col, floor, sold, buyerEmail, paid, bookedAt }] }
 
 const formatTimestamp = (ts) => {
@@ -48,9 +48,19 @@ const UserRow = ({ userdata: booking, showId, showDate, onChanged }) => {
       });
   };
 
-  const handleSendEmail = () => {
-    if (!window.confirm("確認傳送 email")) return;
+  const handleSendPaidEmail = () => {
+    if (!window.confirm("確認寄付款成功信")) return;
     AdminService.sendPaidEmail(booking.email)
+      .then(refresh)
+      .catch((err) => {
+        console.log(err);
+        alert("寄信失敗");
+      });
+  };
+
+  const handleSendBookingEmail = () => {
+    if (!window.confirm("確認重寄劃位通知信")) return;
+    AdminService.sendBookingEmail(booking.email)
       .then(refresh)
       .catch((err) => {
         console.log(err);
@@ -86,10 +96,18 @@ const UserRow = ({ userdata: booking, showId, showDate, onChanged }) => {
       <TableCell>{booking.bankAccount}</TableCell>
       <TableCell>{booking.contact || "—"}</TableCell>
       <TableCell>
-        {booking.emailSent ? (
-          "已寄信"
+        劃位信：
+        {booking.bookingMailSent ? (
+          "已寄"
         ) : (
-          <span style={{ color: "red" }}> 尚未寄信</span>
+          <span style={{ color: "red" }}>尚未寄</span>
+        )}
+        <br />
+        付款信：
+        {booking.paidMailSent ? (
+          "已寄"
+        ) : (
+          <span style={{ color: "red" }}>尚未寄</span>
         )}
       </TableCell>
 
@@ -103,11 +121,18 @@ const UserRow = ({ userdata: booking, showId, showDate, onChanged }) => {
         </Button>
 
         <Button
-          onClick={handleSendEmail}
+          onClick={handleSendBookingEmail}
+          color="info"
+          variant="contained"
+        >
+          重寄劃位信
+        </Button>
+        <Button
+          onClick={handleSendPaidEmail}
           color="primary"
           variant="contained"
         >
-          傳送郵件
+          寄付款信
         </Button>
         <Button
           onClick={handleClearSeats}
