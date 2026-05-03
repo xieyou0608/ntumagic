@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, TableCell, TableRow } from "@mui/material";
 import AdminService from "../../services/admin.service";
 import { v4 as uuidv4 } from "uuid";
@@ -19,9 +19,7 @@ const formatTimestamp = (ts) => {
   return moment(ts).format("YYYY/MM/DD HH:mm");
 };
 
-const UserRow = ({ userdata, showId, showDate, onChanged }) => {
-  const [booking, setBooking] = useState(userdata);
-
+const UserRow = ({ userdata: booking, showId, showDate, onChanged }) => {
   const refresh = () => {
     if (onChanged) onChanged();
   };
@@ -29,10 +27,7 @@ const UserRow = ({ userdata, showId, showDate, onChanged }) => {
   const handleClearSeats = () => {
     if (!window.confirm("確定刪除座位?")) return;
     AdminService.clearByEmail(booking.email)
-      .then(() => {
-        // 後端清完後該筆 booking 就沒有座位了；簡單的方式請父元件重抓
-        refresh();
-      })
+      .then(refresh)
       .catch((err) => {
         console.log(err);
         alert("刪除失敗");
@@ -42,13 +37,7 @@ const UserRow = ({ userdata, showId, showDate, onChanged }) => {
   const handlePaidSeats = () => {
     if (!window.confirm("確認付款狀態")) return;
     AdminService.markPaid(booking.email)
-      .then(() => {
-        // 樂觀更新：把每個座位 paid = true
-        setBooking((prev) => ({
-          ...prev,
-          seats: prev.seats.map((s) => ({ ...s, paid: true })),
-        }));
-      })
+      .then(refresh)
       .catch((err) => {
         console.log(err);
         alert("更新失敗");
@@ -58,9 +47,7 @@ const UserRow = ({ userdata, showId, showDate, onChanged }) => {
   const handleSendEmail = () => {
     if (!window.confirm("確認傳送 email")) return;
     AdminService.sendPaidEmail(booking.email)
-      .then(() => {
-        setBooking((prev) => ({ ...prev, emailSent: true }));
-      })
+      .then(refresh)
       .catch((err) => {
         console.log(err);
         alert("寄信失敗");
