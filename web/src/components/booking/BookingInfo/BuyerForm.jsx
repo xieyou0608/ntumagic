@@ -112,20 +112,20 @@ const BuyerForm = ({ buyer, setBuyer }) => {
                 <InputBox>
                   <BuyerInput
                     onChange={handleBuyerChange}
-                    value={buyer.bankAccount}
-                    type="text"
-                    label="預計匯款帳戶末五碼"
-                    name="bankAccount"
-                  />
-                </InputBox>
-                <InputBox>
-                  <BuyerInput
-                    onChange={handleBuyerChange}
                     value={buyer.contact}
                     type="text"
                     label="FB / IG 或其他聯絡方式"
                     name="contact"
                     placeholder="例如 @ntumagic"
+                  />
+                </InputBox>
+                <InputBox>
+                  <BuyerInput
+                    onChange={handleBuyerChange}
+                    value={buyer.bankAccount}
+                    type="text"
+                    label="預計匯款帳戶末五碼"
+                    name="bankAccount"
                   />
                 </InputBox>
                 <div style={{ textAlign: "left" }}>
