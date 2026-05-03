@@ -118,7 +118,19 @@ const BuyerForm = ({ buyer, setBuyer }) => {
                     name="bankAccount"
                   />
                 </InputBox>
-                <p>若無帳戶請填寫"其他"並私訊粉專</p>
+                <InputBox>
+                  <BuyerInput
+                    onChange={handleBuyerChange}
+                    value={buyer.contact}
+                    type="text"
+                    label="FB / IG 或其他聯絡方式"
+                    name="contact"
+                    placeholder="例如 @ntumagic"
+                  />
+                </InputBox>
+                <div style={{ textAlign: "left" }}>
+                  <p>※ 若無帳戶請填寫"其他"並私訊粉專</p>
+                </div>
               </BuyerStyleForm>
             </TableCell>
           </TableRow>

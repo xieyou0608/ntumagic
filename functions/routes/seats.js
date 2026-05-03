@@ -19,6 +19,8 @@ const bookingSchema = Joi.object({
   username: Joi.string().min(1).max(50).required(),
   phone: Joi.string().allow("", null).max(50),
   bankAccount: Joi.string().min(1).max(50).required(),
+  // FB / IG handle 或其他聯絡方式（萬一 email 填錯時的救援管道）
+  contact: Joi.string().min(1).max(100).required(),
   positions: Joi.array()
     .items(positionSchema)
     .min(1)
@@ -106,7 +108,7 @@ router.patch("/booking", async (req, res) => {
   if (error) return res.status(400).json({ success: false, message: error.details[0].message });
 
   const email = value.email.toLowerCase();
-  const { username, phone = null, bankAccount, positions } = value;
+  const { username, phone = null, bankAccount, contact, positions } = value;
 
   // 去重
   const uniquePositions = Array.from(
@@ -175,6 +177,7 @@ router.patch("/booking", async (req, res) => {
         username,
         phone,
         bankAccount,
+        contact,
         emailSent: false,
         updatedAt: now,
       };

@@ -7,7 +7,7 @@ import "moment/locale/zh-tw";
 moment.locale("zh-tw");
 
 // booking shape:
-// { id (=email), email, username, phone, bankAccount,
+// { id (=email), email, username, phone, bankAccount, contact,
 //   emailSent, createdAt, updatedAt,
 //   seats: [{ id, area, row, col, floor, sold, buyerEmail, paid, bookedAt }] }
 
@@ -90,6 +90,7 @@ const UserRow = ({ userdata, showId, showDate, onChanged }) => {
         ))}
       </TableCell>
       <TableCell>{booking.bankAccount}</TableCell>
+      <TableCell>{booking.contact || "—"}</TableCell>
       <TableCell>
         {booking.emailSent ? (
           "已寄信"

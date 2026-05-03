@@ -51,6 +51,7 @@ const Booking = ({
     email: "",
     username: "",
     bankAccount: "",
+    contact: "",
   });
 
   const loadSeatsData = async () => {
@@ -81,7 +82,7 @@ const Booking = ({
       return;
     }
     if (!checkBuyer()) {
-      window.alert("請填寫匯款資訊！");
+      window.alert("請填寫所有欄位");
       return;
     }
     if (isStudentTime && !buyer.email.includes("ntu.edu.tw")) {
@@ -103,7 +104,8 @@ const Booking = ({
         positions,
         buyer.email,
         buyer.username,
-        buyer.bankAccount
+        buyer.bankAccount,
+        buyer.contact
       );
       window.alert("劃位成功！");
       navigate("/pay");
@@ -122,7 +124,8 @@ const Booking = ({
     if (
       buyer.email === "" ||
       buyer.bankAccount === "" ||
-      buyer.username === ""
+      buyer.username === "" ||
+      buyer.contact === ""
     ) {
       return false;
     }

@@ -8,13 +8,14 @@ class SeatService {
   }
 
   // positions: [{ floor, area, row, col }]
-  booking(positions, email, username, bankAccount, phone) {
+  booking(positions, email, username, bankAccount, contact, phone) {
     return axios.patch(SEATS_API + "/booking", {
       positions,
       email,
       username,
       phone,
       bankAccount,
+      contact,
     });
   }
 

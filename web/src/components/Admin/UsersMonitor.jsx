@@ -110,6 +110,9 @@ const UsersMonitor = () => {
                 <Typography>付款帳戶</Typography>
               </TableCell>
               <TableCell>
+                <Typography>聯絡方式</Typography>
+              </TableCell>
+              <TableCell>
                 <Typography>通知</Typography>
               </TableCell>
               <TableCell>操作</TableCell>
