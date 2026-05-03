@@ -1,5 +1,7 @@
 # Firebase 實作研究
 
+> **2026-05-03 修訂**：信箱驗證流程已整個移除（`/api/audience/verify`、`emailVerified` / `emailVerifyToken` 欄位、`EMAIL_HASH_SECRET` secret、前端 `VerifyPage`、後台「驗證」欄）。原因：實際運作後發現 admin 對「沒驗證但匯款進帳」的人還是要照常處理，這個訊號完全沒影響工作流，純粹增加觀眾困擾。下文所有提到 verify / `emailVerified` 的段落已就地修正，但保留歷史脈絡（哪些東西原本存在、為何拿掉）方便回溯。
+
 ## 文件定位
 
 [system-migration-plan.md](./system-migration-plan.md) 已決定採用全 Firebase 架構（Firestore + Firebase Functions + Firebase Hosting）。本文件研究兩個主題：
@@ -15,9 +17,9 @@
 
 - **一般使用者（audience）**：
   - 只填 email + 個人資訊（姓名、電話、匯款帳號）+ 想劃的座位就送出
-  - 系統寄一封驗證信給該 email，使用者點連結 → 證明此 email 是本人
+  - 系統寄一封劃位通知信給該 email（含座位 + 匯款資訊）
   - 沒有「註冊」、「登入」、「密碼」這些流程
-  - 同一個 email 第二次劃位時，自動視為已驗證
+  - ~~舊版有信箱驗證流程（點連結回打 `/api/audience/verify`）~~ → 2026-05-03 移除，admin 對未驗證 / 已驗證的觀眾處理流程完全相同
 - **Admin**：
   - 整個系統 **一組共用帳號密碼**，由負責人員共用
   - 只有 admin 需要登入
@@ -71,12 +73,12 @@ exports.api = onRequest(app);
 - 不需要 token、不需要登入
 - Function 端：
   - 跑 booking transaction 寫進 Firestore
-  - **transaction commit 成功後**才寄出驗證信（寄信失敗只記 log 不回滾，沿用現有行為）
-  - 信中含一個簽過的 token（HMAC(email, SECRET) 之類，跟現有 `EMAIL_HASH` 邏輯一樣）
-  - 使用者點連結 → 打 `PATCH /api/seats/verify` → 把該 booking doc 的 `emailVerified` 設為 `true`
-- 第二次劃位的同一個 email：booking doc 已存在 `emailVerified: true`，跳過寄信步驟（沿用現有行為）
+  - **transaction commit 成功後**才寄出劃位通知信（寄信失敗只記 log 不回滾）
+- 第二次劃位同 email：merge 既有 booking doc，只把 `emailSent` 重置成 `false` 提醒 admin 補寄付款通知信
 
 → 跟現有 Express 的邏輯幾乎一樣，只是把 `User` model + bcrypt password 那一坨刪掉。
+
+> 原始設計含信箱驗證 round-trip（HMAC(email, SECRET) → `/api/audience/verify` → 設 `emailVerified: true`），2026-05-03 整個移除，原因見頂部 changelog。
 
 #### Admin 路徑（用 Firebase Auth Email/Password）
 
@@ -100,15 +102,17 @@ exports.api = onRequest(app);
 - `User` collection 整個刪掉：不再有 user 概念，改用 `bookings`（每個 email 一筆，本質是訂單而非帳號）
 - `User.role` 欄位（沒有 audience role 了）
 - `/api/user/register`、`/api/user/login` 端點
-- `User.verifyToken` 流程改成 booking 層的 `emailVerified` 標記
+- `User.verifyToken` 流程：原本翻新時改成 booking 層的 `emailVerified` 標記，2026-05-03 連這層也整個移除
 
 ### 1.4 環境變數 / Secret
 
 Gen 2 Functions 的做法：
 
-- 一般 config（如 `EMAIL_HASH` 種子）：放專案根的 `.env` 或 `.env.<project>` 檔，deploy 時自動帶入
+- 一般 config（如 `ADMIN_EMAIL`、`GMAIL_ACCOUNT`）：放專案根的 `.env` 或 `.env.<project>` 檔，deploy 時自動帶入
 - 機敏（如 `GMAIL_PASSWORD`）：用 [Cloud Secret Manager](https://cloud.google.com/secret-manager) + `defineSecret('GMAIL_PASSWORD')`，在 function 上掛 `{ secrets: [...] }`
 - 不要再用 Gen 1 的 `functions.config()`，已 deprecated
+
+> 翻新時還有 `EMAIL_HASH_SECRET` secret 給驗證 token 用，2026-05-03 隨驗證流程一起移除。
 
 ### 1.5 冷啟動 / 第一個使用者體驗
 
@@ -237,14 +241,12 @@ bookings/{email}          // email 當 doc ID（小寫化）
   username: string
   phone: string | null
   bankAccount: string
-  emailVerified: boolean   // 是否點過驗證信
-  emailVerifyToken: string // HMAC(email, SECRET) 之類
-  emailSent: boolean
-  paid: boolean
+  emailSent: boolean       // admin 是否寄過付款通知信（劃新位會重置）
   createdAt: Timestamp
   updatedAt: Timestamp
   // 沒有 password / role / uid（沒有帳號概念）
   // 沒有 tickets[]（用 seats query 取代，永遠跟 seats 同步）
+  // 2026-05-03 移除：emailVerified / emailVerifyToken（信箱驗證流程下線）
 ```
 
 **設計要點：**
@@ -334,7 +336,7 @@ await db.runTransaction(async (tx) => {
     });
   }
 
-  // 6. 寫 booking（merge，保留 emailVerified 狀態）
+  // 6. 寫 booking（merge；emailSent 一律重置成 false，劃新位後 admin 要補寄）
   tx.set(
     bookingRef,
     {
@@ -342,10 +344,6 @@ await db.runTransaction(async (tx) => {
       username,
       phone,
       bankAccount,
-      emailVerified: bookingSnap.exists
-        ? bookingSnap.data().emailVerified
-        : false,
-      emailVerifyToken: emailHash,
       emailSent: false,
       updatedAt: FieldValue.serverTimestamp(),
       ...(bookingSnap.exists

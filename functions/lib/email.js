@@ -36,9 +36,7 @@ function bankInfoHtml() {
   return BANK_INFO.map((line) => `<p>${line}</p>`).join("");
 }
 
-function bookingMail({ to, username, seats, verifyToken, email }) {
-  const base = process.env.VERIFY_BASE_URL || "https://www.ntumagic.club/verify";
-  const verifyLink = `${base}?email=${encodeURIComponent(email)}&verifyToken=${verifyToken}`;
+function bookingMail({ to, username, seats }) {
   return {
     from: process.env.GMAIL_ACCOUNT,
     to,
@@ -46,7 +44,6 @@ function bookingMail({ to, username, seats, verifyToken, email }) {
     subject: `【${EVENT_NAME}】劃位通知`,
     html: `<h3>${username} 您好：</h3>
       <p>感謝您支持${EVENT_NAME}</p>
-      <p>若您尚未驗證信箱，請點擊<a href="${verifyLink}">此驗證連結</a>（已驗證過可忽略）</p>
       <p>================================================</p>
       <p>您此次所劃的座位：</p>
       ${seatLines(seats)}

@@ -3,7 +3,6 @@ const { setGlobalOptions } = require("firebase-functions/v2");
 const { defineSecret } = require("firebase-functions/params");
 
 const GMAIL_PASSWORD = defineSecret("GMAIL_PASSWORD");
-const EMAIL_HASH_SECRET = defineSecret("EMAIL_HASH_SECRET");
 
 setGlobalOptions({ region: "asia-east1" });
 
@@ -11,7 +10,7 @@ const app = require("./app");
 
 exports.api = onRequest(
   {
-    secrets: [GMAIL_PASSWORD, EMAIL_HASH_SECRET],
+    secrets: [GMAIL_PASSWORD],
     cors: true,
     invoker: "public",
     memory: "256MiB",

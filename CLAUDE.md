@@ -12,7 +12,7 @@
 ## 系統使用情境
 
 - **不到 1000 人使用、一年只用一次**
-- audience 不需要帳號，只填 email + 收驗證信（驗證連結每次劃位都附）
+- audience 不需要帳號，只填 email + 收劃位通知信
 - admin 是**共用單一帳號**（Firebase Auth Email/Password + ID Token），由負責人交接密碼
 - **不轉移舊資料**：每年活動都是全新狀態，重跑 seed 產出空座位
 - 上一代 MERN 版本 archive 在 [ntumagic-server (archived)](https://github.com/xieyou0608/ntumagic-server)
@@ -22,8 +22,8 @@
 - `web/` — 前端（CRA + React 17 + MUI + Redux Toolkit + axios + react-router-dom 6）
 - `functions/` — Firebase Functions (Node 20)
   - `index.js` — 入口 `exports.api = onRequest(app)`
-  - `app.js` — Express app，掛載 `/api/seats /api/audience /api/admin`
-  - `lib/` — firestore / email / phases / tokens / auth-middleware
+  - `app.js` — Express app，掛載 `/api/seats /api/admin`
+  - `lib/` — firestore / email / phases / auth-middleware
   - `routes/` — 各 endpoint
 - `scripts/` — 本機腳本
   - `generate-seats.js` — **場地座位定義（換劇場時改這裡）**
@@ -42,7 +42,7 @@
   - CRA 擋 `src/` 外的 import，所以暫時維持兩份；不打算為此引 craco/Vite。後端是真正的 gate，前端只做 UX 提示
 - **booking transaction**：[functions/routes/seats.js](functions/routes/seats.js)，6 張上限由後端擋；座位用 query (floor, area, row, col) lookup（不用 doc id 直查），詳見 implementation-research.md 2.3 / 2.4
 - **doc id 用 Firestore auto-id**：座位身分靠 query 找，admin 改 area 是單純 update（不用刪舊 doc + 寫新 doc）
-- **Secret 走 Cloud Secret Manager**：`GMAIL_PASSWORD` / `EMAIL_HASH_SECRET`；非機敏走 `functions/.env`
+- **Secret 走 Cloud Secret Manager**：`GMAIL_PASSWORD`；非機敏走 `functions/.env`
 
 ## 本機開發
 

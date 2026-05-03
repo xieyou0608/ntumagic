@@ -12,7 +12,6 @@ app.get("/", (_req, res) => {
 });
 
 app.use("/api/seats", require("./routes/seats"));
-app.use("/api/audience", require("./routes/audience"));
 app.use("/api/admin", require("./routes/admin"));
 
 // Express 預設的 fall-through 404

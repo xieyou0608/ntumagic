@@ -22,8 +22,7 @@ flowchart TD
 
     subgraph 觀眾
         Guide --> Booking[劃位頁<br/>選位 + 填信箱／姓名／匯款末五碼]
-        Booking --> Verify[送出後收驗證信]
-        Verify --> Transfer[使用者匯款]
+        Booking --> Transfer[使用者匯款]
     end
 
     subgraph 管理員
@@ -45,8 +44,8 @@ flowchart TD
 ├── functions/              # 後端 Firebase Functions (Node 20)
 │   ├── index.js            # 入口 exports.api = onRequest(app)
 │   ├── app.js              # Express app
-│   ├── lib/                # firestore / email / phases / tokens / auth-middleware
-│   ├── routes/             # /api/seats, /api/audience, /api/admin
+│   ├── lib/                # firestore / email / phases / auth-middleware
+│   ├── routes/             # /api/seats, /api/admin
 │   └── package.json
 ├── scripts/                # 本機腳本（座位 seed）
 ├── docs/                   # 設計文件 + 流程圖
@@ -76,9 +75,8 @@ cd ../scripts && npm install
 2. **設 secrets**：
    ```sh
    firebase functions:secrets:set GMAIL_PASSWORD
-   firebase functions:secrets:set EMAIL_HASH_SECRET
    ```
-3. **設一般 env**：`cp functions/.env.example functions/.env`，填 `ADMIN_EMAIL` / `GMAIL_ACCOUNT` / `VERIFY_BASE_URL`
+3. **設一般 env**：`cp functions/.env.example functions/.env`，填 `ADMIN_EMAIL` / `GMAIL_ACCOUNT`
 
 ## 本機開發
 
@@ -125,7 +123,6 @@ repo 根目錄統一用 npm script：
 | GET    | `/api/seats`               | 全部座位（含 placeholder）            |
 | POST   | `/api/seats/getSeat`       | 用 email 取自己劃的座位               |
 | PATCH  | `/api/seats/booking`       | 搶位 transaction（受 PHASE 階段控管） |
-| PATCH  | `/api/audience/verify`     | 點驗證信連結後設 `emailVerified`      |
 | GET    | `/api/admin/bookings`      | 列出所有訂單（含座位）                |
 | PATCH  | `/api/admin/clearAllSeats` | 全部歸零                              |
 | PATCH  | `/api/admin/clearByEmail`  | 清掉某 email 的所有座位               |

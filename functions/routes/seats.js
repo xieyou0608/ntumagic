@@ -2,7 +2,6 @@ const router = require("express").Router();
 const Joi = require("joi");
 
 const { db, FieldValue } = require("../lib/firestore");
-const { buildVerifyToken } = require("../lib/tokens");
 const { currentPhase } = require("../lib/phases");
 const { sendMail, bookingMail } = require("../lib/email");
 
@@ -114,11 +113,8 @@ router.patch("/booking", async (req, res) => {
     new Map(positions.map((p) => [positionKey(p), p])).values()
   );
 
-  const verifyToken = buildVerifyToken(email);
-
   let lockedSeats;
   let isNewBooking;
-  let bookingEmailVerified;
 
   try {
     await db.runTransaction(async (tx) => {
@@ -173,18 +169,12 @@ router.patch("/booking", async (req, res) => {
         });
       });
 
-      // 6) 寫 booking。emailVerified 保留先前狀態（已驗證的不要倒退成 false）；
-      //    第二次劃位的人若先前沒驗過，這次的信仍會帶驗證連結作為救援機會。
-      bookingEmailVerified = isNewBooking
-        ? false
-        : bookingSnap.data().emailVerified === true;
+      // 6) 寫 booking。第二次劃位 merge 既有資料，emailSent 重置成 false 提醒 admin 補寄。
       const bookingPayload = {
         email,
         username,
         phone,
         bankAccount,
-        emailVerified: bookingEmailVerified,
-        emailVerifyToken: verifyToken,
         emailSent: false,
         updatedAt: now,
       };
@@ -213,17 +203,8 @@ router.patch("/booking", async (req, res) => {
   }
 
   // 7) DB 已 commit，寄信屬於 side effect，失敗只記 log 不回滾。
-  //    每次劃位都帶驗證連結，避免使用者沒看到第一封信就再也救不回來。
   try {
-    await sendMail(
-      bookingMail({
-        to: email,
-        username,
-        seats: lockedSeats,
-        verifyToken,
-        email,
-      })
-    );
+    await sendMail(bookingMail({ to: email, username, seats: lockedSeats }));
     console.log("劃位 email 發送成功:", email);
   } catch (mailErr) {
     console.error("劃位 email 發送失敗:", mailErr);
@@ -234,7 +215,6 @@ router.patch("/booking", async (req, res) => {
     email,
     username,
     seats: lockedSeats,
-    emailVerified: bookingEmailVerified,
     isNewBooking,
   });
 });

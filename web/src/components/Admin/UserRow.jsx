@@ -8,7 +8,7 @@ moment.locale("zh-tw");
 
 // booking shape:
 // { id (=email), email, username, phone, bankAccount,
-//   emailVerified, emailVerifyToken, emailSent, createdAt, updatedAt,
+//   emailSent, createdAt, updatedAt,
 //   seats: [{ id, area, row, col, floor, sold, buyerEmail, paid, bookedAt }] }
 
 const formatTimestamp = (ts) => {
@@ -90,13 +90,6 @@ const UserRow = ({ userdata, showId, showDate, onChanged }) => {
         ))}
       </TableCell>
       <TableCell>{booking.bankAccount}</TableCell>
-      <TableCell>
-        {booking.emailVerified ? (
-          "已驗證"
-        ) : (
-          <span style={{ color: "red" }}> 尚未驗證</span>
-        )}
-      </TableCell>
       <TableCell>
         {booking.emailSent ? (
           "已寄信"
