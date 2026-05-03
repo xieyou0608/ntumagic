@@ -46,7 +46,11 @@ const Cart = ({ chosenSeats }) => {
             <TableCell
               colSpan={4}
               align="center"
-              sx={{ backgroundColor: "gentle.main" }}
+              sx={{
+                backgroundColor: "forest.main",
+                color: "#fff",
+                fontWeight: 500,
+              }}
             >
               座位
             </TableCell>

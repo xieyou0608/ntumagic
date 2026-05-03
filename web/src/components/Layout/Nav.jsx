@@ -67,6 +67,7 @@ const Nav = () => {
   const content = (
     <>
       <StyledLink to="/">首頁</StyledLink>
+      <StyledLink to="/guide">劃位說明</StyledLink>
       <StyledLink to="/booking">劃位</StyledLink>
       {adminUser && <StyledLink to="/admin">後台</StyledLink>}
       <StyledLink to="/about" sx={{ flexGrow: 1 }}>

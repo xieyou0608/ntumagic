@@ -17,6 +17,21 @@ const theme = createTheme({
     darkBlue: {
       main: "#234b88",
     },
+    forest: {
+      main: "#3f6b3a",
+    },
+    vine: {
+      main: "#8fa876",
+    },
+    vintageRed: {
+      main: "#b43a3a",
+    },
+    warmBrown: {
+      main: "#3d2e1f",
+    },
+    cream: {
+      main: "#f2ead0",
+    },
   },
   typography: {
     // Change font-family of all mui components

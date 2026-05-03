@@ -30,7 +30,7 @@ const TableCell = styled(muiTableCell)`
   background-color: ${({ theme }) => theme.palette.background.main};
 
   p {
-    font-size: 2vmin;
+    font-size: 12px;
   }
 `;
 
@@ -81,7 +81,11 @@ const BuyerForm = ({ buyer, setBuyer }) => {
             <TableCell
               colSpan={1}
               align="center"
-              sx={{ backgroundColor: "gentle.main" }}
+              sx={{
+                backgroundColor: "forest.main",
+                color: "#fff",
+                fontWeight: 500,
+              }}
             >
               匯款資訊
             </TableCell>

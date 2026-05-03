@@ -34,7 +34,7 @@ const PayPage = () => {
           請至信箱收取劃位通知，確保能收到信之後，
         </Typography>
         <Typography>於隔日 15:00 前將總金額匯款至：</Typography>
-        <Alert icon={false} severity="info">
+        <Alert icon={false} severity="success">
           <Typography>銀行代碼：{BANK_INFO.bankCode}</Typography>
           <Typography>帳號：{BANK_INFO.account}</Typography>
           <Typography>戶名：{BANK_INFO.holder}</Typography>

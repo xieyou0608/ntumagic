@@ -35,9 +35,12 @@ const Row = styled("div")`
 
 const Stage = styled("div")`
   border-style: solid;
+  border-radius: 0.4rem;
   margin-bottom: 3vh;
   padding: 0.5rem 34.5%;
-  background-color: ${({ theme }) => theme.palette.gentle.main};
+  background-color: ${({ theme }) => theme.palette.forest.main};
+  color: #fff;
+  font-weight: 500;
 `;
 
 

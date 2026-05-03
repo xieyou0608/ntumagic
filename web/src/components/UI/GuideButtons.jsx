@@ -20,6 +20,8 @@ const StyledButton = styled("button")`
 const gentleYellow = theme.palette.gentle.main;
 const goldYellow = theme.palette.gold.main;
 const darkBlue = theme.palette.darkBlue.main;
+const forestGreen = theme.palette.forest.main;
+const vintageRed = theme.palette.vintageRed.main;
 
 const GentleYellowButton = styled(StyledButton)`
   border-radius: 0.5rem;
@@ -55,4 +57,37 @@ const DarkBlueButton = styled(StyledButton)`
   }
 `;
 
-export { GentleYellowButton, GoldButton, DarkBlueButton };
+const ForestButton = styled(StyledButton)`
+  border-radius: 0.5rem;
+  color: ${forestGreen};
+  background-color: transparent;
+  border: 1.5px solid ${forestGreen};
+  letter-spacing: 0.05em;
+  &:hover {
+    color: #fff;
+    background-color: ${forestGreen};
+  }
+`;
+
+const VintageRedButton = styled(StyledButton)`
+  border-radius: 0.5rem;
+  color: #fff;
+  background-color: ${vintageRed};
+  border: 1.5px solid ${vintageRed};
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  &:hover {
+    opacity: 0.85;
+  }
+  &:active {
+    opacity: 0.75;
+  }
+`;
+
+export {
+  GentleYellowButton,
+  GoldButton,
+  DarkBlueButton,
+  ForestButton,
+  VintageRedButton,
+};

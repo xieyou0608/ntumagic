@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Alert, styled } from "@mui/material";
-import { GentleYellowButton } from "../components/UI/GuideButtons";
+import { VintageRedButton } from "../components/UI/GuideButtons";
 import ForwardIcon from "@mui/icons-material/Forward";
 import { PRICES, BANK_INFO, PHASE_LABELS } from "../event-config";
 import paidSuccess from "../img/paid_success.png";
@@ -139,7 +139,7 @@ const GuidePage = () => {
       </GuideBox>
       <Arrow />
       <Link to="/booking">
-        <GentleYellowButton sx={{ mt: 2 }}>點我開始</GentleYellowButton>
+        <VintageRedButton sx={{ mt: 2 }}>點我開始</VintageRedButton>
       </Link>
     </GuideLayout>
   );

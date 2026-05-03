@@ -11,7 +11,11 @@ const StyledFooter = styled("footer")({
 });
 
 const Footer = () => {
-  return <StyledFooter>Copyright © 2022 NTU magic club.</StyledFooter>;
+  return (
+    <StyledFooter>
+      Copyright © {new Date().getFullYear()} NTU magic club.
+    </StyledFooter>
+  );
 };
 
 export default Footer;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 import theme from "./styles/theme";
@@ -14,6 +14,10 @@ import GuidePage from "./pages/GuidePage";
 
 function App() {
   const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const showNav = location.pathname !== "/" && location.pathname !== "/guide";
 

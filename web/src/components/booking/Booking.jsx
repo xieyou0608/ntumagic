@@ -152,9 +152,13 @@ const Booking = ({ isStudentTime }) => {
           <ConfirmButton
             variant="contained"
             size="large"
-            color="error"
             onClick={submitHandler}
             disabled={submitting}
+            sx={{
+              bgcolor: "vintageRed.main",
+              color: "#fff",
+              "&:hover": { bgcolor: "vintageRed.main" },
+            }}
           >
             確定劃位
           </ConfirmButton>
@@ -163,6 +167,11 @@ const Booking = ({ isStudentTime }) => {
             size="large"
             onClick={clearChosenHandler}
             disabled={submitting}
+            sx={{
+              bgcolor: "forest.main",
+              color: "#fff",
+              "&:hover": { bgcolor: "forest.main" },
+            }}
           >
             清空座位
           </ConfirmButton>
