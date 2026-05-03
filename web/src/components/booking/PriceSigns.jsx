@@ -5,7 +5,7 @@ const colorMap = {
   A: "rgb(207, 1, 248)",
   B: "rgb(255, 210, 64)",
   C: "rgb(84, 125, 238)",
-  S: "white",
+  S: "rgb(255, 255, 255)",
 };
 
 const PriceSign = styled("div")`

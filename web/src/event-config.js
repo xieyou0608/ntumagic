@@ -5,6 +5,8 @@
 export const EVENT_DATE = "2026/5/22（五）";
 export const EVENT_TIME = "18:00 進場 18:30 開始";
 
+// 對外開放購買的票價只有 A/B/C。S 區（特別座）不走正規劃位流程、不對外賣，
+// 所以也不在這裡，被當成 0 元計入總額（Cart 跟 UserRow 用 PRICES[area] ?? 0）。
 export const PRICES = { A: 500, B: 400, C: 300 };
 
 export const BANK_INFO = {

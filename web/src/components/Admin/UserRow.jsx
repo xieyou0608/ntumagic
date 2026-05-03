@@ -1,10 +1,14 @@
 import React from "react";
 import { Button, TableCell, TableRow } from "@mui/material";
 import AdminService from "../../services/admin.service";
+import { PRICES } from "../../event-config";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import "moment/locale/zh-tw";
 moment.locale("zh-tw");
+
+const totalPrice = (seats) =>
+  (seats || []).reduce((acc, s) => acc + (PRICES[s.area] ?? 0), 0);
 
 // booking shape:
 // { id (=email), email, username, phone, bankAccount, contact,
@@ -75,6 +79,9 @@ const UserRow = ({ userdata: booking, showId, showDate, onChanged }) => {
             {formatTimestamp(t.bookedAt)}
           </p>
         ))}
+        {(booking.seats || []).length > 0 && (
+          <p>共 {totalPrice(booking.seats)} 元</p>
+        )}
       </TableCell>
       <TableCell>{booking.bankAccount}</TableCell>
       <TableCell>{booking.contact || "—"}</TableCell>

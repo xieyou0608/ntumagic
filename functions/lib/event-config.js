@@ -17,7 +17,7 @@ const BANK_INFO = [
   "戶名：劉耀璘",
 ];
 
-const PRICES = { S: 600, A: 500, B: 400, C: 300 };
+const PRICES = { A: 500, B: 400, C: 300 };
 
 // 流程：TEST → GAP → NTU_ONLY → PUBLIC → CLOSED
 // GAP 是 TEST_END 到 NTU_START 之間的關閉窗口，admin 在這段時間清掉測試資料。

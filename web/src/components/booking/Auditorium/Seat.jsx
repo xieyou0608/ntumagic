@@ -25,7 +25,6 @@ const SoldSeat = styled(StyledSeat)`
 const BlankSpace = styled(StyledSeat)`
   font-weight: bold;
   border-style: none;
-  color: white;
 `;
 const RowSign = styled(BlankSpace)`
   color: blue;
