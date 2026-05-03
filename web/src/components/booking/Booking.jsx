@@ -58,11 +58,6 @@ const Booking = ({ isStudentTime }) => {
 
   useEffect(() => {
     loadSeatsData();
-    const lastBuyer = localStorage.getItem("buyer");
-    if (lastBuyer) {
-      console.log(JSON.parse(lastBuyer));
-      setBuyer(JSON.parse(lastBuyer));
-    }
   }, []);
 
   const clearChosenHandler = () => {
@@ -70,20 +65,13 @@ const Booking = ({ isStudentTime }) => {
   };
 
   const submitHandler = async () => {
-    // console.log("【Debug】送出前 chosenSeats:", chosenSeats);
     if (!window.confirm("確定劃位")) {
-      return;
-    }
-    if (!checkBuyer()) {
-      window.alert("請填寫所有欄位");
       return;
     }
     if (isStudentTime && !buyer.email.toLowerCase().endsWith("@ntu.edu.tw")) {
       window.alert("現在為校內售票時間，請使用台大信箱");
       return;
     }
-
-    localStorage.setItem("buyer", JSON.stringify(buyer));
 
     setSubmitting(true);
     try {
@@ -114,15 +102,12 @@ const Booking = ({ isStudentTime }) => {
   };
 
   const checkBuyer = () => {
-    if (
-      buyer.email === "" ||
-      buyer.bankAccount === "" ||
-      buyer.username === "" ||
-      buyer.contact === ""
-    ) {
-      return false;
-    }
-    return true;
+    return (
+      buyer.email.trim() !== "" &&
+      buyer.username.trim() !== "" &&
+      buyer.bankAccount.trim() !== "" &&
+      buyer.contact.trim() !== ""
+    );
   };
 
   return (
@@ -153,7 +138,7 @@ const Booking = ({ isStudentTime }) => {
             variant="contained"
             size="large"
             onClick={submitHandler}
-            disabled={submitting}
+            disabled={submitting || !checkBuyer()}
             sx={{
               bgcolor: "vintageRed.main",
               color: "#fff",
