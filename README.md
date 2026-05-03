@@ -124,6 +124,42 @@ Web 在 localhost 會自動接 auth emulator，所以本機測試時用上面這
 
 兩邊要同步改（後端的 phase 時間是 source of truth、前端只做 UX 提示）。CRA 不能直接 import 出 `web/src/` 之外的檔案，所以暫時維持兩份；確認對齊就好。
 
+## 換新海報
+
+主視覺每年會換，要產三個衍生檔（從設計組給的高解析 PNG / JPG 開始）：
+
+| 輸出 | 尺寸 | 品質 | 用途 |
+| --- | --- | --- | --- |
+| `web/src/img/magic_night30.jpg` | 長邊 3000px | 85 | 桌機 / retina 海報主圖（在 [HomePage.jsx](web/src/pages/HomePage.jsx) `srcSet` 用） |
+| `web/src/img/magic_night30-sm.jpg` | 長邊 1200px | 80 | 手機海報（同上） |
+| `web/public/og-image.jpg` | 1200×630（黑底 letterbox） | 85 | FB / LINE / Twitter 分享卡片 |
+
+macOS 內建 `sips` 就夠用：
+
+```sh
+SRC=path/to/source.png
+
+# 主圖（3000px）
+sips -s format jpeg -s formatOptions 85 -Z 3000 "$SRC" \
+  --out web/src/img/magic_night30.jpg
+
+# 手機版（1200px）
+sips -s format jpeg -s formatOptions 80 -Z 1200 "$SRC" \
+  --out web/src/img/magic_night30-sm.jpg
+
+# OG image（1200×630，海報置中於黑底）
+sips --resampleHeight 630 "$SRC" --out /tmp/og-fitted.jpg
+sips -s format jpeg -s formatOptions 85 -p 630 1200 --padColor 000000 \
+  /tmp/og-fitted.jpg --out web/public/og-image.jpg
+```
+
+注意：
+
+- 換檔名（例：`magic_night30.jpg` → `magic_night31.jpg`）就要同步改 [HomePage.jsx](web/src/pages/HomePage.jsx) 的 `import`；OG image 固定叫 `og-image.jpg`，不要改檔名（[index.html](web/public/index.html) 的 `og:image` URL 寫死）
+- 換屆數記得改 [index.html](web/public/index.html) 的 `<title>` / `og:title` / `og:description`
+- 部署後到 [FB Sharing Debugger](https://developers.facebook.com/tools/debug/) 按 **Scrape Again** 才會刷新 OG cache
+- 設計組的高解析原檔不進 repo（15 MB 等級），備份到 Drive / vault 就好
+
 ## API 摘要
 
 | Method | Path                       | 用途                                  |
