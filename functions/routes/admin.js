@@ -91,6 +91,7 @@ router.patch("/clearAllSeats", async (_req, res) => {
       db.collection("bookings"),
       (batch, doc) => batch.delete(doc.ref)
     );
+    console.log("admin.clearAllSeats", { seatsCleared, bookingsDeleted });
     res.json({
       success: true,
       seatsCleared,
@@ -130,6 +131,7 @@ router.patch("/clearByEmail", async (req, res) => {
     );
     await batch.commit();
 
+    console.log("admin.clearByEmail", { email, seatsCleared: seatSnap.size });
     const updated = await bookingRef.get();
     res.json({
       success: true,
@@ -186,6 +188,7 @@ router.patch("/removeSeat", async (req, res) => {
         { merge: true }
       );
     });
+    console.log("admin.removeSeat", { email, seat: value });
     res.json({ success: true });
   } catch (err) {
     if (err.userMessage) {
@@ -238,6 +241,11 @@ router.patch("/area", async (req, res) => {
         migrated += 1;
       });
     }
+    console.log("admin.changeArea", {
+      newArea: value.newArea,
+      requested: value.positions.length,
+      migrated,
+    });
     res.json({ success: true, migrated });
   } catch (err) {
     if (err.userMessage) {
@@ -266,6 +274,7 @@ router.patch("/markPaid", async (req, res) => {
     const batch = db.batch();
     seatSnap.docs.forEach((d) => batch.update(d.ref, { paid: true }));
     await batch.commit();
+    console.log("admin.markPaid", { email, seatsMarked: seatSnap.size });
     res.json({ success: true, seatsMarked: seatSnap.size });
   } catch (err) {
     console.error("markPaid failed:", err);
