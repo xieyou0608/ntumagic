@@ -80,19 +80,22 @@ exports.api = onRequest(app);
 
 > 原始設計含信箱驗證 round-trip（HMAC(email, SECRET) → `/api/audience/verify` → 設 `emailVerified: true`），2026-05-03 整個移除，原因見頂部 changelog。
 
-#### Admin 路徑（用 Firebase Auth Email/Password）
+#### Admin 路徑（用 Firebase Auth Email/Password + custom claim）
 
 - 在 Firebase Console 手動建一個 admin 帳號（**不開放註冊**，密碼由負責人交接）
+- 跑 `scripts/set-admin-claim.js <email>` 把該 user 設上 custom claim `admin: true`
 - 前端 admin 頁用 `signInWithEmailAndPassword` 登入，拿 ID Token
 - Function middleware：
 
   ```js
   const idToken = req.headers.authorization?.replace("Bearer ", "");
   const decoded = await admin.auth().verifyIdToken(idToken);
-  if (decoded.email !== ADMIN_EMAIL) return res.status(403).send();
+  if (decoded.admin !== true) return res.status(403).send();
   ```
 
-- 不需要 Custom Claims（只有一組 email，直接比對即可）
+- 為什麼不用 email 比對：Email/Password 預設允許任何 client `createUserWithEmailAndPassword`，
+  萬一 admin 帳號被刪掉/還沒建，外人可以自己註冊一個同 email 的 user → 拿到合法 token →
+  繞過 email 比對。custom claim 是 server-side 蓋章，自助註冊的 user 不會帶 claim。
 - 不需要 register / password reset 流程
 
 #### 移除掉的東西
@@ -108,7 +111,7 @@ exports.api = onRequest(app);
 
 Gen 2 Functions 的做法：
 
-- 一般 config（如 `ADMIN_EMAIL`、`GMAIL_ACCOUNT`）：放專案根的 `.env` 或 `.env.<project>` 檔，deploy 時自動帶入
+- 一般 config（如 `GMAIL_ACCOUNT`）：放專案根的 `.env` 或 `.env.<project>` 檔，deploy 時自動帶入
 - 機敏（如 `GMAIL_PASSWORD`）：用 [Cloud Secret Manager](https://cloud.google.com/secret-manager) + `defineSecret('GMAIL_PASSWORD')`，在 function 上掛 `{ secrets: [...] }`
 - 不要再用 Gen 1 的 `functions.config()`，已 deprecated
 

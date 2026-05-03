@@ -13,7 +13,7 @@
 
 - **不到 1000 人使用、一年只用一次**
 - audience 不需要帳號，只填 email + 收劃位通知信
-- admin 是**共用單一帳號**（Firebase Auth Email/Password + ID Token），由負責人交接密碼
+- admin 是**共用單一帳號**（Firebase Auth Email/Password + ID Token），由負責人交接密碼。權限靠 custom claim `admin: true` 認，不靠 email 比對 — 換新帳號要跑 `scripts/set-admin-claim.js <email>` 設 claim
 - **不轉移舊資料**：每年活動都是全新狀態，重跑 seed 產出空座位
 - 上一代 MERN 版本 archive 在 [ntumagic-server (archived)](https://github.com/xieyou0608/ntumagic-server)
 
@@ -28,6 +28,7 @@
 - `scripts/` — 本機腳本
   - `generate-seats.js` — **場地座位定義（換劇場時改這裡）**
   - `seed-seats.js` — 寫進 Firestore（吃 ADC 認證）
+  - `set-admin-claim.js` — 把某 email 設成 admin custom claim（換新 admin 帳號 / emulator 要 admin 時用）
 - `docs/` — 翻新研究 + 流程圖
 - `firestore.rules` — 預設全拒，所有 IO 走 Functions（client SDK 摸不到 DB）
 - `firestore.indexes.json` — composite index `(floor, area, row, col)`
@@ -51,9 +52,10 @@ repo 根目錄統一用 npm script，背後就是上面的 firebase / seed 指�
 - `npm run emulators` — 啟 emulator，import/export `.emulator-data/`（接續上次狀態）
 - `npm run emulators:clean` — 砍 `.emulator-data/` 重啟
 - `npm run emulators:seed` — 對 emulator 跑 seed-seats.js --reset（要先有 emulator 在跑）
+- `npm run emulators:admin` — 在 emulator 建一個 `admin@example.com / admin1234` + 設 admin claim（每次 `emulators:clean` 後要重跑；`emulators` 接續啟動會保留）
 - `npm run web` — CRA dev server（port 3000，hot reload），`REACT_APP_API_URL` 自動指 emulator
 
-預設網址：emulator hosting `http://localhost:5005`、UI `http://localhost:4000`、CRA dev server `http://localhost:3000`。
+預設網址：emulator hosting `http://localhost:5005`、UI `http://localhost:4000`、CRA dev server `http://localhost:3000`。Web 在 localhost 會自動 `connectAuthEmulator`（[web/src/firebase.js](web/src/firebase.js)），admin 登入打 emulator auth 不會打到 prod。
 
 Functions emulator 用的 secret 走 `functions/.secret.local`（已 gitignore，僅本機 dummy 值）；env 走 `functions/.env.local` 或 `functions/.env`。
 

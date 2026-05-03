@@ -16,6 +16,7 @@ import UserRow from "./UserRow";
 
 const UsersMonitor = () => {
   const [bookings, setBookings] = useState([]);
+  const [loadError, setLoadError] = useState(null);
   const [showId, setShowId] = useState(false);
   const [showDate, setShowDate] = useState(false);
 
@@ -26,9 +27,15 @@ const UsersMonitor = () => {
     AdminService.getAllBookings()
       .then((res) => {
         setBookings(res.data);
+        setLoadError(null);
       })
       .catch((e) => {
-        console.log(e);
+        console.error("getAllBookings failed:", e);
+        const status = e.response?.status;
+        const message = e.response?.data?.message || e.message;
+        setLoadError(
+          status ? `載入訂單失敗（HTTP ${status}）: ${message}` : `載入訂單失敗: ${message}`
+        );
       });
   }, []);
 
@@ -73,6 +80,9 @@ const UsersMonitor = () => {
       <Button onClick={handleShowDate} variant="outlined">
         {showDate ? "隱藏建立日期" : "顯示建立日期"}
       </Button>
+      {loadError && (
+        <Typography sx={{ color: "error.main", mt: 2 }}>{loadError}</Typography>
+      )}
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>

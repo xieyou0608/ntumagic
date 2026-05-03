@@ -72,11 +72,16 @@ cd ../scripts && npm install
 接著：
 
 1. **Firebase Console > Authentication** 啟用 Email/Password 並建一個 admin 帳號（密碼由負責人交接）
-2. **設 secrets**：
+2. **把 admin 帳號標成 admin**（設 custom claim `admin: true`）：
+   ```sh
+   cd scripts && npm run set-admin -- <admin-email>
+   ```
+   每年換新 admin 帳號時要記得對新帳號再跑一次。
+3. **設 secrets**：
    ```sh
    firebase functions:secrets:set GMAIL_PASSWORD
    ```
-3. **設一般 env**：`cp functions/.env.example functions/.env`，填 `ADMIN_EMAIL` / `GMAIL_ACCOUNT`
+4. **設一般 env**：`cp functions/.env.example functions/.env`，填 `GMAIL_ACCOUNT`
 
 ## 本機開發
 
@@ -87,6 +92,7 @@ repo 根目錄統一用 npm script：
 | `npm run emulators` | 啟 emulator（functions / firestore / auth / hosting），import/export `.emulator-data/` |
 | `npm run emulators:clean` | 砍掉 `.emulator-data/` 重啟，狀態歸零 |
 | `npm run emulators:seed` | 對 emulator 跑 `seed-seats.js --reset`（要先有 emulator 在跑） |
+| `npm run emulators:admin` | 在 emulator 建一個 `admin@example.com / admin1234` 並設 admin claim（每次 `emulators:clean` 後要重跑） |
 | `npm run web` | CRA dev server（port 3000，hot reload），`REACT_APP_API_URL` 自動指到 emulator hosting |
 
 預設網址：
@@ -95,7 +101,9 @@ repo 根目錄統一用 npm script：
 - 前端 + API（emulator hosting）：http://localhost:5005
 - Emulator UI：http://localhost:4000
 
-典型流程：T1 跑 `emulators:clean`，T2 跑 `emulators:seed`，T3 跑 `web`。之後想接續上次狀態就直接 `emulators`（會 import）。
+典型流程：T1 跑 `emulators:clean`，T2 跑 `emulators:seed` + `emulators:admin`，T3 跑 `web`。之後想接續上次狀態就直接 `emulators`（會 import；admin user 跟 seats 都會被保留）。
+
+Web 在 localhost 會自動接 auth emulator，所以本機測試時用上面這組 emulator admin 帳號登入後台。
 
 ## 部署
 
@@ -131,6 +139,6 @@ repo 根目錄統一用 npm script：
 | PATCH  | `/api/admin/markPaid`      | 標記某 email 所有座位為已付款         |
 | POST   | `/api/admin/sendPaidEmail` | 寄付款成功通知信                      |
 
-`/api/admin/*` 需要 `Authorization: Bearer <Firebase ID Token>`，該帳號 email 必須等於 `ADMIN_EMAIL`。
+`/api/admin/*` 需要 `Authorization: Bearer <Firebase ID Token>`，該帳號需有 custom claim `admin: true`（用 `scripts/set-admin-claim.js` 設）。
 
 詳細設計見 [docs/system-migration-plan.md](docs/system-migration-plan.md) 與 [docs/implementation-research.md](docs/implementation-research.md)。

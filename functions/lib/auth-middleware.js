@@ -1,12 +1,7 @@
 const { auth } = require("./firestore");
 
-// 驗證 Authorization: Bearer <Firebase ID Token>，並比對是否為 ADMIN_EMAIL
+// 驗證 Authorization: Bearer <Firebase ID Token>，並檢查 admin custom claim
 async function requireAdmin(req, res, next) {
-  const adminEmail = (process.env.ADMIN_EMAIL || "").toLowerCase();
-  if (!adminEmail) {
-    return res.status(500).json({ success: false, message: "ADMIN_EMAIL not configured" });
-  }
-
   const header = req.headers.authorization || "";
   const idToken = header.startsWith("Bearer ") ? header.slice(7) : null;
   if (!idToken) {
@@ -15,7 +10,7 @@ async function requireAdmin(req, res, next) {
 
   try {
     const decoded = await auth.verifyIdToken(idToken);
-    if ((decoded.email || "").toLowerCase() !== adminEmail) {
+    if (decoded.admin !== true) {
       return res.status(403).json({ success: false, message: "Forbidden" });
     }
     req.adminUser = decoded;

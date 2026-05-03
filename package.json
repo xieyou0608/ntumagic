@@ -7,6 +7,7 @@
     "emulators": "mkdir -p ./.emulator-data && firebase emulators:start --only functions,firestore,auth,hosting --import=./.emulator-data --export-on-exit",
     "emulators:clean": "rm -rf ./.emulator-data && firebase emulators:start --only functions,firestore,auth,hosting --export-on-exit=./.emulator-data",
     "emulators:seed": "FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 GOOGLE_CLOUD_PROJECT=ntu-magic-night node scripts/seed-seats.js --reset",
+    "emulators:admin": "FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099 GOOGLE_CLOUD_PROJECT=ntu-magic-night node scripts/set-admin-claim.js admin@example.com admin1234",
     "deploy:web": "npm --prefix web run build && firebase deploy --only hosting",
     "deploy:functions": "firebase deploy --only functions",
     "deploy": "npm --prefix web run build && firebase deploy"
