@@ -22,6 +22,7 @@ const BookingLayout = styled("div")`
 
 const ConfirmBox = styled("div")`
   margin-top: 5vh;
+  margin-bottom: 5vh;
   display: flex;
   column-gap: 3vw;
 `;

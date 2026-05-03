@@ -23,7 +23,7 @@ const AuditoriumLayout = styled("div")`
 
   ${({ theme }) => theme.breakpoints.down("md")} {
     padding: 2rem 1rem;
-    width: 700px;
+    width: 1000px;
   }
 `;
 
@@ -34,7 +34,7 @@ const Row = styled("div")`
 `;
 
 const Stage = styled("div")`
-  border-style: solid;
+  border: 4px solid #fff;
   border-radius: 0.4rem;
   margin-bottom: 3vh;
   padding: 0.5rem 34.5%;
