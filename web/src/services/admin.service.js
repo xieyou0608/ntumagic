@@ -41,7 +41,7 @@ class AdminService {
     return axios.patch(
       ADMIN_API + "/removeSeat",
       { email, floor, area, row, col },
-      { headers }
+      { headers },
     );
   }
 
@@ -51,7 +51,7 @@ class AdminService {
     return axios.patch(
       ADMIN_API + "/area",
       { positions, newArea },
-      { headers }
+      { headers },
     );
   }
 

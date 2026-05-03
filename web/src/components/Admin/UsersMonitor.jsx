@@ -34,7 +34,9 @@ const UsersMonitor = () => {
         const status = e.response?.status;
         const message = e.response?.data?.message || e.message;
         setLoadError(
-          status ? `載入訂單失敗（HTTP ${status}）: ${message}` : `載入訂單失敗: ${message}`
+          status
+            ? `載入訂單失敗（HTTP ${status}）: ${message}`
+            : `載入訂單失敗: ${message}`,
         );
       });
   }, []);
@@ -69,15 +71,20 @@ const UsersMonitor = () => {
       </Typography>
       <Typography variant="h5">注意：</Typography>
       <Typography>
-        1. 信的內容會自動用觀眾的名字跟所有座位來寄出（包含沒付款的，所以如果有人座位有問題的話先別寄）
+        1.
+        信的內容會自動用觀眾的名字跟所有座位來寄出（包含沒付款的，所以如果有人座位有問題的話先別寄）
         <br />
-        2. 點按鈕之後那一列會更新，如果沒更新代表出錯了，按 F12 看一下問題或再回報
+        2. 點按鈕之後那一列會更新，如果沒更新代表出錯了，按 F12
+        看一下問題或再回報
         <br />
-        3. 寄信會需要多一點時間，看到通知狀態變成已寄就代表有成功，另外也會寄一封備份到自己的信箱
+        3.
+        寄信會需要多一點時間，看到通知狀態變成已寄就代表有成功，另外也會寄一封備份到自己的信箱
         <br />
-        4. 觀眾如果劃新的位子或被改動座位，兩個通知狀態都會重置成尚未寄，記得補寄
+        4.
+        觀眾如果劃新的位子或被改動座位，兩個通知狀態都會重置成尚未寄，記得補寄
         <br />
-        5. 後台更新之後，觀眾到個人頁面會自動抓新的資料，如果沒的話，確認後台沒問題叫他重新整理。
+        5.
+        後台更新之後，觀眾到個人頁面會自動抓新的資料，如果沒的話，確認後台沒問題叫他重新整理。
       </Typography>
       <Button onClick={handleShowId} variant="outlined" sx={{ mr: 2 }}>
         {showId ? "隱藏 ID" : "顯示 ID"}

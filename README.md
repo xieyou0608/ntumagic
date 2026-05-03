@@ -87,13 +87,13 @@ cd ../scripts && npm install
 
 repo 根目錄統一用 npm script：
 
-| 指令 | 用途 |
-| --- | --- |
-| `npm run emulators` | 啟 emulator（functions / firestore / auth / hosting），import/export `.emulator-data/` |
-| `npm run emulators:clean` | 砍掉 `.emulator-data/` 重啟，狀態歸零 |
-| `npm run emulators:seed` | 對 emulator 跑 `seed-seats.js --reset`（要先有 emulator 在跑） |
+| 指令                      | 用途                                                                                                   |
+| ------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `npm run emulators`       | 啟 emulator（functions / firestore / auth / hosting），import/export `.emulator-data/`                 |
+| `npm run emulators:clean` | 砍掉 `.emulator-data/` 重啟，狀態歸零                                                                  |
+| `npm run emulators:seed`  | 對 emulator 跑 `seed-seats.js --reset`（要先有 emulator 在跑）                                         |
 | `npm run emulators:admin` | 在 emulator 建一個 `admin@example.com / admin1234` 並設 admin claim（每次 `emulators:clean` 後要重跑） |
-| `npm run web` | CRA dev server（port 3000，hot reload），`REACT_APP_API_URL` 自動指到 emulator hosting |
+| `npm run web`             | CRA dev server（port 3000，hot reload），`REACT_APP_API_URL` 自動指到 emulator hosting                 |
 
 預設網址：
 
@@ -107,11 +107,11 @@ Web 在 localhost 會自動接 auth emulator，所以本機測試時用上面這
 
 ## 部署
 
-| 指令 | 用途 |
-| --- | --- |
-| `npm run deploy` | 前端 build + 全部部署（functions + hosting + firestore rules / indexes） |
-| `npm run deploy:web` | 前端 build + 只部署 hosting |
-| `npm run deploy:functions` | 只部署 functions |
+| 指令                       | 用途                                                                     |
+| -------------------------- | ------------------------------------------------------------------------ |
+| `npm run deploy`           | 前端 build + 全部部署（functions + hosting + firestore rules / indexes） |
+| `npm run deploy:web`       | 前端 build + 只部署 hosting                                              |
+| `npm run deploy:functions` | 只部署 functions                                                         |
 
 第一次活動前 / 換劇場：改 `scripts/generate-seats.js`、用 ADC 對 prod 跑 `cd scripts && npm run seed:reset`，DB schema / API / 前端都不用動。
 
@@ -128,11 +128,11 @@ Web 在 localhost 會自動接 auth emulator，所以本機測試時用上面這
 
 主視覺每年會換，要產三個衍生檔（從設計組給的高解析 PNG / JPG 開始）：
 
-| 輸出 | 尺寸 | 品質 | 用途 |
-| --- | --- | --- | --- |
-| `web/src/img/magic_night30.jpg` | 長邊 3000px | 85 | 桌機 / retina 海報主圖（在 [HomePage.jsx](web/src/pages/HomePage.jsx) `srcSet` 用） |
-| `web/src/img/magic_night30-sm.jpg` | 長邊 1200px | 80 | 手機海報（同上） |
-| `web/public/og-image.jpg` | 1200×630（黑底 letterbox） | 85 | FB / LINE / Twitter 分享卡片 |
+| 輸出                               | 尺寸                       | 品質 | 用途                                                                                |
+| ---------------------------------- | -------------------------- | ---- | ----------------------------------------------------------------------------------- |
+| `web/src/img/magic_night30.jpg`    | 長邊 3000px                | 85   | 桌機 / retina 海報主圖（在 [HomePage.jsx](web/src/pages/HomePage.jsx) `srcSet` 用） |
+| `web/src/img/magic_night30-sm.jpg` | 長邊 1200px                | 80   | 手機海報（同上）                                                                    |
+| `web/public/og-image.jpg`          | 1200×630（黑底 letterbox） | 85   | FB / LINE / Twitter 分享卡片                                                        |
 
 macOS 內建 `sips` 就夠用：
 

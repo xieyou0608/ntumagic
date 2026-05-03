@@ -85,11 +85,11 @@ router.patch("/clearAllSeats", async (_req, res) => {
           paid: false,
           bookedAt: null,
         });
-      }
+      },
     );
     const bookingsDeleted = await applyToCollectionInChunks(
       db.collection("bookings"),
-      (batch, doc) => batch.delete(doc.ref)
+      (batch, doc) => batch.delete(doc.ref),
     );
     console.log("admin.clearAllSeats", { seatsCleared, bookingsDeleted });
     res.json({
@@ -106,7 +106,8 @@ router.patch("/clearAllSeats", async (_req, res) => {
 // PATCH /api/admin/clearByEmail — 清掉某 email 的所有座位（booking 文件保留以保留驗證狀態）
 router.patch("/clearByEmail", async (req, res) => {
   const email = (req.body.email || "").toLowerCase();
-  if (!email) return res.status(400).json({ success: false, message: "Missing email" });
+  if (!email)
+    return res.status(400).json({ success: false, message: "Missing email" });
 
   try {
     const seatSnap = await db
@@ -131,7 +132,7 @@ router.patch("/clearByEmail", async (req, res) => {
         paidMailSent: false,
         updatedAt: FieldValue.serverTimestamp(),
       },
-      { merge: true }
+      { merge: true },
     );
     await batch.commit();
 
@@ -144,7 +145,9 @@ router.patch("/clearByEmail", async (req, res) => {
     });
   } catch (err) {
     console.error("clearByEmail failed:", err);
-    res.status(500).json({ success: false, message: "Error, please try again" });
+    res
+      .status(500)
+      .json({ success: false, message: "Error, please try again" });
   }
 });
 
@@ -160,7 +163,9 @@ const removeSeatSchema = Joi.object({
 router.patch("/removeSeat", async (req, res) => {
   const { error, value } = removeSeatSchema.validate(req.body);
   if (error)
-    return res.status(400).json({ success: false, message: error.details[0].message });
+    return res
+      .status(400)
+      .json({ success: false, message: error.details[0].message });
 
   const email = value.email.toLowerCase();
 
@@ -193,7 +198,7 @@ router.patch("/removeSeat", async (req, res) => {
           paidMailSent: false,
           updatedAt: FieldValue.serverTimestamp(),
         },
-        { merge: true }
+        { merge: true },
       );
     });
     console.log("admin.removeSeat", { email, seat: value });
@@ -205,7 +210,9 @@ router.patch("/removeSeat", async (req, res) => {
         .json({ success: false, message: err.userMessage });
     }
     console.error("removeSeat failed:", err);
-    res.status(500).json({ success: false, message: "Error, please try again" });
+    res
+      .status(500)
+      .json({ success: false, message: "Error, please try again" });
   }
 });
 
@@ -218,7 +225,7 @@ const areaSchema = Joi.object({
         area: Joi.string().valid("S", "A", "B", "C").required(),
         row: Joi.number().integer().min(1).required(),
         col: Joi.number().integer().min(1).required(),
-      })
+      }),
     )
     .min(1)
     .required(),
@@ -228,7 +235,9 @@ const areaSchema = Joi.object({
 router.patch("/area", async (req, res) => {
   const { error, value } = areaSchema.validate(req.body);
   if (error)
-    return res.status(400).json({ success: false, message: error.details[0].message });
+    return res
+      .status(400)
+      .json({ success: false, message: error.details[0].message });
 
   // doc id 是 auto-id，改 area 就是單純 update area 欄位、doc id 不動。
   // 已售出的座位 admin 應該先 clearByEmail / removeSeat 再改 area，這裡擋一下避免誤動。
@@ -269,7 +278,8 @@ router.patch("/area", async (req, res) => {
 // PATCH /api/admin/markPaid — 標記某 email 的所有座位為已付款
 router.patch("/markPaid", async (req, res) => {
   const email = (req.body.email || "").toLowerCase();
-  if (!email) return res.status(400).json({ success: false, message: "Missing email" });
+  if (!email)
+    return res.status(400).json({ success: false, message: "Missing email" });
 
   try {
     const seatSnap = await db
@@ -277,7 +287,9 @@ router.patch("/markPaid", async (req, res) => {
       .where("buyerEmail", "==", email)
       .get();
     if (seatSnap.empty) {
-      return res.status(404).json({ success: false, message: "該 email 目前沒有座位" });
+      return res
+        .status(404)
+        .json({ success: false, message: "該 email 目前沒有座位" });
     }
     const batch = db.batch();
     seatSnap.docs.forEach((d) => batch.update(d.ref, { paid: true }));
@@ -293,7 +305,8 @@ router.patch("/markPaid", async (req, res) => {
 // POST /api/admin/sendPaidEmail — 寄付款成功通知信
 router.post("/sendPaidEmail", async (req, res) => {
   const email = (req.body.email || "").toLowerCase();
-  if (!email) return res.status(400).json({ success: false, message: "Missing email" });
+  if (!email)
+    return res.status(400).json({ success: false, message: "Missing email" });
 
   try {
     const [bookingSnap, seatSnap] = await Promise.all([
@@ -307,7 +320,7 @@ router.post("/sendPaidEmail", async (req, res) => {
     const seats = seatSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
 
     await sendMail(
-      paidMail({ to: booking.email, username: booking.username, seats })
+      paidMail({ to: booking.email, username: booking.username, seats }),
     );
 
     await bookingSnap.ref.update({
@@ -328,7 +341,8 @@ router.post("/sendPaidEmail", async (req, res) => {
 // 寄出的內容用 user 目前所有座位（不只是某次劃位的 batch），跟 sendPaidEmail 邏輯一致。
 router.post("/sendBookingEmail", async (req, res) => {
   const email = (req.body.email || "").toLowerCase();
-  if (!email) return res.status(400).json({ success: false, message: "Missing email" });
+  if (!email)
+    return res.status(400).json({ success: false, message: "Missing email" });
 
   try {
     const [bookingSnap, seatSnap] = await Promise.all([
@@ -339,13 +353,15 @@ router.post("/sendBookingEmail", async (req, res) => {
       return res.status(404).json({ success: false, message: "找不到訂單" });
     }
     if (seatSnap.empty) {
-      return res.status(400).json({ success: false, message: "該 email 目前沒有座位" });
+      return res
+        .status(400)
+        .json({ success: false, message: "該 email 目前沒有座位" });
     }
     const booking = bookingSnap.data();
     const seats = seatSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
 
     await sendMail(
-      bookingMail({ to: booking.email, username: booking.username, seats })
+      bookingMail({ to: booking.email, username: booking.username, seats }),
     );
 
     await bookingSnap.ref.update({

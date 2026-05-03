@@ -88,9 +88,11 @@ const AdminBooking = () => {
         <h2>說明：</h2>
         <p>
           選擇位子之後填 A, B, C, X, S <br />
-          X 是不能坐人的地方（沒椅子的地方），會呈現空白，觀眾不能點，但你可以點然後改回
+          X
+          是不能坐人的地方（沒椅子的地方），會呈現空白，觀眾不能點，但你可以點然後改回
           A 區之類 <br />
-          S 是特別座（Special），觀眾劃位會看到是被劃走，但後台可以看到白色 S 方塊
+          S 是特別座（Special），觀眾劃位會看到是被劃走，但後台可以看到白色 S
+          方塊
           <br />
           白色數字方塊是被劃走的位子，就不能改，有需要改再另外討論
           <br />
@@ -108,7 +110,12 @@ const AdminBooking = () => {
       <br />
       <div>
         {chosenSeats.map((chosen) => (
-          <p key={chosen.id || `${chosen.floor}-${chosen.area}-${chosen.row}-${chosen.col}`}>
+          <p
+            key={
+              chosen.id ||
+              `${chosen.floor}-${chosen.area}-${chosen.row}-${chosen.col}`
+            }
+          >
             <span>{chosen.area} 區 </span>
             <span>{chosen.row} 排 </span>
             <span>{chosen.col} 號</span>

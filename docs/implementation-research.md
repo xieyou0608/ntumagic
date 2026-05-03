@@ -306,7 +306,7 @@ await db.runTransaction(async (tx) => {
   //    transaction 內 tx.get(query) 會 lock 整個 result set；query condition 已包含
   //    全部 4 個欄位，result 永遠 0 或 1 筆，lock 範圍跟 by-id 直查等效
   const seatSnaps = await Promise.all(
-    positions.map((p) => tx.get(seatLookupQuery(p)))
+    positions.map((p) => tx.get(seatLookupQuery(p))),
   );
 
   // 2. 驗證每個都找得到、且還沒被劃
@@ -321,7 +321,7 @@ await db.runTransaction(async (tx) => {
 
   // 3. 用 query 算使用者已劃幾張（檢查 6 張上限）
   const existing = await tx.get(
-    db.collection("seats").where("buyerEmail", "==", email)
+    db.collection("seats").where("buyerEmail", "==", email),
   );
   if (existing.size + positions.length > 6) {
     throw new HttpsError("failed-precondition", "OVER_LIMIT");
@@ -355,7 +355,7 @@ await db.runTransaction(async (tx) => {
         ? {}
         : { createdAt: FieldValue.serverTimestamp() }),
     },
-    { merge: true }
+    { merge: true },
   );
 });
 

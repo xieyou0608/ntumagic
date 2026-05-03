@@ -87,7 +87,7 @@ const Booking = ({ isStudentTime }) => {
         buyer.email,
         buyer.username,
         buyer.bankAccount,
-        buyer.contact
+        buyer.contact,
       );
       window.alert("劃位成功！");
       navigate("/pay");

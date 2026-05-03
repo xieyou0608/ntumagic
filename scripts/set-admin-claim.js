@@ -36,7 +36,9 @@ async function ensureUser() {
   } catch (err) {
     if (err.code !== "auth/user-not-found") throw err;
     if (!password) {
-      console.error(`找不到 user ${email}。請先在 Firebase Console 建好，或加上 password 參數讓 script 直接建。`);
+      console.error(
+        `找不到 user ${email}。請先在 Firebase Console 建好，或加上 password 參數讓 script 直接建。`,
+      );
       process.exit(1);
     }
     console.log(`→ 建立新 user ${email}`);
@@ -53,7 +55,9 @@ async function main() {
   const user = await ensureUser();
   await admin.auth().setCustomUserClaims(user.uid, { admin: true });
   console.log(`✓ ${email} (uid=${user.uid}) 設為 admin`);
-  console.log("  注意：已登入的 session 需要重抓 ID Token（或重新登入）才會看到新 claim。");
+  console.log(
+    "  注意：已登入的 session 需要重抓 ID Token（或重新登入）才會看到新 claim。",
+  );
 }
 
 main().catch((err) => {

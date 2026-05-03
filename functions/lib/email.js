@@ -33,7 +33,7 @@ function seatLines(seats) {
   return seats
     .map(
       (s) =>
-        `<h4>${s.floor === 2 ? "二樓 " : ""}${s.area} 區 ${s.row} 排 ${s.col} 號</h4>`
+        `<h4>${s.floor === 2 ? "二樓 " : ""}${s.area} 區 ${s.row} 排 ${s.col} 號</h4>`,
     )
     .join("");
 }

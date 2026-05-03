@@ -16,6 +16,6 @@ export const renderWithProviders = (ui, entryUrl = "/") => {
       <Provider store={store}>
         <MemoryRouter initialEntries={[entryUrl]}>{ui}</MemoryRouter>
       </Provider>
-    </ThemeProvider>
+    </ThemeProvider>,
   );
 };

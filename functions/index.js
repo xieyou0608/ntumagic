@@ -17,5 +17,5 @@ exports.api = onRequest(
     timeoutSeconds: 30,
     maxInstances: 50,
   },
-  app
+  app,
 );

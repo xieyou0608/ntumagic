@@ -79,7 +79,13 @@ const UserRow = ({ userdata: booking, showId, showDate, onChanged }) => {
       <TableCell>
         {(booking.seats || []).map((t) => (
           <p key={t.id || uuidv4()}>
-            {(t.floor === 2 ? "二樓 " : "") + t.area + "區" + t.row + "排" + t.col + "號"}
+            {(t.floor === 2 ? "二樓 " : "") +
+              t.area +
+              "區" +
+              t.row +
+              "排" +
+              t.col +
+              "號"}
             {t.paid ? (
               " 已付款"
             ) : (
@@ -112,11 +118,7 @@ const UserRow = ({ userdata: booking, showId, showDate, onChanged }) => {
       </TableCell>
 
       <TableCell>
-        <Button
-          onClick={handlePaidSeats}
-          color="success"
-          variant="contained"
-        >
+        <Button onClick={handlePaidSeats} color="success" variant="contained">
           確認付款
         </Button>
 
@@ -134,11 +136,7 @@ const UserRow = ({ userdata: booking, showId, showDate, onChanged }) => {
         >
           寄付款信
         </Button>
-        <Button
-          onClick={handleClearSeats}
-          color="error"
-          variant="contained"
-        >
+        <Button onClick={handleClearSeats} color="error" variant="contained">
           清除座位
         </Button>
       </TableCell>

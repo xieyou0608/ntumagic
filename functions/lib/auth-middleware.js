@@ -5,7 +5,9 @@ async function requireAdmin(req, res, next) {
   const header = req.headers.authorization || "";
   const idToken = header.startsWith("Bearer ") ? header.slice(7) : null;
   if (!idToken) {
-    return res.status(401).json({ success: false, message: "Missing ID token" });
+    return res
+      .status(401)
+      .json({ success: false, message: "Missing ID token" });
   }
 
   try {
@@ -17,7 +19,9 @@ async function requireAdmin(req, res, next) {
     next();
   } catch (err) {
     console.error("ID token verification failed:", err.message);
-    return res.status(401).json({ success: false, message: "Invalid ID token" });
+    return res
+      .status(401)
+      .json({ success: false, message: "Invalid ID token" });
   }
 }
 

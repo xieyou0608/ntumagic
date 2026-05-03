@@ -52,7 +52,7 @@ async function main() {
   const seats = generateSeats();
   const sellableCount = seats.filter((s) => SELLABLE_AREAS.has(s.area)).length;
   console.log(
-    `→ 將寫入 ${seats.length} 個 seat doc（其中 ${sellableCount} 個可賣，其餘為 layout placeholder）`
+    `→ 將寫入 ${seats.length} 個 seat doc（其中 ${sellableCount} 個可賣，其餘為 layout placeholder）`,
   );
 
   // Firestore batched write 上限 500，留 buffer 用 400
@@ -78,7 +78,7 @@ async function main() {
     }
     await batch.commit();
     process.stdout.write(
-      `  written ${Math.min(i + CHUNK, seats.length)}/${seats.length}\r`
+      `  written ${Math.min(i + CHUNK, seats.length)}/${seats.length}\r`,
     );
   }
   console.log("\n✓ Seed 完成");

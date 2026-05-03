@@ -43,77 +43,77 @@ const Stage = styled("div")`
   font-weight: 500;
 `;
 
-
 const TOTAL_ROWS = 24;
 const NUM_COLS = 44;
 const rowIndices = [...Array(TOTAL_ROWS).keys()];
 const rowId = rowIndices.map(() => uuidv4());
 
-
 const floorConfig = [
-    { id: "1F", label: "一樓", rowCount: 17 },
-    { id: "2F", label: "二樓", rowCount: TOTAL_ROWS - 17 },
+  { id: "1F", label: "一樓", rowCount: 17 },
+  { id: "2F", label: "二樓", rowCount: TOTAL_ROWS - 17 },
 ];
 
 const Auditorium = ({ seatsData, chosenSeats, setChosenSeats }) => {
-    let cumulativeRows = 0;
-    return (
-        <OverflowBox>
-            {floorConfig.map((floor, floorIdx) => {
-                const { id, label, rowCount } = floor;
-                // get the row count for current floor
-                const rowsForFloor = rowIndices.slice(
-                    cumulativeRows,
-                    cumulativeRows + rowCount
-                );
+  let cumulativeRows = 0;
+  return (
+    <OverflowBox>
+      {floorConfig.map((floor, floorIdx) => {
+        const { id, label, rowCount } = floor;
+        // get the row count for current floor
+        const rowsForFloor = rowIndices.slice(
+          cumulativeRows,
+          cumulativeRows + rowCount,
+        );
 
-                // update the cumulative rows for the next floor
-                const nextCumulative = cumulativeRows + rowCount;
+        // update the cumulative rows for the next floor
+        const nextCumulative = cumulativeRows + rowCount;
 
+        return (
+          <React.Fragment key={id}>
+            {/* floor title */}
+            <Typography variant="h6" align="center" sx={{ my: 2 }}>
+              {label}
+            </Typography>
+
+            <AuditoriumLayout>
+              {floorIdx === 0 && <Stage>舞台</Stage>}
+
+              {/* seats */}
+              {rowsForFloor.map((rowIndex) => {
                 return (
-                    <React.Fragment key={id}>
-                        {/* floor title */}
-                        <Typography variant="h6" align="center" sx={{ my: 2 }}>
-                            {label}
-                        </Typography>
-
-                        <AuditoriumLayout>
-                            {floorIdx === 0 && <Stage>舞台</Stage>}
-
-                            {/* seats */}
-                            {rowsForFloor.map((rowIndex) => {
-                                return (<Row key={rowId[rowIndex]}>
-                                    {seatsData
-                                        .slice(
-                                            rowIndex * NUM_COLS,
-                                            rowIndex * NUM_COLS + NUM_COLS
-                                        )
-                                        .map((seat_obj) => {
-                                            return (<Seat
-                                                key={seat_obj.id}
-                                                seatData={seat_obj}
-                                                chosenSeats={chosenSeats}
-                                                setChosenSeats={setChosenSeats}
-                                            />)
-                                        })}
-                                </Row>);
-                            })}
-                        </AuditoriumLayout>
-
-                        {/* divider between two floors */}
-                        {floorIdx === 0 && (
-                            <Divider sx={{ borderBottomWidth: 2, my: 4 }} />
-                        )}
-
-                        {(() => {
-                            cumulativeRows = nextCumulative;
-                            return null;
-                        })()}
-                    </React.Fragment>
+                  <Row key={rowId[rowIndex]}>
+                    {seatsData
+                      .slice(
+                        rowIndex * NUM_COLS,
+                        rowIndex * NUM_COLS + NUM_COLS,
+                      )
+                      .map((seat_obj) => {
+                        return (
+                          <Seat
+                            key={seat_obj.id}
+                            seatData={seat_obj}
+                            chosenSeats={chosenSeats}
+                            setChosenSeats={setChosenSeats}
+                          />
+                        );
+                      })}
+                  </Row>
                 );
-            })}
-        </OverflowBox>
-    );
+              })}
+            </AuditoriumLayout>
+
+            {/* divider between two floors */}
+            {floorIdx === 0 && <Divider sx={{ borderBottomWidth: 2, my: 4 }} />}
+
+            {(() => {
+              cumulativeRows = nextCumulative;
+              return null;
+            })()}
+          </React.Fragment>
+        );
+      })}
+    </OverflowBox>
+  );
 };
 
 export default Auditorium;

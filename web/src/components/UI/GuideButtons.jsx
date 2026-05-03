@@ -13,8 +13,11 @@ const StyledButton = styled("button")`
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
 `;
 
 const gentleYellow = theme.palette.gentle.main;
